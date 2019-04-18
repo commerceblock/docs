@@ -1,2 +1,2 @@
-# docs
-CommerceBlock documentation
+# CommerceBlock Network documentation
+https://commerceblock.readthedocs.io/en/latest/
