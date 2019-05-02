@@ -1,5 +1,7 @@
-Run Ocean node with Docker
+Running with Docker
 ==========================
+
+Instructions for launching a full Ocean node with Docker. 
 
 Requirements
 ------------
