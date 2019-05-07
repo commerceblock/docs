@@ -1,5 +1,5 @@
-Introduction
-============
+CommerceBlock Overview
+======================
 
 The CommerceBlock technology, infrastructure and services have been developed to enable the tokenisation of assets and securities by companies and institutions. To remove the unnecessary second layer of trust required on a shared blockchain platform, the CommerceBlock model enables asset custodians to issue tokens on a permissioned sidechain that they control, but which has trustless immutability derived from the Bitcoin blockchain proof-of-work. 
 
