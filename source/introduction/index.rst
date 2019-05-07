@@ -1,7 +1,7 @@
 Introduction
 ============
 
-The CommerceBlock technology, infrastructure and services have been developed to enable the tokenisation of assets and securities by companies and institutions. To remove the unnecessary second layer of trust required on a shared blockchain platform, the CommerceBlock model enables asset custodians to issue tokens on a permissioned sidechain that they control, but which has trustless immutability derived from the Bitcoin blockchain proof-of-work.
+The CommerceBlock technology, infrastructure and services have been developed to enable the tokenisation of assets and securities by companies and institutions. To remove the unnecessary second layer of trust required on a shared blockchain platform, the CommerceBlock model enables asset custodians to issue tokens on a permissioned sidechain that they control, but which has trustless immutability derived from the Bitcoin blockchain proof-of-work. 
 
 Immutability and censorship resistance are the two revolutionary properties that the decentralisation the Bitcoin blockchain has provided. However, for many applications token issuers don’t require or desire full censorship resistance — certainly for asset-backed tokens, as there is intrinsic permission required from the issuer to redeem an asset. In addition, issuers of security tokens may be legally required to control who can transact with a token and when. The value of having tokens on a blockchain in this design is that the ledger is publicly verifiable: it provides independent and legal proof of ownership of a token representing an asset or security — a cryptographic proof based on the possession of private keys. If the blockchain on which the token is transacted is also trustlessly immutable, then you can prove your ownership of the token, and hence the asset, independently.
 
@@ -52,3 +52,4 @@ Scalability
 -----------
 
 Sidechains are independently controlled, so transaction throughput is not constrained by a separate network. Scalability is under the control of the asset issuer and the federation, and is only really limited by hardware. Ocean nodes can be lauched easily on cloud infrastructure, being fully containerised (with Docker images for AWS etc.). Attestation to Bitcoin via Mainstay requires only one Bitcoin transaction every 10 minutes, the cost of which is shared among all sidechains using the CommerceBlock service. 
+
