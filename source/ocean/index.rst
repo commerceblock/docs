@@ -18,3 +18,10 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+
+   ../policy/index
+   ../ocean-config/index
+   ../running-node/index
+   ../federation/index
+   ../ocean-api/index
+   ../ocean-wallet/index

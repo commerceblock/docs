@@ -33,7 +33,7 @@ The three policy lists (whitelist, freezelist and burnlist) are kept in the clie
 In this process, a special policy transaction containing an address to be added to a policy list is sent to the network (by an authorised wallet) and included in a block. Once confirmed, the address encoded in the policy transaction is added to the policy list by the signing node clients, and it is then enforced. A second policy transaction spending this previous output is then be used to remove the address from the list. 
 
 .. image:: policy-blocks.png
-    :width: 340px
+    :width: 320px
     :alt: Policy transactions
     :align: center
 
@@ -45,7 +45,7 @@ Permission to modify the policy lists via policy transactions is controlled via 
 The wallets that control the private keys to these policy tokens then have the ability to modify the corresponding policy lists via policy transactions from outside of the federation signing nodes. These wallets to be integrated directly with a KYC/ID service provider for onboarding new users of a blockchain/sidechain or controlled manually by agents or staff of the asset issuer. 
 
 .. image:: policy-user.png
-    :width: 340px
+    :width: 360px
     :alt: Policy tokens and wallet
     :align: center
 

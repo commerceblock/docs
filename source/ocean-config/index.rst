@@ -6,7 +6,7 @@ Ocean nodes are configured via ``oceand`` command line arguments or parameters s
 Sample config
 -------------
 
-.. code-block::
+.. codeblock::
 
    chain=gold_main
 
