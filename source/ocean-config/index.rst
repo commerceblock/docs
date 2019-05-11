@@ -6,7 +6,7 @@ Ocean nodes are configured via ``oceand`` command line arguments or parameters s
 Sample config
 -------------
 
-.. codeblock::
+::
 
    chain=gold_main
 
@@ -57,7 +57,7 @@ Specifies the name of the chain. Chain name is important as based on this the cl
 
 Currently the following hardcoded names exist (from ``chainparamsbase.h``\ ):
 
-.. code-block::
+::
 
    #define CHAINPARAMS_OCEAN_MAIN "ocean_main"
    #define CHAINPARAMS_OCEAN_TEST "ocean_test"
@@ -67,7 +67,7 @@ Unlesss the ``--chain`` parameter is specified then the default **ocean_test** n
 
 Based on this parameter the chain params are chosen as (from ``chainparams.cpp``\ ):
 
-.. code-block::
+::
 
    std::unique_ptr<CChainParams> CreateChainParams(const std::string& chain)
    {
