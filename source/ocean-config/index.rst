@@ -3,7 +3,7 @@ Ocean configuration
 
 Ocean nodes are configured via ``oceand`` command line arguments or parameters specified in the ``ocean.conf`` configuration file located in ``-datadir``. Ocean inherits all of the configuration options from *Elements 0.14* (which in turn inherits all of the configuration options from *Bitcoin 0.13*). Ocean specific configuration options are described below, with examples and whether they form part of the genesis block and are therefore critical to the definition of the chain. 
 
-Configuration
+Sample config
 -------------
 
 .. code-block::
@@ -36,7 +36,7 @@ Configuration
 
    attestationhash=18b4355a10177cd6d1e11985086aa252e0a64ae59d95dcba0d882cdd99fa3564
 
-Details
+Options
 -------
 
 Information on all the config arguments used, their importance and how to derive them.

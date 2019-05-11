@@ -2,7 +2,7 @@ CommerceBlock Documentation Index
 =================================================
 
 .. image:: cb-logo.png
-    :width: 190px
+    :width: 160px
     :alt: CommerceBlock logo
     :align: center
 
@@ -14,16 +14,16 @@ Independent permissioned sidechains built using CommerceBlock technology and uti
 - Issuer controlled transaction fees
 - Enterprise-level transaction rates and scalability
 - Full KYC/ID provider integration
-- Customisable block explorer and lightweight wallet with Ledger support 
+- Customisable block explorer and lightweight and mobile wallet implementations
 - Multisig token issuance with asset management and reporting tools
-- Backed by Bitcoins Proof-of-Work via Mainstay
+- Backed by Bitcoins Proof-of-Work via the Mainstay protocol
 
 This documentation covers the central components of the CommerceBlock technology stack, including the sidechain client Ocean, the process of sidechain creation and operation via a permissioned federation of block signing nodes, the tools for controlling user whitelists, and the tools that enable the management and mapping of issued tokens. In addition, the full protocol descriptions and documentation of the two services offered by CommerceBlock to secure individual sidechains: Mainstay and the Guardnode system, are included. 
 
 .. note::
-  All CommerceBlock software is fully oper-source and free to use, available on our Github repository: 
+  All CommerceBlock software is fully open-source and free to use, available on our Github repository: 
   `github.com/commerceblock <https://github.com/commerceblock>`_. Technical questions and suggestions 
-  for improvements can be raised as issues on the relevent repos. In addition, technical quations related 
+  for improvements can be raised as issues on the relevent repos. In addition, technical questions related 
   to our software and processes are welcomed on our Telegram group. 
 
 .. toctree::

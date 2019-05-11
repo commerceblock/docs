@@ -66,18 +66,18 @@ The federation nodes can be used to reissue issued assets according to a fixed i
 
 
 Federation protocol demo
-=========================
+------------------------
 
 A demonstration of protocols used by the Ocean network, including federated signing and asset issuance.
 
 Instructions
-------------
+^^^^^^^^^^^^
 
 ``./scripts/restart_kafka.sh``
 ``python3 -m demo``
 
 Running Kafka
--------------
+^^^^^^^^^^^^^
 
 * 
   Install kafka

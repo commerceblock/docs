@@ -85,7 +85,7 @@ Configuration options
 * [permissioncoinsdestination][]
 
 dumpderivedkeys
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``dumpderivedkeys`` RPC outputs a list of all contract tweaked
 addresses in the key pool
@@ -127,7 +127,7 @@ along with the corresponding non-tweaked basis public keys to a specified file.
    ocean-cli dumpderivedkeys dumpfile.txt
 
 validatederivedkeys
--------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``validatederivedkeys`` RPC reads in a list of tweaked addresses with corresponding
 base public keys (as produced by `dumpderivedkeys <#dumpderivedkeys>`_\ ) from a specified file, and
@@ -168,7 +168,7 @@ tweaked with the current contract hash.
    ocean-cli validatederivedkeys
 
 getderivedkeys
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getderivedkeys`` RPC returns a list of contract tweaked
 addresses in the key pool
@@ -241,7 +241,7 @@ Result:
    }
 
 getcontract
------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getcontract`` RPC returns the plain text of the currently enforced
 contract.
@@ -288,7 +288,7 @@ Result:
    }
 
 getcontracthash
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getcontracthash`` RPC returns the hash of the contract in force at a given block height.
 If the block height is not supplied, the current contract hash is returned.
@@ -357,7 +357,7 @@ Result:
    f4f30db53238a7529bc51fcda04ea22bd8f8b188622a6488da12281874b71f72
 
 getmappinghash
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getmappinghash`` RPC returns the hash of the mapping object in force at a given block height.
 If the block height is not supplied, the current mapping hash is returned.
@@ -426,7 +426,7 @@ Result:
    f4f30db53238a7529bc51fcda04ea22bd8f8b188622a6488da12281874b71f72
 
 createrawissuance
------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``createrawissuance`` RPC creates an unblinded raw unsigned issuance transaction with specified
 outputs and spending from a specified input containing an amount of policy asset.
@@ -671,7 +671,7 @@ Result:
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754d4c0040174820afc79a50ed4b9de7bfbc286adead7d46300787e3d986dd8bff570902d620100000002dd231b00001976a9143565dfe051b252c6c5d51275fa91850ef0bb26b288ac017c2096b20b81bd5734cb631335fa1a5bfed9c5a10e2ba4ce86df1b28fb2d50e401000000000754d4c0001976a9142c11d12a57cdd294b3ffa89cf2503a612252fbf288ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100000007c0d4e9b00017a91458d6453537165062f887d004b979b054c5fa98c28701230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000000000000c350000000000000
 
 createrawreissuance
--------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``createrawreissuance`` RPC creates a raw unsigned re-issuance (asset inflation) transaction with specified
 outputs and spending from a specified input containing a valid re-issuance token.
@@ -866,7 +866,7 @@ Result:
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754d4c0040174820afc79a50ed4b9de7bfbc286adead7d46300787e3d986dd8bff570902d620100000002dd231b00001976a9143565dfe051b252c6c5d51275fa91850ef0bb26b288ac017c2096b20b81bd5734cb631335fa1a5bfed9c5a10e2ba4ce86df1b28fb2d50e401000000000754d4c0001976a9142c11d12a57cdd294b3ffa89cf2503a612252fbf288ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100000007c0d4e9b00017a91458d6453537165062f887d004b979b054c5fa98c28701230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000000000000c350000000000000
 
 createrawburn
--------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``createrawburn`` RPC creates a raw unsigned burn (OP_RETURN) transaction with a single input and single output.
 
@@ -985,7 +985,7 @@ Result:
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754dee2e4940c7a0d5de1b201000000000000c350000000000000
 
 createrawrequesttx
-------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``createrawrequesttx`` RPC creates a raw request transaction with a single input and single output.
 
@@ -1025,7 +1025,7 @@ Result:
    02000000000151227925212487ef62c10e46f14aec78dce956b02eb41f7e2cce8b6d56292db40100000000feffffff0101d08413554d89a69f0d93a6f7e33242d472a6503b11b1b7c10d3134afb2a36d0101000000174876e800006d0169b17551210246e99744bdee2ce153eb6185019e73ff6bb4d050d50d1a1d7d773f45474d4c362102051d7e7caa636a8fb1eaca4fb163248aff57d5e4e04e84734101b138e1a07d862103640000000a0000000a000000010000000000000000000000000000000000000053ae66000000
 
 testmempoolaccept
------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``testmempoolaccept`` RPC determines the validity of a raw transaction without broadcasting it. It performs the exact same validity checks as performed on mempool acceptance, including locally configured policy rules, but without adding the transaction to the mempool.
 
@@ -1136,7 +1136,7 @@ Result:
    }
 
 createrawpolicytx
------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that encodes an address to be added to a policy list. To be accepted, the asset type must match the policy asset type as defined in the genesis block (via ``-freezelistcoinsdestination`` and ``-burnlistcoinsdestination``. The policy asset input(s) are specified in an array, and the outputs are specified in an array of objects that contain a policy public key, the address to be added to to the policy list and the value. Spending these outputs removes the addresses from the policy lists.
 
@@ -1597,7 +1597,7 @@ Result:
    0200000000018eb8f2e93d81b9f904f8613b6520460c00f9313683b5574fc8b67c3e33e615550000000000ffffffff010131e34d9c314f12348e8b2cb401d07450ef5e831d11bba35bd9b124f52e78387301000000746a5288000047512103e6ec6419791bcdc9ec5b2cf7d25cfffa244f2cddfd9997dffbd002c4d88baabe21020000000000000000000000005923c34a75800d2e9a6894d846649b65995dc84252ae00000000
 
 getutxoassetinfo
-----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getutxoassetinfo`` RPC returns a summary of the total amounts of unspent (and un-burnt)
 assets in the UTXO set. Ammounts in transactions marked as frozen (i.e. with one output
@@ -1658,7 +1658,7 @@ Result:
    ]
 
 getrequests
------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``getrequests`` RPC returns all the active client requests in the blockchain
 
@@ -1715,7 +1715,7 @@ Result:
    ]
 
 addtowhitelist
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``addtowhitelist`` RPC adds a valid contract tweaked address to the node
 mempool whitelist. It requires both an address and corresponding base public
@@ -1782,7 +1782,7 @@ contract hash as present in the most recent block header.
    ocean-cli addtowhitelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz 028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58
 
 querywhitelist
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``querywhitelist`` RPC queries if a specified address is present in the node mempool whitelist.
 
@@ -1850,7 +1850,7 @@ Result:
    1
 
 readwhitelist
--------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``readwhitelist`` RPC adds a list of valid contract tweaked address to the node
 mempool whitelist. It requires a file that contains a list of both an address and corresponding base public
@@ -1892,7 +1892,7 @@ contract hash as present in the most recent block header. The file format is as 
    ocean-cli readwhitelist derivedkeys.txt
 
 removefromwhitelist
--------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``removefromwhitelist`` RPC removes a specified address from the node mempool whitelist.
 
@@ -1930,7 +1930,7 @@ The ``removefromwhitelist`` RPC removes a specified address from the node mempoo
    ocean-cli removefromwhitelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
 clearwhitelist
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``clearwhitelist`` RPC clears the mempool whitelist of all addresses.
 
@@ -1945,7 +1945,7 @@ The ``clearwhitelist`` RPC clears the mempool whitelist of all addresses.
    ocean-cli clearwhitelist
 
 dumpwhitelist
--------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``dumpwhitelist`` RPC outputs a list of all
 addresses in the node mempool whitelist to a specified file.
@@ -1986,7 +1986,7 @@ addresses in the node mempool whitelist to a specified file.
    ocean-cli dumpwhitelist dumpfile.txt
 
 addtofreezelist
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``addtofreezelist`` RPC adds an address to the node
 mempool freezelist. Transactions spending from UTXOs with
@@ -2027,7 +2027,7 @@ mempool if the '-freezelist' configuration option is enabled.
    ocean-cli addtofreezelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
 queryfreezelist
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``queryfreezelist`` RPC queries if a specified address is present in the node mempool freezelist.
 
@@ -2095,7 +2095,7 @@ Result:
    1
 
 removefromfreezelist
---------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``removefromfreezelist`` RPC removes a specified address from the node mempool freezelist.
 
@@ -2133,7 +2133,7 @@ The ``removefromfreezelist`` RPC removes a specified address from the node mempo
    ocean-cli removefromfreezelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
 clearfreezelist
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``clearfreezelist`` RPC clears the mempool whitelist of all addresses.
 
@@ -2148,7 +2148,7 @@ The ``clearfreezelist`` RPC clears the mempool whitelist of all addresses.
    ocean-cli clearfreezelist
 
 addtofreezelist
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``addtoburnlist`` RPC adds an address to the node
 mempool burnlist. Transactions spending from UTXOs with
@@ -2259,7 +2259,7 @@ Result:
    1
 
 removefromburnlist
-------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``removefromburnlist`` RPC removes a specified address from the node mempool burnlist.
 
@@ -2297,7 +2297,7 @@ The ``removefromburnlist`` RPC removes a specified address from the node mempool
    ocean-cli removefromburnlist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
 clearburnlist
--------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``clearburnlist`` RPC clears the mempool whitelist of all addresses.
 
