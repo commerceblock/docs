@@ -8,7 +8,7 @@ proof-of-work system (e.g. Bitcoin) and requires no cooperation of miners (unlik
 incorporate permissioned transacting and regulatory compliance while simultaneously exploiting
 the full security and immutability of the Bitcoin blockchain secured via proof-of-work.
 
-This documentation describes the theory and implementaion of the Mainstay protocol, as well as an explanation of the background, motivation and how the protocol differs from trustless timestamping (Proof of Existence - PoE). This documentaion also includes detailed instructions on using CommerceBlock's Mainstay implimentaion and tooling, CommerceBlock's Mainstay service and API as well as stop-by-step guides for sidechain integration. 
+This documentation describes the theory and implementaion of the Mainstay protocol, as well as an explanation of the background, motivation and how the protocol differs from trustless timestamping (i.e. Proof of *Existence* - PoE). This documentaion also includes detailed instructions on using CommerceBlock's Mainstay implimentaion and tooling, CommerceBlock's Mainstay service and API as well as step-by-step guides for sidechain integration. 
 
 .. note::
 	All the Mainstay tooling and software is released under the terms of the MIT license.

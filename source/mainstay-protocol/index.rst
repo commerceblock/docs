@@ -40,7 +40,7 @@ protocol is also presented in relation to Bitcoin as the proof-of-work mainchain
 principle compatible with any PoW blockchain.
 
 .. image:: staychain.png
-    :width: 340px
+    :width: 310px
     :alt: Staychain
     :align: center
 
@@ -53,22 +53,17 @@ Initialisation
 The initial step in the protocol is the creation of the base transaction ``TxID_0``, which is
 performed before the initialisation of the sidechain.
 
-1. The signing entity generates a secret key ``sk_0`` , and corresponding base public key
-``pk_0 = sk_0 × G`` ( ``× G`` denotes multiplication of the generator point on the secp256k1
-elliptic curve). The public key is then used to create the base address: ``Addr_0``
-2. Funds (Bitcoin) are paid to the base address to at least cover
-the initial transaction fees.
-3) The signing entity then creates a transaction (the base transaction) paying these funds again to the same ``Addr_0`` in a single output.
-4) This transaction is broadcast to the network: once it is confirmed6
-in the Bitcoin blockchain it acquires a unique transaction ID that is a pointer to the start of the
-staychain: ``TxID_0``. This transaction scriptSig also now contains the base public key
+1. The signing entity generates a secret key ``sk_0`` , and corresponding base public key ``pk_0 = sk_0 × G`` ( ``× G`` denotes multiplication of the generator point on the secp256k1 elliptic curve). The public key is then used to create the base address: ``Addr_0``
+2. Funds (Bitcoin) are paid to the base address to at least cover the initial transaction fees.
+3. The signing entity then creates a transaction (the base transaction) paying these funds again to the same ``Addr_0`` in a single output.
+4. This transaction is broadcast to the network: once it is confirmed in the Bitcoin blockchain it acquires a unique transaction ID that is a pointer to the start of the staychain: ``TxID_0``. This transaction scriptSig also now contains the base public key
 ``pk_0``.
 
 At this point, the sidechain can be initialised and linked to the Bitcoin staychain. The pointer ``TxID_0``
 is embedded directly in the genesis block of the sidechain in a defined location.
 
-.. image:: ms-anim.png
-    :width: 340px
+.. image:: ms-anim.gif
+    :width: 330px
     :alt: Mainstay animation
     :align: center
 
