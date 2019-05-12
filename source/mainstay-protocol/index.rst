@@ -1,66 +1,91 @@
 Protocol
 ============
 
-The aim of the MainStay protocol is to restrict the sequence of periodic commitments of the
-state of a sidechain to an un-forkable staychain of transactions in Bitcoin, and to uniquely
-identify this staychain by linking to it directly from the sidechain itself. We define a staychain
+The MainStay protocol employs the underlying concept of a *staychain* of linked transactions within the Bitcoin mainchain, where all transactions in the staychain are conform to having only a a single output, 
+preventing branching and any possibility of alternate staychain
+histories. By anchoring the staychain *base* transaction ID into the genesis block of the sidechain,
+and then committing the state of the sidechain at regular intervals into the staychain, it
+becomes impossible to roll back or re-write the state of the sidechain without also rolling
+back the staychain, which is effectively impossible due to the might of Bitcoin’s global proof-
+of-work. Sidechain nodes can validate these commitments and the resulting immutability of
+the staychain using only lightweight SPV1 proofs from full Bitcoin nodes. When a sidechain
+block has been committed to a Bitcoin staychain, we say that block is reinforced and is as
+immutable as a Bitcoin block of the same depth.
+
+To minimise the encumbrance of the mainstay on the Bitcoin blockchain, and to prevent any
+potential miner censorship of transactions containing ``OP_RETURN`` outputs, we employ a
+homomorphic commitment scheme based on the ‘pay-to-contract’ (BIP175) protocol. In
+this approach, commitments from the sidechain are embedded in a single transaction output
+address, and the staychain is indistinguishable from normal Bitcoin payment transactions.
+We have designed the scheme so that it is compatible with both multisig (``P2SH``) and single 
+public key (``P2PKH``) addresses, and that no additional hosted data is required in order to
+verify the validity of the proof of immutability (PoI). 
+
+The aim of the MainStay protocol is to restrict a sequence of periodic commitments from an external system (referred to here as 
+the *sidechain*) to 
+an un-forkable staychain of transactions in Bitcoin, and to uniquely
+bind this staychain by linking to it directly from the sidechain itself. We define a staychain
 as a sequence of linked transactions where each one has only a single output - transactions
 can have more than one input (fan-in), but maintaining single outputs means only one
 sequence of commitments is possible from a given initial transaction (Fig. 2). Each unique
-transaction output then represents a single use seal [18].
+transaction output then represents a single use seal.
 
 If the security proposition of a sidechain depends on the integrity of the mainstay then
 the mechanism of propagating the staychain must be robust and immune from attack: if the
 staychain fails to propagate or is corrupted (e.g. having multiple outputs) then the sidechain
-will lose the guarantee of immutability. We describe mechanisms to ensure this integrity in
-the case of a federated sidechain consensus model in section 3.1, however in the following
-general description of the protocol, we assume a single mainstay key and signing entity. The
+will lose the guarantee of immutability - howver it will remain *fail secure*. 
+
+In the following general description of the protocol, we assume a single mainstay key and signing entity. The
 protocol is also presented in relation to Bitcoin as the proof-of-work mainchain, but it is in
 principle compatible with any PoW blockchain.
 
-Figure 2. A schematic of a fan-in-only chain of linked transactions. By enforcing single
+.. image:: staychain.png
+    :width: 340px
+    :alt: Staychain
+    :align: center
+
+A schematic of a *fan-in-only* chain of linked transactions. By enforcing single
 outputs only one possible sequence of transactions is possible.
 
 Initialisation
 --------------
 
-The initial step in the protocol is the creation of the base transaction in Bitcoin, which is
+The initial step in the protocol is the creation of the base transaction ``TxID_0``, which is
 performed before the initialisation of the sidechain.
-1) The signing entity E generates a secret key sk0 , and corresponding base public key
-pk0 = sk0 × G ( ×G denotes multiplication of the generator point on the secp256k1
-elliptic curve [19])4
-. The public key is then used to create the base address: Addr0
-2) Funds are paid (using P2PKH5
-) to the base address (either by entity E or a related
-party/wallet) on the Bitcoin blockchain (in 1 or more transactions) to at least cover
-the initial transaction fees.
-3) Entity E then creates a transaction (the base transaction) paying these funds (potentially consisting of more than one output) again to the same Addr0 in a single output
-(P2PKH).
-4) This transaction is broadcast to the network: once it is confirmed6
-in the Bitcoin
-blockchain it acquires a unique transaction ID that is a pointer to the start of the
-staychain: T xID0
-. This transaction scriptSig also now contains the base public key
-pk0 .
 
-At this point, the sidechain can be initialised and linked to the Bitcoin staychain. The pointer
-T xID0
+1. The signing entity generates a secret key ``sk_0`` , and corresponding base public key
+``pk_0 = sk_0 × G`` ( ``× G`` denotes multiplication of the generator point on the secp256k1
+elliptic curve). The public key is then used to create the base address: ``Addr_0``
+2. Funds (Bitcoin) are paid to the base address to at least cover
+the initial transaction fees.
+3) The signing entity then creates a transaction (the base transaction) paying these funds again to the same ``Addr_0`` in a single output.
+4) This transaction is broadcast to the network: once it is confirmed6
+in the Bitcoin blockchain it acquires a unique transaction ID that is a pointer to the start of the
+staychain: ``TxID_0``. This transaction scriptSig also now contains the base public key
+``pk_0``.
+
+At this point, the sidechain can be initialised and linked to the Bitcoin staychain. The pointer ``TxID_0``
 is embedded directly in the genesis block of the sidechain in a defined location.
 
-Figure 3. Animation of the mainstay protocol. Dashed lines represent homomorphic commitments.
+.. image:: ms-anim.png
+    :width: 340px
+    :alt: Mainstay animation
+    :align: center
+
+Animation of the mainstay protocol. Dashed lines represent homomorphic commitments.
 
 Commitments
 -----------
 
-The frequency of Bitcoin attestations is determined by the entity E : the sidechain may
+The frequency of state commitments is determined by the signing entity : the sidechain may
 generate blocks more frequently but can only attest once per Bitcoin block (average every
 10 minutes). The process of attestation will occur as follows:
-1) At each interval j (initially j = 1 ), the E will retrieve the sidechain best block hash
-h
-j
-B
-.
-2) The base public key pk0 is modified (via a homomorphic commitment)7 with the elliptic
+
+1. At each interval ``j`` (initially ``j = 1`` ), the signing entity will retrieve the sidechain best block hash ``blockhash_j``
+2. The base public key ``pk_0`` is modified (via a homomorphic commitment)
+
+
+
 curve point corresponding to h
 j
 B

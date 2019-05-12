@@ -2191,7 +2191,7 @@ and ``-burnlist`` configurations options enabled).
    ocean-cli addtoburnlist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
 queryburnlist
--------------
+^^^^^^^^^^^^^^
 
 The ``queryburnlist`` RPC queries if a specified address is present in the node mempool burnlist.
 
