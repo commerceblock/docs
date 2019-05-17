@@ -73,14 +73,24 @@ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method"
 Guarnode Responses
 ------------------
 
-Guardnode responses are sent via HTTP POST to the listener host at  `CO_LISTENER_HOST/challengeproof`.
+Guardnode responses are sent via HTTP POST to the listener host at:
+
+`http://coordinator:8080/challengeproof`.
 
 The fields "txid" (challenge transaction txid), "pubkey" (guardnode public key), "hash" (guardnode bid txid) and "sig" (signed txid with guardnode pubkey) need to be included in the body of the POST request.
 
 An example of this is shown in `hyperclient <https://github.com/commerceblock/coordinator/blob/develop/examples/hyperclient.rs>`_.
 
 Example
+
 ```
-Request { method: POST, uri: http://localhost:9999/challengeproof, version: HTTP/1.1, headers: {"content-type": "application/json"}, body: Body }
+Request
+
+{ method: POST, uri: http://localhost:9999/challengeproof, version: HTTP/1.1, headers: {"content-type": "application/json"}, body: Body }
+```
+
+```
+Body
+
 "{\"txid\":\"1234567890000000000000000000000000000000000000000000000000000000\",\"pubkey\":\"026a04ab98d9e4774ad806e302dddeb63bea16b5cb5f223ee77478e861bb583eb3\",\"hash\":\"0404040404040404040404040404040404040404040404040404040404040404\",\"sig\":\"30450221009dd76bcdc19a283654727214757b9e33ded38f00951b4f4a074e6fbe17a6f2ef02205702423facf6333cfce1e17d5427f98b073ebf8b587dad1a1d44696d44c26e6b\"}"
 ```
