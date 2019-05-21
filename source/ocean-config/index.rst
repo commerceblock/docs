@@ -136,7 +136,7 @@ This requires specifying number of keys, number of signatures and WIF (wallet pr
 
 
 * Main Params (ocean main): 128
-* Gold Params (gold main): 180
+* Asset Params (asset main): 180
 * Custom Params (any other chain / testnet): 239
 
 --issuecontrolscript
