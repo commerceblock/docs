@@ -82,8 +82,8 @@ Based on this parameter the chain params are chosen as (from ``chainparams.cpp``
 
 
 * for ocean main: ``chain=ocean_main``
-* for gold mainnet: ``chain=gold_main``
-* for gold test: ``chain=gold_test`` or any other value
+* for asset mainnet: ``chain=asset_main``
+* for asset test: ``chain=asset_test`` or any other value
 
 **Note:**
 
