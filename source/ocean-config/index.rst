@@ -8,7 +8,7 @@ Sample config
 
 ::
 
-   chain=gold_main
+   chain=asset_main
 
    rpcuser=user
    rpcpassword=pass
@@ -61,7 +61,7 @@ Currently the following hardcoded names exist (from ``chainparamsbase.h``\ ):
 
    #define CHAINPARAMS_OCEAN_MAIN "ocean_main"
    #define CHAINPARAMS_OCEAN_TEST "ocean_test"
-   #define CHAINPARAMS_GOLD_MAIN "gold_main"
+   #define CHAINPARAMS_ASSET_MAIN "asset_main"
 
 Unlesss the ``--chain`` parameter is specified then the default **ocean_test** name is chosen.
 
@@ -73,8 +73,8 @@ Based on this parameter the chain params are chosen as (from ``chainparams.cpp``
    {
        if (chain == CBaseChainParams::MAIN)
            return std::unique_ptr<CChainParams>(new CMainParams(chain));
-       if (chain == CBaseChainParams::GOLD)
-           return std::unique_ptr<CChainParams>(new CGoldParams(chain));
+       if (chain == CBaseChainParams::ASSET)
+           return std::unique_ptr<CChainParams>(new CAssetParams(chain));
        return std::unique_ptr<CChainParams>(new CCustomParams(chain));
    }
 
@@ -82,8 +82,8 @@ Based on this parameter the chain params are chosen as (from ``chainparams.cpp``
 
 
 * for ocean main: ``chain=ocean_main``
-* for gold mainnet: ``chain=gold_main``
-* for gold test: ``chain=gold_test`` or any other value
+* for asset mainnet: ``chain=asset_main``
+* for asset test: ``chain=asset_test`` or any other value
 
 **Note:**
 
@@ -136,7 +136,7 @@ This requires specifying number of keys, number of signatures and WIF (wallet pr
 
 
 * Main Params (ocean main): 128
-* Gold Params (gold main): 180
+* Asset Params (asset main): 180
 * Custom Params (any other chain / testnet): 239
 
 --issuecontrolscript
