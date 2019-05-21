@@ -8,7 +8,7 @@ Sample config
 
 ::
 
-   chain=gold_main
+   chain=asset_main
 
    rpcuser=user
    rpcpassword=pass
