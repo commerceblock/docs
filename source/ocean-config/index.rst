@@ -73,8 +73,8 @@ Based on this parameter the chain params are chosen as (from ``chainparams.cpp``
    {
        if (chain == CBaseChainParams::MAIN)
            return std::unique_ptr<CChainParams>(new CMainParams(chain));
-       if (chain == CBaseChainParams::GOLD)
-           return std::unique_ptr<CChainParams>(new CGoldParams(chain));
+       if (chain == CBaseChainParams::ASSET)
+           return std::unique_ptr<CChainParams>(new CAssetParams(chain));
        return std::unique_ptr<CChainParams>(new CCustomParams(chain));
    }
 
