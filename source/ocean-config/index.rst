@@ -61,7 +61,7 @@ Currently the following hardcoded names exist (from ``chainparamsbase.h``\ ):
 
    #define CHAINPARAMS_OCEAN_MAIN "ocean_main"
    #define CHAINPARAMS_OCEAN_TEST "ocean_test"
-   #define CHAINPARAMS_GOLD_MAIN "gold_main"
+   #define CHAINPARAMS_ASSET_MAIN "asset_main"
 
 Unlesss the ``--chain`` parameter is specified then the default **ocean_test** name is chosen.
 
