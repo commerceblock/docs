@@ -74,7 +74,7 @@ proof-of-existence does not act as a proof that anything else (e.g. an alternati
 transactions) does not also exist. 
 
 .. image:: ms-doublespend.png
-    :width: 450px
+    :width: 420px
     :alt: Commitment double-spend
     :align: center
 

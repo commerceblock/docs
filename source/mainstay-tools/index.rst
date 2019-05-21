@@ -1,23 +1,22 @@
 Applications and tools
 =======================
 
-The mainstay repository is an application that implements the `Mainstay protocol <https://www.commerceblock.com/wp-content/uploads/2018/03/commerceblock-mainstay-whitepaper.pdf>`_ designed by `CommerceBlock <https://www.commerceblock.com>`_. It consists of a Go daemon that performs attestations of the `Ocean <https://github.com/commerceblock/ocean>`_ network along with client commitments to Bitcoin in the form of a commitment merkle tree.
+The mainstay repository is an application that implements the Mainstay protocol - available at `github.com/commerceblock/mainstay <https://github.com/commerceblock/mainstay>`_. It consists of a Go daemon that performs attestations of the `Ocean <https://github.com/commerceblock/ocean>`_ network along with client commitments to Bitcoin in the form of a commitment merkle tree.
 
-Mainstay is accompanied by a Confirmation tool that can be run in parallel with the Bitcoin network to confirm attestations and prove the commitment inclusion in Mainstay attestations.
+Mainstay is accompanied by a Confirmation tool that can be run in parallel with a Bitcoin network node to confirm attestations and prove the commitment inclusion in Mainstay attestations.
 
 Prerequisites
-=============
-
+-------------
 
 * Go (https://github.com/golang)
 * Bitcoin (https://github.com/bitcoin/bitcoin)
 * Zmq (https://github.com/zeromq/libzmq)
 
 Instructions
-============
+------------
 
 Attestation Service
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 
 * 
@@ -74,10 +73,10 @@ Attestation Service
   * ``/$GOPATH/src/mainstay/run-tests.sh``
 
 Mainstay configuration
-======================
+----------------------
 
 Sample Config
--------------
+^^^^^^^^^^^^^
 
 .. code-block::
 
@@ -127,10 +126,10 @@ Sample Config
    }
 
 Config Parameters
------------------
+^^^^^^^^^^^^^^^^^
 
 Compulsory
-^^^^^^^^^^
+**********
 
 Currently ``main`` config category is compulsory. This should be made optional in the future as tools that do not require ``main`` rpc connectivity options use this.
 
@@ -175,7 +174,7 @@ For the base categories ``db`` and ``signer`` the following parameters are compu
   * ``signers`` : list of comma separated addresses (host:port) for connectivity to signers
 
 Optional
-^^^^^^^^
+********
 
 All the remaining conf options are optional. These are explained below:
 
@@ -204,7 +203,7 @@ Default values are set in ``attestation/attestfees.go``
 Default values are set in ``attestation/attestservice.go``
 
 Command Line Options
-^^^^^^^^^^^^^^^^^^^^
+********************
 
 Currently only parameters in the ``staychain`` category can be parsed through command line arguments.
 
@@ -218,7 +217,7 @@ These command line arguments are:
 * ``scriptTopup`` : argument for topupScript as above
 
 Env Variables
-^^^^^^^^^^^^^
+*************
 
 All config parameters can be replaced with env variables. An example of this is ``config/conf.json``.
 
@@ -227,7 +226,7 @@ The Config struct works by first looking for an env variable with the name set a
 If the config argument is not to be used, **no value** should be set in the conf file. Warnings for invalid argument values are provided in runtime.
 
 Client Chain Parameters
-^^^^^^^^^^^^^^^^^^^^^^^
+***********************
 
 Parameters used for client chain confirmation tools and are not part of Config struct used by service.
 
@@ -238,12 +237,12 @@ Same configuration options as ``main``. The ``clientchain`` name can be replaced
 
 
 Tools
-=====
+-----
 
 Along with the Mainstay daemon there is various tools offered serving utilities for both Mainstay operators and clients of Mainstay. These tools and their functionality are briefly summarized below:
 
 Transaction Signing Tool
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 The transaction signing tool can be used by each signer of the mainstay multisig to sign transactions.
 
@@ -263,7 +262,7 @@ To do the signing ECDSA libraries are used and and no Bitcoin node connection is
 The live release of Mainstay will be instead using an HSM interface. Thus this tool is for testing purposes only.
 
 Client Signup Tool
-------------------
+^^^^^^^^^^^^^^^^^^
 
 The client signup tool can be used to sign up new clients to the mainstay service.
 
@@ -278,16 +277,16 @@ The tool assigns a new position to the client in the commitment merkle tree and 
 For examples `check <../doc/signup.md>`_
 
 Token Generator Tool
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 The token generator tool can be used to generate unique authorization tokens for client signup.
 
 ``go run $GOPATH/src/mainstay/cmd/tokengeneratortool/tokengeneratortool.go``
 
 Client Confirmation Tool
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-The confirmation tool can be used to confirm all the attestations of a client Ocean-type network to Bitcoin and wait for any new attestations that will be happening.
+The confirmation tool can be used to confirm all the attestations of a client Ocean-type sidechain to Bitcoin and wait for any new attestations that will be happening.
 
 Running this tool will require a full Bitcoin testnet node and a full Ocean node. Connection details for these should be included in ``cmd/confirmationtool/conf.json``.
 
@@ -300,7 +299,7 @@ To run this tool you need to first fetch the ``TX_HASH`` from the ``attestationh
 This will initially take some time to sync up all the attestations that have been committed so far and then will wait for any new attestations. Logging is displayed for each attestation and for full details the ``-detailed`` flag can be used.
 
 Commitment Tool
----------------
+^^^^^^^^^^^^^^^
 
 The commitment tool can be used to send hash commitments to the Mainstay API.
 
@@ -327,7 +326,7 @@ Ocean connectivity details need to be provided in the ``cmd/commitmenttool/conf.
 For examples `check <../doc/commitment.md>`_
 
 Multisig Tool
--------------
+^^^^^^^^^^^^^
 
 The multisig tool can be used to generate multisig scripts and P2SH addresses for Mainstay configuration.
 
@@ -362,93 +361,106 @@ For example use cases go to `docs </doc/>`_.
 
 
 Initialising Mainstay
-==============================================
+----------------------
 
 A set of instructions for setting up the Mainstay service. This requires running 2 Bitcoin full nodes and setting up a 1 of 2 P2SH multisig address for the attestations. The Mainstay service coordinates with the transaction signing tools via zmq, sending attested hashes, new commitments and transactions to sign. All transactions are committted through the main service.
 
 Alternatively HSM interfaces can be used instead of the transaction signing tools. In this case, the P2SH address is generated by combining the pubkeys of the HSMs instead. The rest of the functionality should work in a very similar manner.
 
 Initial attestation
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 Generate 2 addresses
-^^^^^^^^^^^^^^^^^^^^
+********************
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
-2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
+.. code-block::
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
-2N4FJ6xpbGdUvC8RjfMmQ6bzWXwEfWCFcYF
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
+    2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
+
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
+    2N4FJ6xpbGdUvC8RjfMmQ6bzWXwEfWCFcYF
 
 Generate multisig 1 of 2 address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+********************************
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ addmultisigaddress 1 "[\"2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ\",\"2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia\"]" "" legacy
+.. code-block::
 
-{
-  "address": "2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd",
-  "redeemScript": "512103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b921034f0538871c910019b8e15a3b400b63971703822c9b2ab8b4183200e548fefbf952ae"
-}
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ addmultisigaddress 1 "[\"2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ\",\"2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia\"]" "" legacy
+
+    {
+      "address": "2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd",
+      "redeemScript": "512103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b921034f0538871c910019b8e15a3b400b63971703822c9b2ab8b4183200e548fefbf952ae"
+    }
 
 
 Dump priv keys
-^^^^^^^^^^^^^^
+**************
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ dumpprivkey 2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ
-cTgsB8DjF2vjhFrtCPopvknmNWP6CTQeb1Sd9zvXxRF5qHp9V4ct
+.. code-block::
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ dumpprivkey 2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia
-cNGEfurnx9oL6z8XUuigPXxoxs5cmMxfwwnDbAa258StQ4AQTH8P
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ dumpprivkey 2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ cTgsB8DjF2vjhFrtCPopvknmNWP6CTQeb1Sd9zvXxRF5qHp9V4ct
+
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ dumpprivkey 2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia cNGEfurnx9oL6z8XUuigPXxoxs5cmMxfwwnDbAa258StQ4AQTH8P
 
 Import generated multisig address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*********************************
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ importaddress 2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd "" false
+.. code-block::
+
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ importaddress 2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd "" false
 
 Send funds to generated multisig address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+****************************************
 
-$ bitcoin-cli -datadir=testnetbtc-datadir/ getbalance
-0.07926900
+.. code-block::
 
-bitcoin-cli -datadir=testnetbtc-datadir/ sendtoaddress 2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd 0.07926900 "" "" true
+    $ bitcoin-cli -datadir=testnetbtc-datadir/ getbalance
+    0.07926900
 
-87e56bda501ba6a022f12e178e9f1ac03fb2c07f04e1dfa62ac9e1d83cd840e1
+    bitcoin-cli -datadir=testnetbtc-datadir/ sendtoaddress 2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd 0.07926900 "" "" true
 
-bitcoin-cli -datadir=testnetbtc-datadir/ sendrawtransaction 02000000000101bbd869ef95b3280aad7e6d8c77582d1d7a3d0dc60fc3c3c0228df6931c31561b000000002322002055dec27024dac08f4a4c0738c4834315e6c99004b02348b2f9df960926f44c4bfeffffff0158e878000000000017a9146d237e71ec246acfcc80b249e0e835b9bfe2175687030047304402200c972818b73932c6f48d86f9b9a2c1a67d42b6b798280e51e101145d247630ac022037984534b3e06d38eaecdc849c06d25b35d98330d96b95af8106897188b540050147512102e1ee4e5801efc577a8a9fac006a5908af7dfd37b03bd6bba830d1d3cb7a1ba7821027e73fcf0a3d86eaad56cae92524d4eeac42ec0e83af75c10b2d171f43f42325c52aed4051600
-87e56bda501ba6a022f12e178e9f1ac03fb2c07f04e1dfa62ac9e1d83cd840e1
+    87e56bda501ba6a022f12e178e9f1ac03fb2c07f04e1dfa62ac9e1d83cd840e1
+
+    bitcoin-cli -datadir=testnetbtc-datadir/ sendrawtransaction 02000000000101bbd869ef95b3280aad7e6d8c77582d1d7a3d0dc60fc3c3c0228df6931c31561b000000002322002055dec27024dac08f4a4c0738c4834315e6c99004b02348b2f9df960926f44c4bfeffffff0158e878000000000017a9146d237e71ec246acfcc80b249e0e835b9bfe2175687030047304402200c972818b73932c6f48d86f9b9a2c1a67d42b6b798280e51e101145d247630ac022037984534b3e06d38eaecdc849c06d25b35d98330d96b95af8106897188b540050147512102e1ee4e5801efc577a8a9fac006a5908af7dfd37b03bd6bba830d1d3cb7a1ba7821027e73fcf0a3d86eaad56cae92524d4eeac42ec0e83af75c10b2d171f43f42325c52aed4051600
+    87e56bda501ba6a022f12e178e9f1ac03fb2c07f04e1dfa62ac9e1d83cd840e1
 
 Topup information
------------------
+^^^^^^^^^^^^^^^^^
 
 Generate 2 addresses
-^^^^^^^^^^^^^^^^^^^^
+********************
 
-$ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ getnewaddress
-2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
+.. code-block::
 
-$ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ getnewaddress
-2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
+    $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ getnewaddress
+    2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
+
+    $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ getnewaddress
+    2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
 
 Generate multisig 1 of 2 address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+********************************
 
-$ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ addmultisigaddress 1 "[\"2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK\",\"2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J\"]" "" legacy
+.. code-block::
 
-{
-  "address": "2NBYFyyMpPeLCb67bykLBHMByu1dSRGsim1",
-  "redeemScript": "512102a2411030da6082ac32d0166fc19f03e264c6c2a138f83a29120d0b59969670792103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b952ae"
-}
+    $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ addmultisigaddress 1 "[\"2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK\",\"2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J\"]" "" legacy
 
+    {
+      "address": "2NBYFyyMpPeLCb67bykLBHMByu1dSRGsim1",
+      "redeemScript": "512102a2411030da6082ac32d0166fc19f03e264c6c2a138f83a29120d0b59969670792103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b952ae"
+    }
 
 Dump priv keys
-^^^^^^^^^^^^^^
+**************
 
-$ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ dumpprivkey 2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
-cPLfW9BRRJjZNwNHwrz6B5XEmsTHRFsHYYFRTAQChULT5nUn8FkW
+.. code-block::
 
-$ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ dumpprivkey 2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
-cTgsB8DjF2vjhFrtCPopvknmNWP6CTQeb1Sd9zvXxRF5qHp9V4ct
+    $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ dumpprivkey 2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
+    cPLfW9BRRJjZNwNHwrz6B5XEmsTHRFsHYYFRTAQChULT5nUn8FkW
+
+    $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ dumpprivkey 2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
+    cTgsB8DjF2vjhFrtCPopvknmNWP6CTQeb1Sd9zvXxRF5qHp9V4ct
 
 Running the service
 -------------------
@@ -456,8 +468,7 @@ Running the service
 ``go build && go install && mainstay``
 
 Running the signing tools
--------------------------
-
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * signer 1
 
@@ -553,7 +564,7 @@ To use the commitment tool the client ``private key``\ , ``auth token`` and ``po
    Success!
 
 Key Init
-^^^^^^^^
+********
 
 The commitment tool can also be used to generate private/public ECDSA key pairs if run on ``init`` mode. This is displayed below:
 

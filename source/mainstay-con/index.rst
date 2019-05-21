@@ -1,16 +1,12 @@
-.. role:: raw-html-m2r(raw)
-   :format: html
-
-
-Mainstay Connector Protocol
+Mainstay Service Protocol
 ===========================
 
-This document describes the overall design and principles of the Mainstay Connector Protocol (MCP) which is used to provide trustless immutability to third party systems as a service. This immutability is derived from the Bitcoin blockchain Proof-of-Work in an extensible, scalable and efficient way. For a detailed description of the Mainstay concept and theoretical basis, refer to the `whitepaper <https://www.commerceblock.com/wp-content/uploads/2018/03/commerceblock-mainstay-whitepaper.pdf>`_. 
+This document describes the overall design and principles of the Mainstay connector service protocol which is used to provide trustless immutability to third party systems as a service. This immutability is derived from the Bitcoin blockchain Proof-of-Work in an extensible, scalable and efficient way. 
 
 Overview
 --------
 
-The primary purpose of the Mainstay scheme is to provide a cryptographic *Proof of Immutable State* (PoIS) for a succession of changing states of some arbitrary system or process - i.e. proof that the sequence of states has only a single, linked, verifiable history that cannot be altered (or double-spent). This PoIS is obtained via the trustless immutability inherent to the Bitcoin blockchain, where proof-of-work (via the *permissionless* mining of blocks to extend the chain) creates a practically irreversible and incorruptible ordering of transactions that does not rely on trust in any entity. The external system with a 'sequence of changing states' that can be proven as immutable via the Mainstay protocol may in some instances be a separate blockchain (i.e. a *sidechain*\ ). However, there are many other systems and processes where a PoIS (which is a proof of a single verifiable history) is of substantial value, such as in document tracking processes, critical software development and organisational governance. 
+The primary purpose of the Mainstay scheme is to provide a cryptographic *Proof of Immutable State* (PoIS) for a succession of changing states of some arbitrary system or process - i.e. proof that the sequence of states has only a single, linked, verifiable history that cannot be altered (or double-spent). This PoIS is obtained via the trustless immutability inherent to the Bitcoin blockchain, where proof-of-work (via the *permissionless* mining of blocks to extend the chain) creates a practically irreversible and incorruptible ordering of transactions that does not rely on trust in any entity. The external system with a 'sequence of changing states' that can be proven as immutable via the Mainstay protocol may in some instances be a separate blockchain (i.e. a *sidechain*). However, there are many other systems and processes where a PoIS (which is a proof of a single verifiable history) is of substantial value, such as in document tracking processes, critical software development and organisational governance. 
 
 The underlying mechanism of the mainstay protocol is a sequence of successive `commitments <https://en.wikipedia.org/wiki/Commitment_scheme>`_ to a *fan-in-only* sequence of linked `transactions <https://en.bitcoin.it/wiki/Transaction>`_ on the Bitcoin blockchain, where each transaction has only a single output - referred to as the *staychain*. By enforcing the rule that all the transactions in the staychain can only have a one output, the staychain can only have a single, non-branching history from the base of the chain to the tip. Following this rule, the staychain state is as immutable as the Bitcoin blockchain and is backed by its immense proof-of-work. Verifiable state commitments to the staychain are then also immutable, and the immutability of any sequence of committed states can be proven by verifying the validity of the staychain. 
 
@@ -18,57 +14,42 @@ State commitments are made to staychain transactions using the homomorphic *pay-
 
 In order to maintain the property of immutability for sequential commitments in sequential Merkle Trees anchored to the staychain, only one simple additional rule must be followed: each commitment from a particular seqeunce of states must always be be verifiably committed to the *same* position within the Merkle tree. If the commitment is always validated in the same position, then the sequence is as immutable (as in having only a single possible non-branching history) as the the root commitment into the staychain. 
 
+.. image:: ms-cmr-blocks.png
+    :width: 600px
+    :alt: Connector
+    :align: center
 
-.. raw:: html
-
-   <p align="center">
-   <img src="images/fig1_n.png" align="middle" width="820" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 1</b>: Schematic of the commitment of states from three slots to the Connector Merkle Root (CMR) which is then committed to the Bitcoin staychain, over three consecutive blocks. The sequence of commitments to a specified slot is as immutable as the the Bitcoin staychain. 
-   </p>
+Schematic of the commitment of states from three slots to the Connector Merkle Root (CMR) which is then committed to the Bitcoin staychain, over three consecutive blocks. The sequence of commitments to a specified slot is as immutable as the the Bitcoin staychain. 
 
 
-The Mainstay Connector protocol provides a mechanism for service users to access a specific position in the commitment Merkle tree (refered to as a *slot*\ ) which is then regularly committed to a unique Bitcoin staychain. This enables the provision of *Immutability as a Service* where a number of sidechain or other systems/processes can commit to and utilise a single Bitcoin staychain, at a substantially reduced cost (in terms of Bitcoin transaction fees) compared to operating a separate transaction staychain within Bitcoin for each individual application. The service provider operating the staychain, and the connection service, can agree service terms for each user and then assume responsibility for propagating the staychain and paying the Bitcoin fees. 
+The Mainstay service protocol provides a mechanism for service users to access a specific position in the commitment Merkle tree (refered to as a *slot*\ ) which is then regularly committed to a unique Bitcoin staychain. This enables the provision of *Immutability as a Service* where a number of sidechain or other systems/processes can commit to and utilise a single Bitcoin staychain, at a substantially reduced cost (in terms of Bitcoin transaction fees) compared to operating a separate transaction staychain within Bitcoin for each individual application. The service provider operating the staychain, and the connection service, can agree service terms for each user and then assume responsibility for propagating the staychain and paying the Bitcoin fees. 
 
 Commitment Merkle Tree
 ----------------------
 
-A Merkle tree is a data structure that enables a list of cryptographic commitments to be compressed into a single Merkle root with efficient and secure verification. As a result of the binary tree structure, a cryptographic proof that a specified commitment is included in the derivation of a root can be verified with O(log n) complexity, and the proof requires only O(log n) storage. A Merkle tree is defined by hash function (i.e. SHA256) and an assignment function, which maps each node to the concatenation of the hashes of its child nodes. Each parent node &theta; is then defined from the left (L) and right (R) child nodes as:
+A Merkle tree is a data structure that enables a list of cryptographic commitments to be compressed into a single Merkle root with efficient and secure verification. As a result of the binary tree structure, a cryptographic proof that a specified commitment is included in the derivation of a root can be verified with O(log n) complexity, and the proof requires only O(log n) storage. A Merkle tree is defined by hash function (i.e. SHA256) and an assignment function, which maps each node to the concatenation of the hashes of its child nodes. Each parent node `N` is then defined from the left (L) and right (R) child nodes as:
 
-&theta;(Parent) = SHA256(&theta;(L)||&theta;(R))
+::
+    N(Parent) = SHA256(N(L)||N(R))
 
-Proof of the inclusion a commitment (as a leaf of the tree) is then generated from a traversal of the tree from the leaf through to the root, and is authenticated by verifying the path of concatenated hashes. However - for the connector protocol - the additional requirement in order to prove immutability across successive commitments is that a particular sequence of successive commitments from an external (client) process are included in the corresponding sequence of Commitment Merkle Trees (CMTs) in the same leaf position each time the root is committed to the Bitcoin staychain. This specific Merkle leaf position is referred to as a *slot* and is designated by an integer ``slotid``. 
+Proof of the inclusion a commitment (as a leaf of the tree) is then generated from a traversal of the tree from the leaf through to the root, and is authenticated by verifying the path of concatenated hashes. However - for the connector protocol - the additional requirement in order to prove immutability across successive commitments is that a particular sequence of successive commitments from an external (client) process are included in the corresponding sequence of Commitment Merkle Trees (CMTs) in the **same** leaf position each time the root is committed to the Bitcoin staychain. This specific Merkle leaf position is referred to as a *slot* and is designated by an integer ``slotid``. 
 
 The ``slotid`` is defined according to the binary *path* from the leaf through to the Merkle root, which consists of the sequence of ``L`` and ``R`` concatenations (see Fig. 2). The ``slotid`` defined in this way does not change as the tree is extended with more slots and the depth of the tree is increased (increasing the depth of the tree will simply increase the size of the proofs). 
 
+.. image:: slot-proof.png
+    :width: 500px
+    :alt: Slot proof
+    :align: center
 
-.. raw:: html
-
-   <p align="center">
-   <img src="images/fig2_n.png" width="780" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 2.</b>: Schematic of the structure of a CMT with 8 leaves, where the leaf position (slot) is determined by the path. The sequence of concatenated hashes from the leaf through to the root forms a slot-proof that a commitment was made is a specified position. 
-   </p>
+Schematic of the structure of a CMT with 8 leaves, where the leaf position (slot) is determined by the path. The sequence of concatenated hashes from the leaf through to the root forms a slot-proof that a commitment was made is a specified position. 
 
 
 Slot-proofs
 ^^^^^^^^^^^
 
-The connector service maintains a current version of the full tree as commitments are added from users via slots (see below). If a slot is not active (i.e. is not associated with a client or user) the corresponding leaf commitment is set to zero. Once the root of the current updated tree (CMR) is committed into a new staychain transaction, then *slot-proofs* are generated for each ``slotid`` with a submitted commitment. The slot-proof consists of the hash sequence and concatenation order for the specific Merkle path to the commitment Merkle Root (CMR) appended with the SPV proof of the staychain CMR commitment transaction confirmation in the Bitcoin blockchain.  
+The Mainstay service maintains a current version of the full tree as commitments are added from users via slots (see below). If a slot is not active (i.e. is not associated with a client or user) the corresponding leaf commitment is set to zero. Once the root of the current updated tree (CMR) is committed into a new staychain transaction, then *slot-proofs* are generated for each ``slotid`` with a submitted commitment. The slot-proof consists of the hash sequence and concatenation order for the specific Merkle path to the commitment Merkle Root (CMR). 
 
-The slot-proof for a specific ``slotid`` provides cryptographic proof that a particular commtment ``Com`` was committed to a specified staychain (identified by the *base* transaction ID ``txid0``\ ) at a staychain height ``txheight`` and at that specific slot position. 
+The slot-proof for a specific ``slotid`` provides cryptographic proof that a particular commtment ``Com`` was committed to a specified staychain (identified by the *base* transaction ID ``TxID[0]``) at a staychain height ``txheight`` and at that specific slot position. 
 
 Example slot-proof:
 
@@ -95,68 +76,40 @@ To obtain a Proof of Immutable State (PoIS) one or more slot-proofs on same stay
 Slot connection
 ---------------
 
-Individual users (clients) of the connector service will be granted exclusive permission to add a 256 bit commitment to a specific slot for as long as a service agreement remains in force. Upon the commencement of a service agreement with a client, the client will be assigned a free ``slotid`` (the lowest currently unused). The client will then provide a *validation script* ``PubKeyScript`` which contains the policy for verifying a submitted commitment. The policy is determined by the client, and can be a single public key requiring a single commitment signature or an *m-of-n* multisignature script (or any other policy logic). In addition, the client will be provided with API access details and tokens. 
+Individual users (clients) of the connector service are granted exclusive permission to add a 32 byte commitment to a specific ``slotid`` for as long as a service agreement remains in force. Upon the commencement of a service agreement with a client, the client will be assigned a free ``slotid`` (the lowest number currently unused). The client will then provide a *validation script* ``PubKeyScript`` which contains the policy for authenticating a submitted commitment. The policy is determined by the client, and can be a single public key requiring a single commitment signature or an *m-of-n* multisignature script (or any other policy logic). In addition, the client will be provided with API access details and tokens. 
+
+.. image:: slots-list.png
+    :width: 500px
+    :alt: Slot list
+    :align: center
+
+Schematic of a CMT with 8 slots. The mapping to the active slot list (ASL) is shown. 
 
 
-.. raw:: html
+On the initiation of a connection, the ``PubKeyScript`` is added to the *active slot list* (ASL) in the position corresponding to ``slotid``. The connector service API then recieves signed commitments (signed in accordance with the ``PubKeyScript`` policy) from the client and the signatures are verified using the ``PubKeyScript``. If the signatures are valid then the commitment is added to the CMT at the ``slotid`` position. The connector server updates the cached CMT root each time a new slot commitment is recieved and verified. New verified commitments arriving for a particular slot overwrite the pervious commitment. 
 
-   <p align="center">
-   <img src="images/fig3_n.png" width="780" vspace="20">
-   </p>
+At intervals determined by the staychain attestation frequency, the commitment server performs commitments to the Bitcoin staychain following the BIP175 *pay-to-contract* protocol. 
 
+.. image:: msc-flow.png
+    :width: 450px
+    :alt: Commitment flow
+    :align: center
 
+Protocol and message flow for a user interacting with the service via a single slot. 
 
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 3.</b>: Schematic of a CMT with 8 slots. The mapping to the active slot list (ASL) is shown. 
-   </p>
-
-
-On the initiation of a connection, the ``PubKeyScript`` is added to the *active slot list* (ASL) in the position corresponding to ``slotid``. The connector service API then recieves signed commitments (signed in accordance with the ``PubKeyScript`` policy) from the client and the signatures are verified using the ``PubKeyScript``. If the signatures are valid then the commitment is added to the CMT at the ``slotid`` position. The connector server updates the cached CMT root eacch time a new slot commitment is recieved and verified. New verified commitments arriving for a particular slot overwrite the pervious commitment. 
-
-At intervals determined by the staychain attestation frequency, the commitment server then tweaks the base public key ``basePK`` of the staychain with the current CMR (\ *CMR\ :raw-html-m2r:`<sup>i</sup>`\ *\ ) generating a new address *Addr\ :raw-html-m2r:`<sup>i</sup>`\ * (where *i* is the staychain height). A Bitcoin transaction *TxID\ :raw-html-m2r:`<sup>i</sup>`\ * paying to address *Addr\ :raw-html-m2r:`<sup>i</sup>`\ * and spending from the staychain tip UTXO (\ *TxID\ :raw-html-m2r:`<sup>i-1</sup>`\ *\ ) is created and submitted to the Bitcoin network. 
-
-
-.. raw:: html
-
-   <p align="center">
-   <img src="images/fig4_n.png" width="530" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 4.</b>: Protocol and message flow for a user interacting with the service via a single slot. 
-   </p>
-
-
-Once *TxID\ :raw-html-m2r:`<sup>i</sup>`\ * has been confirmed, the commitment server retrieves the Bitcoin SPV proof (i.e the Bitcoin blockheader and Merkle proof) and generates the slot-proofs for each of the active slots. These slot-proofs are then available to retrieve by the clients via the connector service API. 
+Once the commitment transaction has been confirmed, the commitment server then generates the slot-proofs for each of the active slots. These slot-proofs are then available to retrieve by the clients via the connector service API. 
 
 Proof of Immutable State
 ------------------------
 
-Clients retrieve slot-proofs from the connector service API in order to confirm a PoIS using a client side confirmation tool that queries a Bitcoin blockchain node via the RPC interface. The confirmation tool can be configured for a particular staychain and slot, which is defined by a *start point* Bitcoin ``txidsp``\ , the staychain ``basePK`` and the ``slotid``. The start point transaction ID can be any staychain transaction before the transaction ID of the first slot-proof (the confirmation tool takes the slot-proof ``txid`` and traverses backward along the staychain until the ``txidsp`` is found). 
+Clients retrieve slot-proofs from the connector service API in order to confirm a PoIS using a client side confirmation tool that queries a Bitcoin blockchain node via the RPC interface. The confirmation tool can be configured for a particular staychain and slot, which is defined by a *start point* Bitcoin ``TxID[s]``, the staychain ``xpub[i]`` and the ``slotid``. The start point transaction ID can be any staychain transaction before the transaction ID of the first slot-proof (the confirmation tool takes the slot-proof ``TxID[j]`` and traverses backward along the staychain until the ``TxID[s]`` is found). 
 
-Any slot-proof can then be passed to the confirmation tool, which will determine whether the slot-proof (and hence state commitment) is committed to the specified staychain at the specified slot position. This is proof that the state commitment is part of the sequence defined by the staychain and slot position (if intermediate states also form a hash-chain, then each of the intermediate states is also proven immutable). Alternatively, the confirmation tool will determine whether any two slot-proofs are on the *same* slot position and staychain (irrespective of the configuration) - this is proof that both of the slot-proof commitments are part of the same immutable sequence. 
+Any slot-proof can then be passed to the confirmation tool, which will determine whether the slot-proof (and hence state commitment) is committed to the specified staychain at the specified slot position. This is proof that the state commitment is part of the sequence defined by the staychain and slot position (if intermediate states also form a hash-chain, then each of the intermediate states is also proven immutable). Alternatively, the confirmation tool can determine whether any two slot-proofs are on the *same* slot position and staychain (irrespective of the configuration) - this is proof that both of the slot-proof commitments are part of the same immutable sequence. 
 
-
-.. raw:: html
-
-   <p align="center">
-   <img src="images/fig5_n.png" width="680" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 5.</b>: Confirmation tool verification pathways. 
-   </p>
-
+.. image:: ms-verification.png
+    :width: 320px
+    :alt: Verification
+    :align: center
 
 Commitment frequency and fee policy
 -----------------------------------
@@ -170,4 +123,4 @@ The value of ``maxfee`` may be increased and ``ctarget`` decreased as more clien
 Staychain multi-signature security
 ----------------------------------
 
-A fundamental property of the Mainstay protocol is that users do not have to trust the connector service (or anyone else) to guarantee immutability - this is provided by the global proof-of-work securing the Bitcoin blockchain. However, in order to provide a continuous and reliable service, the staychain of commitment transactions must remain in the control of the connector service. If the private keys controlling the staychain output (i.e. the base private keys) are lost or stolen, then the new state commitments cannot be immutably linked, and users would be forced to coordinate updates to a new staychain. To provide the required security and resiliency of the service the staychain is controlled by a multi-sig script (as described in the whitepaper). In addition, each base private key of the staychain is generated and secured inside of a hardware security module (HSM). 
+A fundamental property of the Mainstay protocol is that users do not have to trust the connector service (or anyone else) to guarantee immutability - this is provided by the global proof-of-work securing the Bitcoin blockchain combined with slot-proofs. However, in order to provide a continuous and reliable service, the staychain of commitment transactions must remain in the control of the connector service. If the private keys controlling the staychain output (i.e. the base private keys) are lost or stolen, then the new state commitments cannot be immutably linked, and users would be forced to coordinate updates to a new staychain. To provide the required security and resiliency of the service the staychain is controlled by a multi-sig script (as described in the whitepaper). In addition, each base private key (``xpriv[i]``) of the staychain is generated and secured inside of a BIP32-compatible hardware security module (HSM). 
