@@ -108,7 +108,7 @@ Clients retrieve slot-proofs from the connector service API in order to confirm 
 Any slot-proof can then be passed to the confirmation tool, which will determine whether the slot-proof (and hence state commitment) is committed to the specified staychain at the specified slot position. This is proof that the state commitment is part of the sequence defined by the staychain and slot position (if intermediate states also form a hash-chain, then each of the intermediate states is also proven immutable). Alternatively, the confirmation tool can determine whether any two slot-proofs are on the *same* slot position and staychain (irrespective of the configuration) - this is proof that both of the slot-proof commitments are part of the same immutable sequence. 
 
 .. image:: ms-verification.png
-    :width: 2800px
+    :width: 280px
     :alt: Verification
     :align: center
 

@@ -88,11 +88,11 @@ P2PKH output with address ``Addr[j]``
 in a block, it is referenced by transaction ID: ``TxID[j]``
 
 .. image:: ms-full.png
-    :width: 330px
+    :width: 320px
     :alt: Mainstay protocol
     :align: center
 
-Schematic of the mainstay protocol. Dashed lines represent homomorphic commitments.
+Schematic of the mainstay protocol. Dashed lines represent commitments.
 
 Verification
 ^^^^^^^^^^^^
@@ -107,26 +107,22 @@ This confirmation functions as follows:
 
 1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the master ``xpub``.
 2. ``TxID[0]`` is retrieved from the Bitcoin blockchain. 
-3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each
-component transaction consists of only a single output:
+3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each component transaction consists of only a single output:
 
 ::
 
 	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
 
 4. The single output P2PKH address of ``TxID[t]`` is retrieved: ``Addr[t]``. 
-5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``)
-with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
+5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``) with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
 6. ``Addr[w]`` is derived from ``path[w]`` and the master ``xpub``. 
 7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as reinforced. 
-8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check
-repeated.
+8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check repeated.
 
 The above protocol would only need to be followed for the initial sync of a mainstay connected
 node: once the staychain tip transaction ``TxID[t]`` has been identified, additional attestations
 can be confirmed by monitoring when ``TxID[t]``
-is removed from the Bitcoin UTXO set. The
-new staychain tip ``TxID[t+1]`` will then be included in the most recent Bitcoin block.
+is removed from the Bitcoin UTXO set. The new staychain tip ``TxID[t+1]`` will then be included in the most recent Bitcoin block.
 
 Staychain feed in
 ^^^^^^^^^^^^^^^^^
@@ -169,8 +165,7 @@ This requires some modifications to the protocol described above, as follows.
 Initialisation
 ^^^^^^^^^^^^^^
 
-1. Each signing node ``i`` where ``i = 1, ..., m`` generates a master extended private key ``xpriv[i]`` 
-and corresponding extened public ``xpub[i]``. 
+1. Each signing node ``i`` where ``i = 1, ..., m`` generates a master extended private key ``xpriv[i]``  and corresponding extened public ``xpub[i]``. 
 2. The signing nodes then cooperate to create an ``n`` of ``m`` multisig redeem script (where
 ``m`` is the total number of signing nodes and ``n`` is the number of signatures required)
 containing ``m`` base public keys derived from each ``xpub[i]``  via a path ``m/0``. 
@@ -186,18 +181,15 @@ block of the sidechain along with each ``xpub[i]``.
 Commitments
 ^^^^^^^^^^^
 
-1. At each attestation interval ``j``, each of the mainstay signing nodes ``i`` will independently
-retrieve the sidechain tip block hash ``blockhash[j][i]``. 
+1. At each attestation interval ``j``, each of the mainstay signing nodes ``i`` will independently retrieve the sidechain tip block hash ``blockhash[j][i]``. 
 2. Each node splits the 32 byte ``blockhash[j][i]`` is then split into 16 2-byte parts, which are then converted into an array of 16 integers ``bhint[16]``. 
 3. A BIP32 derivation path (the commitment path ``path[j][i]``) is formed from this integer array sequence, and prepended with ``m/0``. 
 4. For each node ``i``, The commitment public key ``pubkey[j][i]`` is then derived from the ``xpub[i]`` with ``path[j][i]``. 
 5. ``n`` of ``m`` signing nodes then combine ``pubkey[j][i]`` to derive a redeem script and corresponding P2SH address ``Addr[j]``. 
 6. A transaction spending the single output of ``TxID[j−1]`` and paying to ``Addr[j]`` is created. 
 7. ``n`` of ``m`` signing nodes then verify that ``Addr[0]`` corresponds to the correctly dervied base keys. 
-8. The transaction is then signed by each of ``n`` (any subset of ``m``) signing nodes in turn
-using the derived private key ``xpriv[i]`` with ``path[j-1][i]``. 
-9. The transaction is then broadcast to the Bitcoin network, validated and then mined
-into a block, generating ``TxID[j]``. 
+8. The transaction is then signed by each of ``n`` (any subset of ``m``) signing nodes in turn using the derived private key ``xpriv[i]`` with ``path[j-1][i]``. 
+9. The transaction is then broadcast to the Bitcoin network, validated and then mined into a block, generating ``TxID[j]``. 
 
 .. note::
  	Bitcoin multisig redeem scripts are structured as follows: ``OP_n pubkey[1] pubkey[2] ... pubkey[m] OP_m OP_CHECKMULTISIG``
@@ -208,19 +200,15 @@ Verification
 
 1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the ``n`` master ``xpub[i]``
 2. ``TxID[0]`` is retrieved from the Bitcoin blockchain. 
-3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each
-component transaction consists of only a single output:
+3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each component transaction consists of only a single output:
 
 ::
 
 	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
 
 4. The single output P2SH address of ``TxID[t]`` is retrieved: ``Addr[t]``. 
-5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``)
-with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
+5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``) with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
 6. ``Addr[w]`` is derived from ``path[w]`` and ``m`` of the master ``xpub[i]``
-7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as
-reinforced. 
-8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check
-repeated.
+7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as reinforced. 
+8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check repeated.
 

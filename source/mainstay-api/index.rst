@@ -28,7 +28,7 @@ API index page.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response": "Mainstay-API-v1",
@@ -48,7 +48,7 @@ Provide information on latest Merkle root commitment to the staychain.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -72,7 +72,7 @@ Provide information on latest commitment for a specific slot position.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -97,7 +97,7 @@ Fetch commitment information for a specific slot position and merkle_root.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -121,7 +121,7 @@ Fetch latest commitment proof for a specific slot position.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -159,7 +159,7 @@ Check if a commitment for a specific slot position is included in an Merkle root
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -182,7 +182,7 @@ Get the merkle commitment proof (*slot proof*) for a specific slot position and 
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -219,7 +219,7 @@ Get staychain information on a specific commitment.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -267,7 +267,7 @@ Get information on the commitments to a Merkle tree.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -317,7 +317,7 @@ Get information on a client slot position.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -376,7 +376,7 @@ Get information on an attestation.
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
@@ -412,7 +412,7 @@ Get information on a Bitcoin block if it contains a Mainstay Merkle root commitm
 
 *response*
 
-.. code-block::
+.. code-block:: json
 
    {
        "response":
