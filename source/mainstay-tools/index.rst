@@ -78,10 +78,8 @@ Mainstay configuration
 Sample Config
 ^^^^^^^^^^^^^
 
-.. code-block::
+.. code-block:: json
 
-   // Sample config file parsed in config/config.go
-   // conf_template.json
    {
        "staychain": {
            "initTx": "87e56bda501ba6a022f12e178e9f1ac03fb2c07f04e1dfa62ac9e1d83cd840e1",
@@ -373,31 +371,31 @@ Initial attestation
 Generate 2 addresses
 ********************
 
-.. code-block::
+::
 
-    $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
-    2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
+   $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
+   2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J
 
-    $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
-    2N4FJ6xpbGdUvC8RjfMmQ6bzWXwEfWCFcYF
+   $ bitcoin-cli -datadir=testnetbtc-datadir/ getnewaddress
+   2N4FJ6xpbGdUvC8RjfMmQ6bzWXwEfWCFcYF
 
 Generate multisig 1 of 2 address
 ********************************
 
-.. code-block::
+::
 
-    $ bitcoin-cli -datadir=testnetbtc-datadir/ addmultisigaddress 1 "[\"2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ\",\"2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia\"]" "" legacy
+   $ bitcoin-cli -datadir=testnetbtc-datadir/ addmultisigaddress 1 "[\"2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ\",\"2NE8WKRRuj53udVsuyj5GbVfyUNN6ZSE4ia\"]" "" legacy
 
-    {
-      "address": "2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd",
-      "redeemScript": "512103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b921034f0538871c910019b8e15a3b400b63971703822c9b2ab8b4183200e548fefbf952ae"
-    }
+   {
+     "address": "2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd",
+     "redeemScript": "512103d11753d31309988c323142a0171e5b2319a8651479835afa4ab8ecb6442141b921034f0538871c910019b8e15a3b400b63971703822c9b2ab8b4183200e548fefbf952ae"
+   }
 
 
 Dump priv keys
 **************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=testnetbtc-datadir/ dumpprivkey 2NFBB5okotyGFLmceXK7q18ufuv11NmefUJ cTgsB8DjF2vjhFrtCPopvknmNWP6CTQeb1Sd9zvXxRF5qHp9V4ct
 
@@ -406,14 +404,14 @@ Dump priv keys
 Import generated multisig address
 *********************************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=testnetbtc-datadir/ importaddress 2N5ckx6eXY5vx3DLwBwSZsNVShiZ6k6mSGd "" false
 
 Send funds to generated multisig address
 ****************************************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=testnetbtc-datadir/ getbalance
     0.07926900
@@ -431,7 +429,7 @@ Topup information
 Generate 2 addresses
 ********************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ getnewaddress
     2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
@@ -442,7 +440,7 @@ Generate 2 addresses
 Generate multisig 1 of 2 address
 ********************************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ addmultisigaddress 1 "[\"2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK\",\"2MwvCUjtecBAFcc7SWhEu8NyT1bLsCRtN6J\"]" "" legacy
 
@@ -454,7 +452,7 @@ Generate multisig 1 of 2 address
 Dump priv keys
 **************
 
-.. code-block::
+::
 
     $ bitcoin-cli -datadir=/Users/nikolaos/testnetbtc-datadir2/ dumpprivkey 2MtEZ7J8ZXoieL7iHyUQw91TZpLEcVQTAyK
     cPLfW9BRRJjZNwNHwrz6B5XEmsTHRFsHYYFRTAQChULT5nUn8FkW

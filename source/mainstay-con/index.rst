@@ -15,7 +15,7 @@ State commitments are made to staychain transactions using the homomorphic *pay-
 In order to maintain the property of immutability for sequential commitments in sequential Merkle Trees anchored to the staychain, only one simple additional rule must be followed: each commitment from a particular seqeunce of states must always be be verifiably committed to the *same* position within the Merkle tree. If the commitment is always validated in the same position, then the sequence is as immutable (as in having only a single possible non-branching history) as the the root commitment into the staychain. 
 
 .. image:: ms-cmr-blocks.png
-    :width: 600px
+    :width: 730px
     :alt: Connector
     :align: center
 
@@ -30,6 +30,7 @@ Commitment Merkle Tree
 A Merkle tree is a data structure that enables a list of cryptographic commitments to be compressed into a single Merkle root with efficient and secure verification. As a result of the binary tree structure, a cryptographic proof that a specified commitment is included in the derivation of a root can be verified with O(log n) complexity, and the proof requires only O(log n) storage. A Merkle tree is defined by hash function (i.e. SHA256) and an assignment function, which maps each node to the concatenation of the hashes of its child nodes. Each parent node `N` is then defined from the left (L) and right (R) child nodes as:
 
 ::
+
     N(Parent) = SHA256(N(L)||N(R))
 
 Proof of the inclusion a commitment (as a leaf of the tree) is then generated from a traversal of the tree from the leaf through to the root, and is authenticated by verifying the path of concatenated hashes. However - for the connector protocol - the additional requirement in order to prove immutability across successive commitments is that a particular sequence of successive commitments from an external (client) process are included in the corresponding sequence of Commitment Merkle Trees (CMTs) in the **same** leaf position each time the root is committed to the Bitcoin staychain. This specific Merkle leaf position is referred to as a *slot* and is designated by an integer ``slotid``. 
@@ -37,7 +38,7 @@ Proof of the inclusion a commitment (as a leaf of the tree) is then generated fr
 The ``slotid`` is defined according to the binary *path* from the leaf through to the Merkle root, which consists of the sequence of ``L`` and ``R`` concatenations (see Fig. 2). The ``slotid`` defined in this way does not change as the tree is extended with more slots and the depth of the tree is increased (increasing the depth of the tree will simply increase the size of the proofs). 
 
 .. image:: slot-proof.png
-    :width: 500px
+    :width: 700px
     :alt: Slot proof
     :align: center
 
@@ -79,7 +80,7 @@ Slot connection
 Individual users (clients) of the connector service are granted exclusive permission to add a 32 byte commitment to a specific ``slotid`` for as long as a service agreement remains in force. Upon the commencement of a service agreement with a client, the client will be assigned a free ``slotid`` (the lowest number currently unused). The client will then provide a *validation script* ``PubKeyScript`` which contains the policy for authenticating a submitted commitment. The policy is determined by the client, and can be a single public key requiring a single commitment signature or an *m-of-n* multisignature script (or any other policy logic). In addition, the client will be provided with API access details and tokens. 
 
 .. image:: slots-list.png
-    :width: 500px
+    :width: 700px
     :alt: Slot list
     :align: center
 
@@ -91,7 +92,7 @@ On the initiation of a connection, the ``PubKeyScript`` is added to the *active 
 At intervals determined by the staychain attestation frequency, the commitment server performs commitments to the Bitcoin staychain following the BIP175 *pay-to-contract* protocol. 
 
 .. image:: msc-flow.png
-    :width: 450px
+    :width: 440px
     :alt: Commitment flow
     :align: center
 
@@ -107,7 +108,7 @@ Clients retrieve slot-proofs from the connector service API in order to confirm 
 Any slot-proof can then be passed to the confirmation tool, which will determine whether the slot-proof (and hence state commitment) is committed to the specified staychain at the specified slot position. This is proof that the state commitment is part of the sequence defined by the staychain and slot position (if intermediate states also form a hash-chain, then each of the intermediate states is also proven immutable). Alternatively, the confirmation tool can determine whether any two slot-proofs are on the *same* slot position and staychain (irrespective of the configuration) - this is proof that both of the slot-proof commitments are part of the same immutable sequence. 
 
 .. image:: ms-verification.png
-    :width: 320px
+    :width: 2800px
     :alt: Verification
     :align: center
 

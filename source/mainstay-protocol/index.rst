@@ -52,10 +52,10 @@ outputs only one possible sequence of transactions is possible.
 Initialisation
 ^^^^^^^^^^^^^^
 
-The initial step in the protocol is the creation of the base transaction ``TxID_0``, which is
+The initial step in the protocol is the creation of the base transaction ``TxID[0]``, which is
 performed before the initialisation of the sidechain. 
 
-1. The signing entity generates a ``BIP32`` extended master private key ``xpriv`` , and corresponding extended master public key ``xpub``. The extended public key is then used to create the base address: ``Addr[0]`` with a derivation path of ``m/0``. 
+1. The signing entity generates a BIP32 extended master private key ``xpriv`` , and corresponding extended master public key ``xpub``. The extended public key is then used to create the base address: ``Addr[0]`` with a derivation path of ``m/0``. 
 2. The signing entity then creates a transaction (the *base transaction* ``BaseTx``) paying an amount of BTC (to cover at least initial transaction fees) to the base address ``Addr[0]`` as a single P2PKH output.
 3. This transaction is broadcast to the Bitcoin network: once it is confirmed in the Bitcoin blockchain it acquires a globally unique transaction ID that is a pointer to the start of the staychain: ``TxID[0]``. 
 4. The sidechain is then configured and linked to the Bitcoin staychain. The pointer ``TxID[0]`` is embedded directly in the genesis block of the sidechain as metadata in a defined location, along with the ``xpub``. 
@@ -75,6 +75,7 @@ generate blocks more frequently but can only attest once per Bitcoin block (aver
 For example: 
 
 ::
+
 	blockhash_j = 310057788c6073640dc222466d003411cd5c1cc0bf2803fc6ebbfae03ceb4451
 
 	path_j = m/0/12544/22392/35936/29540/3522/8774/27904/13329/52572/7360/48936/1020/28347/64224/15595/17489
@@ -104,20 +105,20 @@ in the sidechain and Bitcoin blockchains, is required to validate direct mainsta
 
 This confirmation functions as follows:
 
-1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the master ``xpub``
+1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the master ``xpub``.
 2. ``TxID[0]`` is retrieved from the Bitcoin blockchain. 
 3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each
 component transaction consists of only a single output:
 
 ::
+
 	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
 
-4. The single output P2PKH address of ``TxID[t]`` is retrieved: ``Addr[t]``
+4. The single output P2PKH address of ``TxID[t]`` is retrieved: ``Addr[t]``. 
 5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``)
 with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
-6. ``Addr[w]`` is derived from ``path[w]`` and the master ``xpub``
-7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as
-reinforced. 
+6. ``Addr[w]`` is derived from ``path[w]`` and the master ``xpub``. 
+7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as reinforced. 
 8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check
 repeated.
 
@@ -169,16 +170,16 @@ Initialisation
 ^^^^^^^^^^^^^^
 
 1. Each signing node ``i`` where ``i = 1, ..., m`` generates a master extended private key ``xpriv[i]`` 
-and corresponding extened public ``xpub[i]``
+and corresponding extened public ``xpub[i]``. 
 2. The signing nodes then cooperate to create an ``n`` of ``m`` multisig redeem script (where
 ``m`` is the total number of signing nodes and ``n`` is the number of signatures required)
 containing ``m`` base public keys derived from each ``xpub[i]``  via a path ``m/0``. 
-The redeem script is then hashed to create a P2SH address ``Addr[0]``. 
-3. A transaction is then created with ``Addr[0]`` as a single P2SH
+3. The redeem script is then hashed to create a P2SH address ``Addr[0]``. 
+4. A transaction is then created with ``Addr[0]`` as a single P2SH
 output and funded with with sufficient BTC for initial fees and then broadcast to the Bitcoin network.
-4. Once confirmed, it is now publicly verifiable that the redeem
+5. Once confirmed, it is now publicly verifiable that the redeem
 script hash corresponds to the published ``n`` , ``m`` and all the ``xpub[i]``.
-6) The TxID of the transaction ``TxID[0]`` is retrieved and committed into the genesis
+6. The TxID of the transaction ``TxID[0]`` is retrieved and committed into the genesis
 block of the sidechain along with each ``xpub[i]``. 
 
 
@@ -186,7 +187,7 @@ Commitments
 ^^^^^^^^^^^
 
 1. At each attestation interval ``j``, each of the mainstay signing nodes ``i`` will independently
-retrieve the sidechain tip block hash ``blockhash[j][i]``
+retrieve the sidechain tip block hash ``blockhash[j][i]``. 
 2. Each node splits the 32 byte ``blockhash[j][i]`` is then split into 16 2-byte parts, which are then converted into an array of 16 integers ``bhint[16]``. 
 3. A BIP32 derivation path (the commitment path ``path[j][i]``) is formed from this integer array sequence, and prepended with ``m/0``. 
 4. For each node ``i``, The commitment public key ``pubkey[j][i]`` is then derived from the ``xpub[i]`` with ``path[j][i]``. 
@@ -196,7 +197,7 @@ retrieve the sidechain tip block hash ``blockhash[j][i]``
 8. The transaction is then signed by each of ``n`` (any subset of ``m``) signing nodes in turn
 using the derived private key ``xpriv[i]`` with ``path[j-1][i]``. 
 9. The transaction is then broadcast to the Bitcoin network, validated and then mined
-into a block, generating ``TxID[j]``
+into a block, generating ``TxID[j]``. 
 
 .. note::
  	Bitcoin multisig redeem scripts are structured as follows: ``OP_n pubkey[1] pubkey[2] ... pubkey[m] OP_m OP_CHECKMULTISIG``
@@ -211,9 +212,10 @@ Verification
 component transaction consists of only a single output:
 
 ::
+
 	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
 
-4. The single output P2SH address of ``TxID[t]`` is retrieved: ``Addr[t]``
+4. The single output P2SH address of ``TxID[t]`` is retrieved: ``Addr[t]``. 
 5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``)
 with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``. 
 6. ``Addr[w]`` is derived from ``path[w]`` and ``m`` of the master ``xpub[i]``
