@@ -56,7 +56,6 @@ Example slot-proof:
 
 .. code-block:: json
 
-   proof
    {
        commitment: "1a39e34e881d9a1e6cdc3418b54aa57747106bc75e9e84426661f27f98ada3b7",
        ops: [
@@ -111,6 +110,8 @@ Any slot-proof can then be passed to the confirmation tool, which will determine
     :width: 280px
     :alt: Verification
     :align: center
+
+Verification pathways for state verification. Top: Verification that a particular state is committed to a particular staychain and ``slotid``. Bottom: Verification that a sequence (two or more) of states are committed to the same staychain and ``slotid`` is sequential transactions. 
 
 Commitment frequency and fee policy
 -----------------------------------

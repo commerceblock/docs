@@ -1,5 +1,5 @@
-Mainstay: sidechain integration
-=========================================
+Sidechain integration
+======================
 
 This docuemnt describes the protocol for linking a blockchain to the Mainstay connector service to obtain trustlessly immutable transaction confirmations. This linked blockchain can in principle be public or private, permissioned or permissionless, but a defined entity (or federation of entities) will be responsible for performing state commitments to the service. In the case of a permissioned federated blockchain, this role can be performed by the block-signing nodes as they are relied upon to continue propagating the chain and confirming transactions in new blocks. Once a blockchain is *connected* to the service, it becomes a *sidechain* i.e. a blockchain that is linked to and dependent upon data encoded on a separate blockchain: the *mainchain*. In the CommerceBlock Mainstay serivce, the mainchain is the public blockchain with the highest security and greatest global cumulative proof-of-work: Bitcoin. 
 

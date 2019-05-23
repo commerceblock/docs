@@ -1,4 +1,4 @@
-Documentation Mainstay API
+Mainstay Service API
 --------------------------
 
 Short documentation for the public API offered on the Mainstay website at ``https://testnet.mainstay.xyz/api/v1``.
@@ -6,7 +6,7 @@ Short documentation for the public API offered on the Mainstay website at ``http
 REST framework structure
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block::
+::
 
    response = json response object
 
@@ -26,7 +26,7 @@ API index page.
 
 **request:** https://testnet.mainstay.xyz/api/v1
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -46,7 +46,7 @@ Provide information on latest Merkle root commitment to the staychain.
 
 **request:** https://testnet.mainstay.xyz/api/v1/latestattestation
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -70,7 +70,7 @@ Provide information on latest commitment for a specific slot position.
 
 **request:** https://testnet.mainstay.xyz/api/v1/latestcommitment?position=3
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -95,7 +95,7 @@ Fetch commitment information for a specific slot position and merkle_root.
 
 **request:** https://testnet.mainstay.xyz/api/v1/commitment?position=3&merkle_root=f46a58a0cc796fade0c7854f169eb86a06797ac493ea35f28dbe35efee62399b
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -119,7 +119,7 @@ Fetch latest commitment proof for a specific slot position.
 
 **request:** https://testnet.mainstay.xyz/api/v1/commitment/latestproof?position=1
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -157,7 +157,7 @@ Check if a commitment for a specific slot position is included in an Merkle root
 
 **request:** https://testnet.mainstay.xyz/api/v1/commitment/verify?position=1&commitment=5555c29bc4ac63ad3aa4377d82d40460440a67f6249b463453ca6b451c94e053
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -180,7 +180,7 @@ Get the merkle commitment proof (*slot proof*) for a specific slot position and 
 
 **request:** https://testnet.mainstay.xyz/api/v1/commitment/proof?position=1&merkle_root=f46a58a0cc796fade0c7854f169eb86a06797ac493ea35f28dbe35efee62399b
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -217,7 +217,7 @@ Get staychain information on a specific commitment.
 
 **request:** https://testnet.mainstay.xyz/api/v1/commitment/commitment?commitment=5555c29bc4ac63ad3aa4377d82d40460440a67f6249b463453ca6b451c94e053
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -265,7 +265,7 @@ Get information on the commitments to a Merkle tree.
 
 **request:** https://testnet.mainstay.xyz/api/v1/merkleroot?merkle_root=f46a58a0cc796fade0c7854f169eb86a06797ac493ea35f28dbe35efee62399b
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -315,7 +315,7 @@ Get information on a client slot position.
 
 **request:** https://testnet.mainstay.xyz/api/v1/position?position=1
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -374,7 +374,7 @@ Get information on an attestation.
 
 **request:** https://testnet.mainstay.xyz/api/v1/attestation?txid=38fa2c6e103673925aaec50e5aadcbb6fd0bf1677c5c88e27a9e4b0229197b13
 
-*response*
+**response:**
 
 .. code-block:: json
 
@@ -410,7 +410,7 @@ Get information on a Bitcoin block if it contains a Mainstay Merkle root commitm
 
 **request:** https://testnet.mainstay.xyz/api/v1/blockhash?hash=3c50145441751dfb8f01cd05f21a24d0763005334667daa734bbf4147eeabe14
 
-*response*
+**response:**
 
 .. code-block:: json
 

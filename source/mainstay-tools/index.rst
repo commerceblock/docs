@@ -1,4 +1,4 @@
-Applications and tools
+Application
 =======================
 
 The mainstay repository is an application that implements the Mainstay protocol - available at `github.com/commerceblock/mainstay <https://github.com/commerceblock/mainstay>`_. It consists of a Go daemon that performs attestations of the `Ocean <https://github.com/commerceblock/ocean>`_ network along with client commitments to Bitcoin in the form of a commitment merkle tree.

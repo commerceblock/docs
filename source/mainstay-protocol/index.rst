@@ -42,7 +42,7 @@ protocol is also presented in relation to Bitcoin as the proof-of-work mainchain
 principle compatible with any PoW blockchain. 
 
 .. image:: staychain.png
-    :width: 300px
+    :width: 280px
     :alt: Staychain
     :align: center
 
@@ -88,7 +88,7 @@ P2PKH output with address ``Addr[j]``
 in a block, it is referenced by transaction ID: ``TxID[j]``
 
 .. image:: ms-full.png
-    :width: 320px
+    :width: 300px
     :alt: Mainstay protocol
     :align: center
 
@@ -166,9 +166,7 @@ Initialisation
 ^^^^^^^^^^^^^^
 
 1. Each signing node ``i`` where ``i = 1, ..., m`` generates a master extended private key ``xpriv[i]``  and corresponding extened public ``xpub[i]``. 
-2. The signing nodes then cooperate to create an ``n`` of ``m`` multisig redeem script (where
-``m`` is the total number of signing nodes and ``n`` is the number of signatures required)
-containing ``m`` base public keys derived from each ``xpub[i]``  via a path ``m/0``. 
+2. The signing nodes then cooperate to create an ``n`` of ``m`` multisig redeem script (where ``m`` is the total number of signing nodes and ``n`` is the number of signatures required) containing ``m`` base public keys derived from each ``xpub[i]``  via a path ``m/0``. 
 3. The redeem script is then hashed to create a P2SH address ``Addr[0]``. 
 4. A transaction is then created with ``Addr[0]`` as a single P2SH
 output and funded with with sufficient BTC for initial fees and then broadcast to the Bitcoin network.

@@ -53,8 +53,8 @@ This documentation covers the central components of the CommerceBlock technology
    mainstay-protocol/index
    mainstay-con/index
    mainstay-tools/index
-   mainstay-sidechain/index
    mainstay-api/index
+   mainstay-sidechain/index
 
 .. toctree::
    :maxdepth: 2

@@ -1,7 +1,7 @@
 Token issuance permissions
 ==========================
 
-Ipso
+A principle function of Ocean blockchains/sidechains is the support of multiple token types, with global token identity and state being enforced by client consensus rules. Tokens issued can represent ownership of any aseet or security, are divisible to arbirary precision, and can be transferred between user wallets with atomic operations. Any number of different token types can be issued on an Ocean blockchain, and any token type can be provably inflated (re-issued). The ability to issue new tokens or re-issue existing tokens on an Ocean blockchain can be restricted with custom permissions and security policies. An Ocean blockchain can be configured so that to issue or reissue any tokens requires multiple signatures from security officiers (*controllers*) via a multisig script. 
 
 Policy lists and transaction control
 ====================================
@@ -18,6 +18,7 @@ These three *policy lists* then restrict which transactions that are generated a
     :width: 340px
     :alt: Mempool policy flow
     :align: center
+    
 
 The policy lists are used by the federation nodes to determine which transactions are added to the *mempool*, and therefore in-turn added to new blocks. The restrictions are applied as follows:
 
