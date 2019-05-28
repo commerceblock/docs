@@ -25,7 +25,7 @@ To run the daemon locally:
 
 To run a demo along with the `coordinator <https://github.com/commerceblock/coordinator>`_ daemon execute the following replacing `$txid` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/scripts/demo.sh>`_:
 
-``./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --challengeasset 73be00507b15f79efccd0184b7ca8367372dfd5334ae8991a492f5f354073c88 --bidtxid $txid``
+``./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --challengeasset fae9f771019d45e31b8f78da99a15b094b17b2ba76b0940c3ac53d5e9afd8e8e --nodelogfile /Users/nikolaos/co-client-dir/ocean_test/debug.log --bidtxid $txid``
 
 Configuration
 -------------
