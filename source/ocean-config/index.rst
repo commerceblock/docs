@@ -25,13 +25,12 @@ Sample config
    freezelistcoinsdestination=76a9149d2eaa0bb68b5b9ba11250994fdfce78f41fdc0188ac
    burnlistcoinsdestination=76a91415de997afac9857dc97cdd43803cf1138f3aaef788ac
    whitelistcoinsdestination=76a9144ff9b5c6885f87fb5519cc45c1474f301a73224a88ac
-   initialfreecoinscoinsdestination=76a9142967e87b159cb36b1dec8d95382b35aef01a8ad788ac
 
 
-   initialfreecoins=2100000000000000
+   policycoins=2100000000000000
    signblockscript=532103041f9d9edc4e494b07eec7d3f36cedd4b2cfbb6fe038b6efaa5f56b9636abd7b21037c06b0c66c98468d64bb43aff91a65c0a576113d8d978c3af191e38845ae5dab21031bd16518d76451e7cf13f64087e4ae4816d08ae1d579fa6c172dcfe4476bd7da210226c839b56b99af781bbb4ce14365744253ae75ffe6f9182dd7b0df95c439537a21023cd2fc00c9cb185b4c0da16a45a1039e16709a61fb22340645790b7d1391b66055ae
    con_mandatorycoinbase=51210282e9e791e3ade9242eee103284315d61933afcb5ae3006bd61560a5819dc9cd451ae
-   initialfreecoinsdestination=52210333f1635e1140dcf12dfc25ab2b1f993e7d9f9fd69481808af7d57b5892fe2a6e21028e029a8383c812f7a1c64a5daeee0ac1df79dd5a0915654733ad0d5c2a7cda642103856c9deac8e061e7cb086922c73104869708a8081dc38e1c4290d6d409476cc553ae
+   issuancecoinsdestination=52210333f1635e1140dcf12dfc25ab2b1f993e7d9f9fd69481808af7d57b5892fe2a6e21028e029a8383c812f7a1c64a5daeee0ac1df79dd5a0915654733ad0d5c2a7cda642103856c9deac8e061e7cb086922c73104869708a8081dc38e1c4290d6d409476cc553ae
    issuecontrolscript=52210333f1635e1140dcf12dfc25ab2b1f993e7d9f9fd69481808af7d57b5892fe2a6e21028e029a8383c812f7a1c64a5daeee0ac1df79dd5a0915654733ad0d5c2a7cda642103856c9deac8e061e7cb086922c73104869708a8081dc38e1c4290d6d409476cc553ae
 
    attestationhash=18b4355a10177cd6d1e11985086aa252e0a64ae59d95dcba0d882cdd99fa3564
@@ -161,7 +160,7 @@ Script determining ownership of the issuance process.
    script
    52210333f1635e1140dcf12dfc25ab2b1f993e7d9f9fd69481808af7d57b5892fe2a6e21028e029a8383c812f7a1c64a5daeee0ac1df79dd5a0915654733ad0d5c2a7cda642103856c9deac8e061e7cb086922c73104869708a8081dc38e1c4290d6d409476cc553ae
 
---initialfreecoinsdestination
+--issuancecoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -173,7 +172,7 @@ Script determining ownership of the issuance process.
      - no
 
 
-Script destination for free coins, required for issuance. Usually same target as ``issuecontrolscript``. The number of free coins is specified by ``initialfreecoins``.
+Script destination for coins, required for issuance. Usually same target as ``issuecontrolscript``. The number of coins is specified by ``policycoins``.
 
 -freezelistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -187,7 +186,7 @@ Script destination for free coins, required for issuance. Usually same target as
      - yes
 
 
-Script destination for freezelist coins, required if freezelist is enabled (option -freezelist=1). 
+Script destination for freezelist coins, required if freezelist is enabled (option -freezelist=1). The number of coins is specified by ``policycoins``.
 
 -burnlistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -201,7 +200,7 @@ Script destination for freezelist coins, required if freezelist is enabled (opti
      - yes
 
 
-Script destination for burnlist coins, required if burnlist is enabled (option -burnlist=1). 
+Script destination for burnlist coins, required if burnlist is enabled (option -burnlist=1). The number of coins is specified by ``policycoins``.
 
 -whitelistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -215,7 +214,7 @@ Script destination for burnlist coins, required if burnlist is enabled (option -
      - yes
 
 
-Script destination for public key hash whitlelist coins, required if whitelist is enabled (option -pkhwhitelist=1). 
+Script destination for public key hash whitlelist coins, required if whitelist is enabled (option -pkhwhitelist=1). The number of coins is specified by ``policycoins``.
 
 --con_mandatorycoinbase
 ^^^^^^^^^^^^^^^^^^^^^^^

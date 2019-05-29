@@ -82,6 +82,7 @@ Configuration options
 * `initialfreecoinsdestination <#initialfreecoinsdestination>`_
 * `freezelistcoinsdestination <#initialfreecoinsdestination>`_
 * `burnlistcoinsdestination <#initialfreecoinsdestination>`_
+* `issuancecoinsdestination <#initialfreecoinsdestination>`_
 * [permissioncoinsdestination][]
 
 dumpderivedkeys
@@ -531,7 +532,7 @@ outputs and spending from a specified input containing an amount of policy asset
    </table>
 
 
-*Parameter #5---the Base58check address for the policyAsset change*
+*Parameter #5---the Base58check address for the issuanceAsset change*
 
 
 .. raw:: html
@@ -556,7 +557,7 @@ outputs and spending from a specified input containing an amount of policy asset
    </table>
 
 
-*Parameter #6---the amount of policyAsset change*
+*Parameter #6---the amount of issuanceAsset change*
 
 
 .. raw:: html
@@ -575,13 +576,13 @@ outputs and spending from a specified input containing an amount of policy asset
       <td>changeamount</td>
       <td>amount</td>
       <td>Required<br />(exactly 1)</td>
-      <td>Amount of policyAsset to return per output</td>
+      <td>Amount of issuanceAsset to return per output</td>
      </tr>
     </tbody>
    </table>
 
 
-*Parameter #7---the number of policyAsset outputs*
+*Parameter #7---the number of issuanceAsset outputs*
 
 
 .. raw:: html
@@ -600,7 +601,7 @@ outputs and spending from a specified input containing an amount of policy asset
       <td>numchange</td>
       <td>integer</td>
       <td>Required<br />(exactly 1)</td>
-      <td>Numebr of policyAsset outputs</td>
+      <td>Numebr of issuanceAsset outputs</td>
      </tr>
     </tbody>
    </table>
@@ -625,7 +626,7 @@ outputs and spending from a specified input containing an amount of policy asset
       <td>inputtxid</td>
       <td>string</td>
       <td>Required<br />(exactly 1)</td>
-      <td>Hex of the input TXID containing the policyAsset</td>
+      <td>Hex of the input TXID containing the issuanceAsset</td>
      </tr>
     </tbody>
    </table>
