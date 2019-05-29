@@ -79,6 +79,7 @@ Configuration options
 * `attestationhash <#attestationhash>`_
 * `embedmapping <#embedmapping>`_
 * `issuecontrolscript <#issuecontrolscript>`_
+* `policycoins <#policycoins>`_
 * `initialfreecoinsdestination <#initialfreecoinsdestination>`_
 * `freezelistcoinsdestination <#initialfreecoinsdestination>`_
 * `burnlistcoinsdestination <#initialfreecoinsdestination>`_

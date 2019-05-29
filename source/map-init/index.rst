@@ -14,7 +14,7 @@ Prerequisites:
 Controller Set-up
 ^^^^^^^^^^^^^^^^^
 
-The first part of the initialisation involves the generation of the controller key pairs and the generation of the policy asset P2SH address and redeem script. For demonstration purposes, the single script ``controller_setup.py`` automatically generates 3 controller key-pairs and generates the corresponding 2-of-3 P2SH address and redeem script (which is saved to a file named ``p2sh.json``\ ). 
+The first part of the initialisation involves the generation of the controller key pairs and the generation of the issuance asset P2SH address and redeem script. For demonstration purposes, the single script ``controller_setup.py`` automatically generates 3 controller key-pairs and generates the corresponding 2-of-3 P2SH address and redeem script (which is saved to a file named ``p2sh.json``\ ).
 
 The script must be configured with the following parameters to enable a connection to the ocean client: ``rpcport``\ , ``rpcuser``\ , and ``rpcpassword``. 
 
@@ -29,24 +29,24 @@ In the production version, each controller key-pair will be generated separately
 Sidechain configuration
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Once the controller public keys have been generated and aggregated, the Ocean blockchain can be configured with the controller public keys. This is done to immutably link the controllers with the blockchain (so that the mapping object signatures can be verified directly) and to pay the policy asset coins to a multisig controller address, which will give them permission to create new token types. 
+Once the controller public keys have been generated and aggregated, the Ocean blockchain can be configured with the controller public keys. This is done to immutably link the controllers with the blockchain (so that the mapping object signatures can be verified directly) and to pay the issuance asset coins to a multisig controller address, which will give them permission to create new token types.
 
-The controller public keys are added to the ``ocean.conf`` file via the ``issuecontrolscript`` parameter. This parameter is set to the hex-encoding of the redeem script generated in the ``p2sh.json`` file. The ``initialfreecoinsdestination`` parameter is set with the P2SH multisig ``scriptPubKey`` generated in the ``p2sh.json`` file. In addition a quantity of policy asset coins to be generated in the genesis block must be specified (this value is arbitrary, but must be greater than 100) with the ``initialfreecoins`` parameter. For example:
+The controller public keys are added to the ``ocean.conf`` file via the ``issuecontrolscript`` parameter. This parameter is set to the hex-encoding of the redeem script generated in the ``p2sh.json`` file. The ``issuancecoinsdestination`` parameter is set with the P2SH multisig ``scriptPubKey`` generated in the ``p2sh.json`` file. In addition a quantity of issuance asset coins to be generated in the genesis block must be specified (this value is arbitrary, but must be greater than 100) with the ``policycoins`` parameter. For example:
 
 .. code-block::
 
-   initialfreecoins=50000000000000
-   initialfreecoinsdestination=a91469b4ee09eca516ae4c380b7f7e63a492340517bc87
+   policycoins=50000000000000
+   issuancecoinsdestination=a91469b4ee09eca516ae4c380b7f7e63a492340517bc87
    issuecontrolscript=5221035cb05851130ee7aa09ca43dae988d36ab6b8dbb06dd3948295b919084056d4ce2103925c07cdc8b04b6f4ab84e6e120648d91517911d2a28decf9ad37cae333413a52102de3441f8a7ecb17417cc764143bda6f19ee5dc85de94534af5a411cd6ef12b5953ae
 
 This configuration then forms part of the genesis block definition. 
 
-Policy asset UTXO list
+Issuance asset UTXO list
 ^^^^^^^^^^^^^^^^^^^^^^
 
-In order to issue new tokens, issuance transactions (signed by the controllers) must spend a policy asset output. These outputs are initially created in the genesis block, and are tracked by the issuance process (i.e. new policy asset outputs are created as change for each issuance). The current list of available policy asset outputs is kept in the the ``ptxo.dat`` wallet file, which is updated at each issuance. 
+In order to issue new tokens, issuance transactions (signed by the controllers) must spend an issuance asset output. These outputs are initially created in the genesis block, and are tracked by the issuance process (i.e. new issuance asset outputs are created as change for each issuance). The current list of available issuance asset outputs is kept in the the ``ptxo.dat`` wallet file, which is updated at each issuance.
 
-To initialise the ``ptxo.dat`` wallet file, first determine all the policy asset outpoints by first importing the controller P2SH address into a configured Ocean client wallet:
+To initialise the ``ptxo.dat`` wallet file, first determine all the issuance asset outpoints by first importing the controller P2SH address into a configured Ocean client wallet:
 
 ``ocean-cli importaddress 3BKwcuph76AgTgo7d5nNdW4EYRL7v1PawN``
 
@@ -61,4 +61,4 @@ For each output, add a line to the ``ptxo.dat`` file with:
 Mapping initialisation
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Once the blockchain has been configured and initialised, a 'blank' and unsigned mapping object with a 2-of-3 policy is created and exported as a file: ``map.json``. This blank object and the ``ptxo.dat`` wallet file are then uploaded to the S3 bucket. All these operations are performed by running the ``object_init.py`` script. 
+Once the blockchain has been configured and initialised, a 'blank' and unsigned mapping object with a 2-of-3 issuance is created and exported as a file: ``map.json``. This blank object and the ``ptxo.dat`` wallet file are then uploaded to the S3 bucket. All these operations are performed by running the ``object_init.py`` script.
