@@ -27,7 +27,7 @@ The policy lists are used by the federation nodes to determine which transaction
 3. If any of the transactions outputs burn token value (i.e. send tokens to an ``OP_RETURN`` output) then *all* of the input addresses must be on the address burnlist. 
 
 Policy transactions
-********************
+===================
 
 The three policy lists (whitelist, freezelist and burnlist) are kept in the client memory for fast lookup, and are activated and applied as mempool policy if the configuration options ``-whitelist=1``, ``freezelist=1`` and ``-burnlist=1`` are set. The addresses in each policy list can be added, removed or queried via the client RPC interface. In addition, to enable scalable and modular deployment of federated nodes, the policy lists can also be controlled (i.e. addresses added and removed) via on-chain transactions: *policy transactions*. This enables addresses to be added and removed from the policy lists by remote agents outside of the federated signing nodes without any external connections except for the peer-to-peer protocol. 
 
@@ -39,7 +39,7 @@ In this process, a special policy transaction containing an address to be added 
     :align: center
 
 Policy tokens
-*************
+=============
 
 Permission to modify the policy lists via policy transactions is controlled via *policy tokens*. Policy tokens for the modification of each policy list are created in the genesis block under the control of a specified ``scriptPubKey``. These are specified in the configuration as ``whitelistcoinsdestination``, ``freezelistcoinsdestination`` and ``burnlistcoinsdestination`` respectively. 
 
