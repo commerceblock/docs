@@ -71,9 +71,7 @@ Onboarding
 1. The user randomly selects a ``pub_kyc`` from the unassigned ``pub_kyc`` keys. 
 2. The user generates a public private key pair (``pub_uob``, ``priv_uob``) and creates file containing ``pub_kyc`` and ``pub_uob``, tweaked address and corresponding untweaked public key data data for the addresses they want to register. The address data are encrypted using a shared secret generated from ``priv_uob`` and ``pub_kyc``. Therefore, the addresses can be read by the user, the signing nodes and the whitelisting node only. This "KYC file" is forwarded to the KYC vendor together with the user's ID details. 
 3. The KYC vendor forwards the result of the checks together with the KYC file data to a webhook.
-4. If the user passed the KYC/AML checks then ``pub_kyc`` (or a newly assigned one if the original ``pub_kyc`` has been assigned to another user) is 
-recorded in the blockchain together with the user's wallet addresses in a ``OP_REGISTERID`` transaction. Again, the WHITELIST asset is required for this 
-transaction to have any effect.
+4. If the user passed the KYC/AML checks then ``pub_kyc`` (or a newly assigned one if the original ``pub_kyc`` has been assigned to another user) is recorded in the blockchain together with the user's wallet addresses in a ``OP_REGISTERID`` transaction. Again, the WHITELIST asset is required for this transaction to have any effect.
 
 On reading the transactions, the signing nodes and whitelisting nodes will build whitelisted address tables in RAM for fast lookup.
 
@@ -85,8 +83,7 @@ Submission
 
 After the user's wallet has been onboarded, the user can register additional addresses to the whitelist.
 
-1 - The user submits a transaction that includes the following information:  
-
+The user submits a transaction that includes the following information:  
 
 * the tweaked address, ecrypted with ``pub_c``  
 * The operation code (``OP_REGISTERADDRESS``)  
@@ -94,8 +91,8 @@ After the user's wallet has been onboarded, the user can register additional add
 Processing
 ~~~~~~~~~~
 
-1 - The signing node looks up the ``pub_c`` from the ``addr:pub_c`` map using the transactions input address (users will request new addresses using existing addresses).
-2 - If the ``pub_c`` is already whitelisted, the node decrypts ``addr_e``, adds it to the whitelist and updates the ``pub_c:addr`` map.  
+1. The signing node looks up the ``pub_c`` from the ``addr:pub_c`` map using the transactions input address (users will request new addresses using existing addresses).
+2. If the ``pub_c`` is already whitelisted, the node decrypts ``addr_e``, adds it to the whitelist and updates the ``pub_c:addr`` map.  
 
 Node restart
 ------------
