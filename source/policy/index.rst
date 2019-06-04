@@ -57,30 +57,38 @@ User onboarding
 A protocol is incorporated that streamlines the user onboarding process, and allows users to self-register of validated whitelist addresses in a way that preserves user privacy. 
 
 Preliminaries
-^^^^^^^^^^^^^
+-------------
 
-The asset issuer creates a deterministic "wallet" key pairs ``pub_c`` and ``priv_c`` and publishes the master public key to the genesis block.
+A shared deterministic wallet is generated and copied to the whitelisting node and the signing nodes. This private keys from the wallet are used for encrypting and decrypting whitelisting transactions as described below.
+
+A WHITELIST asset is defined and published in the genesis block. This asset is initially assigned to an output owned by the wallet of the "whitelisting node". The whitelist asset is required for initial address whitelisting (user onboarding) and blacklisting transactions.
+
+The asset issuer creates deterministic "wallet" key pairs ``pub_{kyc}`` (referred to as "KYC public keys") and ``priv_{kyc}`` and publishes the ``pub_{kyc}`` keys to the blockchain via a policy transaction using the WHITELIST asset as the asset type. The ``priv_{kyc}`` are known by the signing nodes and the whitelisting node, as they all share the same deterministic wallet. 
 
 Onboarding
-^^^^^^^^^^
+----------
 
-1 - The user randomly selects a ``pub_c`` using the master public key published in the genesis block (see preliminaries above). This will serve as their unique user ID.
-2 - The user sends an encrypted (with ``pub_c``) address ``addr_e`` to the KYC vendor together with their ``pub_c``.
-3 - The KYC vendor forwards the result of the checks together with addr_e and pub_c to a webhook.\ :raw-html-m2r:`<br>`
-4 - If the user passed the KYC/AML checks then ``pub_c`` is recorded in the blockchain together with ``addr_e`` in a ``OP_REGISTERID`` transaction. This operation should is restricted and managed using the whitelist policy permission token. 
+1 - The user randomly selects a ``pub_{kyc}`` from the unassigned ``pub_{kyc}`` keys. 
+2 - The user generates a public private key pair (``pub_{uob}``, ``priv_{uob}``) and creates file containing ``pub_{kyc}`` and ``pub_{uob}`, tweaked address and corresponding untweaked public key data data for the addresses they want to register. The address data are encrypted using a shared secret generated from ``priv_{uob}`` and ``pub_{kyc}``. Therefore, the addresses can be read by the user, the signing nodes and the whitelisting node only. This "KYC file" is forwarded to the KYC vendor together with the user's ID details. 
+3 - The KYC vendor forwards the result of the checks together with the KYC file data to a webhook.
+4 - If the user passed the KYC/AML checks then ``pub_{kyc}`` (or a newly assigned one if the original ``pub_{kyc}`` has been assigned to another user) is 
+recorded in the blockchain together with the user's wallet addresses in a ``OP_REGISTERID`` transaction. Again, the WHITELIST asset is required for this 
+transaction to have any effect.
 
-The signing nodes will build a map in RAM of ``pub_c:addr`` for convenience and speed.
+The signing nodes and whitelisting nodes will build whitelisted address tables in RAM for convenience and speed.
 
 User address self-registration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 Submission
 ~~~~~~~~~~
 
+After the user's wallet has been onboarded, the user can register additional addresses to the whitelist.
+
 1 - The user submits a transaction that includes the following information:  
 
 
-* ``addr_e``, ecrypted with ``pub_c``  
+* the tweaked address, ecrypted with ``pub_c``  
 * The operation code (``OP_REGISTERADDRESS``)  
 
 Processing
@@ -90,19 +98,19 @@ Processing
 2 - If the ``pub_c`` is already whitelisted, the node decrypts ``addr_e``, adds it to the whitelist and updates the ``pub_c:addr`` map.  
 
 Node restart
-^^^^^^^^^^^^
+------------
 
 In case of node restart, the whitelist is rebuilt from the blockchain.
 
 Privacy
-^^^^^^^
+-------
 
-Access to the master key is required in order to link users to addresses. 
+Access to the whitelisting wallet master key or a ``priv_{kyc}`` is required in order to link users to addresses. 
 
 Auditing
-^^^^^^^^
+--------
 
-Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_c``, without revealing any other user's addresses.
+Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_{kyc}``, without revealing any other user's addresses.
 
 Advantages
 -----------
@@ -115,9 +123,9 @@ Advantages
 
 
 OP codes
-~~~~~~~~
+--------
 
+The below opcode is used for address registration transactions.
 
 * OP_REGISTERADDRESS  
-* OP_REGISTERID
-* OP_REGISTERIDPUBKEY
+
