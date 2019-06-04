@@ -63,15 +63,15 @@ A shared deterministic wallet is generated and copied to the whitelisting node a
 
 A WHITELIST asset is defined and published in the genesis block. This asset is initially assigned to an output owned by the wallet of the "whitelisting node". The whitelist asset is required for initial address whitelisting (user onboarding) and blacklisting transactions.
 
-The asset issuer creates deterministic "wallet" key pairs ``pub_{kyc}`` (referred to as "KYC public keys") and ``priv_{kyc}`` and publishes the ``pub_{kyc}`` keys to the blockchain via a policy transaction using the WHITELIST asset as the asset type. The ``priv_{kyc}`` are known by the signing nodes and the whitelisting node, as they all share the same deterministic wallet. 
+The asset issuer creates deterministic "wallet" key pairs ``pub_kyc`` (referred to as "KYC public keys") and ``priv_kyc`` and publishes the ``pub_kyc`` keys to the blockchain via a policy transaction using the WHITELIST asset as the asset type. The ``priv_kyc`` are known by the signing nodes and the whitelisting node, as they all share the same deterministic wallet. 
 
 Onboarding
 ----------
 
-1 - The user randomly selects a ``pub_{kyc}`` from the unassigned ``pub_{kyc}`` keys. 
-2 - The user generates a public private key pair (``pub_{uob}``, ``priv_{uob}``) and creates file containing ``pub_{kyc}`` and ``pub_{uob}`, tweaked address and corresponding untweaked public key data data for the addresses they want to register. The address data are encrypted using a shared secret generated from ``priv_{uob}`` and ``pub_{kyc}``. Therefore, the addresses can be read by the user, the signing nodes and the whitelisting node only. This "KYC file" is forwarded to the KYC vendor together with the user's ID details. 
+1 - The user randomly selects a ``pub_kyc`` from the unassigned ``pub_kyc`` keys. 
+2 - The user generates a public private key pair (``pub_uob``, ``priv_uob``) and creates file containing ``pub_kyc`` and ``pub_uob``, tweaked address and corresponding untweaked public key data data for the addresses they want to register. The address data are encrypted using a shared secret generated from ``priv_uob`` and ``pub_kyc``. Therefore, the addresses can be read by the user, the signing nodes and the whitelisting node only. This "KYC file" is forwarded to the KYC vendor together with the user's ID details. 
 3 - The KYC vendor forwards the result of the checks together with the KYC file data to a webhook.
-4 - If the user passed the KYC/AML checks then ``pub_{kyc}`` (or a newly assigned one if the original ``pub_{kyc}`` has been assigned to another user) is 
+4 - If the user passed the KYC/AML checks then ``pub_kyc`` (or a newly assigned one if the original ``pub_kyc`` has been assigned to another user) is 
 recorded in the blockchain together with the user's wallet addresses in a ``OP_REGISTERID`` transaction. Again, the WHITELIST asset is required for this 
 transaction to have any effect.
 
@@ -105,12 +105,12 @@ In case of node restart, the whitelist is rebuilt from the blockchain.
 Privacy
 -------
 
-Access to the whitelisting wallet master key or a ``priv_{kyc}`` is required in order to link users to addresses. 
+Access to the whitelisting wallet master key or a ``priv_kyc`` is required in order to link users to addresses. 
 
 Auditing
 --------
 
-Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_{kyc}``, without revealing any other user's addresses.
+Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_kyc``, without revealing any other user's addresses.
 
 Advantages
 -----------
