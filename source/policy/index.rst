@@ -109,16 +109,6 @@ Auditing
 
 Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_kyc``, without revealing any other user's addresses.
 
-Advantages
------------
-
-* Users only register the additional addresses they need, and pay a small price for the privilege via a transaction fee. This avoids bloating the whitelist records unneccessarily, and enables user to register as many new addresses as they require.
-* Whitelist address registration is recorded immutably on the blockchain. 
-* Registering new addresses is done independently by the user (features should be added to the wallet GUI to assist with this process).
-* Contact hash can be registered on a per-user basis if desired, offering greater flexibility.
-* ID keys and links to their associated addresses are kept of the blockchain but can be audited if necessary.
-
-
 OP codes
 --------
 
