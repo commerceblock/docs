@@ -25,6 +25,7 @@ Download and read terms and conditions
 """"""""""""""""""""""""""""""""""""""
 
 .. code-block:: console
+
    curl -O https://raw.githubusercontent.com/commerceblock/ocean/master/doc/terms-and-conditions/ocean_main/latest.txt
 
 Download image and start
