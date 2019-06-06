@@ -21,6 +21,12 @@ Or
 
    curl -O https://raw.githubusercontent.com/commerceblock/ocean/master/contrib/docker/docker-compose.yml
 
+Download and read terms and conditions
+""""""""""""""""""""""""""""""""""""""
+
+.. code-block:: console
+   curl -O https://raw.githubusercontent.com/commerceblock/ocean/master/doc/terms-and-conditions/ocean_main/latest.txt
+
 Download image and start
 """"""""""""""""""""""""
 
@@ -78,6 +84,9 @@ Data persistence
 .. code-block:: console
 
    mkdir ~/ocean_full_node
+   mkdir -p ~/ocean_full_node/terms-and-conditions/ocean_test
+   cp latest.txt ~/ocean_full_node/terms-and-conditions/ocean_test/
+   
    edit: docker-compose.yml, adding:
 
     image: commerceblock/ocean:latest
