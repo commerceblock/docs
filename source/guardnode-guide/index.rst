@@ -10,6 +10,7 @@ Download the docker-compose file from https://github.com/commerceblock/ocean/tre
 Use the command line interface to find about active requests:
 
 .. code-block:: bash
+
     ocean-cli getrequests
 
 2. Run the client chain node
@@ -19,11 +20,13 @@ By picking one of the requests returned decide which client chain to offer the s
 Start the client ocean node:
 
 .. code-block:: bash
+
     docker-compose start ocean
 
 Using the client chain node generate a pubkey on which the fee rewards will be paid by:
 
 .. code-block:: bash
+
     addr=`ocean-cli getnewaddress`
     pub=`ocean-cli validateaddress $addr | jq -r ".pubkey"`
 
@@ -33,6 +36,7 @@ Using the client chain node generate a pubkey on which the fee rewards will be p
 The following script can be used to generate a bid for an active request. Several parameters will need to be filled specific to the request.
 
 .. code-block:: bash
+
     #!/bin/bash
     shopt -s expand_aliases
 
@@ -85,9 +89,11 @@ Using the ocean service node verify that your bid has been approved using:
 Once verified fill the `bidpubkey` and `bidpubkey` on the docker compose file downloaded for the client chain and start the guardnode service by:
 
 .. code-block:: bash
+
     docker-compose start guardnode
 
 Monitor the logs using:
 
 .. code-block:: bash
+
     docker-compose logs --follow guardnode
