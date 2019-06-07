@@ -12,13 +12,14 @@ The full node wallet will need to be funded with PERMISSION assets in order to c
 2. Create a request
 
 The following script can be used to create a request. The following parameters need to be filled:
-- Client chain genesis hash
-- Number of tickets
-- Fee percentage paid
-- Start block height
-- End block height
-- Starting auction price
-- Auction decay constant
+
+* Client chain genesis hash
+* Number of tickets
+* Fee percentage paid
+* Start block height
+* End block height
+* Starting auction price
+* Auction decay constant
 
 .. code-block:: bash
 
@@ -73,6 +74,4 @@ Check that a request has been included in the chain using:
 
     ocean-cli getrequests
 
-Download the `report script <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_, replace the `txid` parameter with the request id parameter and run this script to monitor the guardnode response performance.
-
-This will only work once the request has become active.
+Download the `report script <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_, replace the `txid` parameter with the request id parameter and run this script to monitor the guardnode response performance. This will only work once the request has become active.

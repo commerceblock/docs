@@ -40,9 +40,10 @@ Using the client chain node generate a pubkey to receive fee rewards on:
 3. Bid for a request
 
 The following script can be used to bid for an active request. The following parameters need to be filled:
-- Fee pubkey generated previously
-- Request transaction id from `getrequests` rpc
-- Current auction price from `getrequests` rpc
+
+* Fee pubkey generated previously
+* Request transaction id from `getrequests` rpc
+* Current auction price from `getrequests` rpc
 
 .. code-block:: bash
 
