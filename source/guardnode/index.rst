@@ -3,16 +3,6 @@ Guardnode daemon
 
 Guardnode daemon responding to client chain coordinator challenges and generating alerts for misbehavior on the chain.
 
-Requirements
-------------
-
-* Run a client chain Ocean full node
-* Generate an address and extract the pubkey
-* Use the Guardnode wallet to bid on active requests for the clientchain
-* Run the Guardnode daemon connecting to the client chain node
-* Monitor the client chain and send challenge responses to the coordinator
-* Receive client chain assets on the address at the end of the request period
-
 Running
 -------
 
