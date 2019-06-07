@@ -95,6 +95,7 @@ The following script can be used to bid for an active request. The following par
 Verify that the bid has been approved by using the service node:
 
 .. code-block:: bash
+
     ocean-cli getrequestbids $requesttxid
 
 Once verified fill the `bidpubkey` and `bidpubkey` arguments on the docker-compose file downloaded for the client chain under `guardnode` and start the guardnode service by:

@@ -65,6 +65,7 @@ This documentation covers the central components of the CommerceBlock technology
    coordinator/index
    guardnode/index
    guardnode-guide/index
+   request-guide/index
    twowp/index
 
 .. toctree::
