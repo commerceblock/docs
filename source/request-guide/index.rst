@@ -74,4 +74,4 @@ Check that a request has been included in the chain using:
 
     ocean-cli getrequests
 
-Download the `report script <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_, replace the `txid` parameter with the request id parameter and run this script to monitor the guardnode response performance. This will only work once the request has become active.
+Download the `report script <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_, replace the `txid` parameter with the request id parameter and run this script to monitor the guardnode response performance and pays due to be paid to each by the end of the service. This information will only become available once the service request has started.
