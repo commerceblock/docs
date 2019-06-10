@@ -2223,6 +2223,121 @@ addresses in the node mempool whitelist to a specified file.
 
    ocean-cli dumpwhitelist dumpfile.txt
 
+sendaddmultitowhitelisttx
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``sendaddmultitowhitelisttx`` RPC serializes and sends an OP_REGISTERADDRESS transaction for multisig which is used to add a valid contract tweaked p2sh (multisig) address to the whitelist. It requires an address, number of required signatures and corresponding base public
+keys, and the RPC checks that the address is valid and has been tweaked
+from the supplied base public keys with the current
+contract hash as present in the most recent block header. Whitelist node reads the transaction and adds the address to a whitelist if details are valid.
+
+*Parameter #1---the Base58check contract tweaked p2sh address*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>tweakedaddress</td>
+      <td>string</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Base58check encoded contract tweaked p2sh address</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Parameter #2---the base (un-tweaked) compressed public keys that the p2sh was created with*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>basepubkeys</td>
+      <td>array</td>
+      <td>Required<br />(1 or more)</td>
+      <td>Hex encoded base public keys</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #3---the n of Multisig*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>nmultisig</td>
+      <td>integer</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>number of signatures required for multisig</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #4---the fee asset type*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>feeasset</td>
+      <td>string</td>
+      <td>Optional<br />(exactly 1)</td>
+      <td>Type of the fee asset</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Result---transaction hex if valid, errors returned if invalid inputs or null if wallet is not working*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli sendaddmultitowhitelisttx 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz [028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58,028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58] 1
+
+
 addtofreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
