@@ -29,6 +29,7 @@ Wallet
 * `validatederivedkeys <#validatederivedkeys>`_
 * [dumpkycfile][]
 * [readkycfile][]
+* `createkycfile <#createkycfile>`_
 * `getderivedkeys <#getderivedkeys>`_
 * `getcontract <#getcontract>`_
 * `getcontracthash <#getcontracthash>`_
@@ -52,11 +53,13 @@ Policy
 
 
 * `addtowhitelist <#addtowhitelist>`_
+* `addmultitowhitelist <#addmultitowhitelist>`_
 * `readwhitelist <#readwhitelist>`_
 * `querywhitelist <#querywhitelist>`_
 * `removefromwhitelist <#removefromwhitelist>`_
 * `clearwhitelist <#clearwhitelist>`_
 * `dumpwhitelist <#dumpwhitelist>`_
+* `sendaddmultitowhitelisttx <#sendaddmultitowhitelisttx>`_
 * `addtofreezelist <#addtofreezelist>`_
 * `queryfreezelist <#queryfreezelist>`_
 * `removefromfreezelist <#removefromfreezelist>`_
@@ -168,6 +171,124 @@ tweaked with the current contract hash.
 .. code-block:: text
 
    ocean-cli validatederivedkeys
+
+createkycfile
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2sh address data to be whitelisted when onboarding
+
+*Parameter #1---the created KYC file name*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>filename</td>
+      <td>string</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Name of the kYC file</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Parameter #2---P2PKH data for whitelisting in an onboarding transaction*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>pubkeylist</td>
+      <td>array of objects</td>
+      <td>Required<br />(1 or more)</td>
+      <td>Contains tweaked addresses and respective untweaked public keys</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Parameter #3---P2SH data for whitelisting in an onboarding transaction*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>multisiglist</td>
+      <td>array of objects</td>
+      <td>Required<br />(1 or more)</td>
+      <td>Contains multisig metadata such as number of required signatures and arrays of untweaked public keys</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Parameter #4---the public key issued by the server for onboarding encryption.*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>onboardpubkey</td>
+      <td>string</td>
+      <td>Optional<br />(exactly 1)</td>
+      <td>Public key that is used for onboarding encryption</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---onboarding user public key if successful, null or rpc errors if passed data is invalid or wallet is not available*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli createkycfile "test" [{"address":2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz,"pubkey":028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58}] [{"nmultisig":1,"pubkeys":[028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58,0263a73eca5334af77037a1c8844b5220017bf6fb627c5a57c862dff20ea001d99]}]
+
+Result:
+
+.. code-block:: text
+
+   028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58
 
 getderivedkeys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
