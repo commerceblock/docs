@@ -59,6 +59,7 @@ Policy
 * `removefromwhitelist <#removefromwhitelist>`_
 * `clearwhitelist <#clearwhitelist>`_
 * `dumpwhitelist <#dumpwhitelist>`_
+* `sendaddtowhitelisttx <#sendaddtowhitelisttx>`_
 * `sendaddmultitowhitelisttx <#sendaddmultitowhitelisttx>`_
 * `addtofreezelist <#addtofreezelist>`_
 * `queryfreezelist <#queryfreezelist>`_
@@ -2336,6 +2337,68 @@ contract hash as present in the most recent block header. Whitelist node reads t
 .. code-block:: bash
 
    ocean-cli sendaddmultitowhitelisttx 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz [028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58,028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58] 1
+
+sendaddtowhitelisttx
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``sendaddtowhitelisttx`` RPC serializes and sends an OP_REGISTERADDRESS transaction which is used to add valid contract tweaked addresses to the whitelist (they are automatically retrieved from the wallet pool). Whitelist node reads the transaction and adds the addresses to a whitelist if details are valid.
+
+*Parameter #1---Number of addresses that should be taken from the wallet pool and whitelisted*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>naddresses</td>
+      <td>integer</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Number of addresses to register</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2---the fee asset type*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>feeasset</td>
+      <td>string</td>
+      <td>Optional<br />(exactly 1)</td>
+      <td>Type of the fee asset</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Result---transaction hex if valid, null if wallet is not working*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli sendaddtowhitelisttx 100
 
 
 addtofreezelist
