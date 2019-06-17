@@ -41,6 +41,10 @@ The following script can be used to create a request. The following parameters n
     # TO UNLOCK A PREVIOUS REQUEST
     # Provide the `txid` and `vout` for that transaction
     # The output can be spent after the locktime is expired
+    # e.g.
+    # txid="\"1d91bae7353c0b1fb7178b92b642746ea4ace1d79e1c5d3c680526ef9f4589a7\""
+    # vout=0
+    # value=210000
 
     # Client chain genesis block hash
     genesis=""

@@ -68,6 +68,10 @@ The following script can be used to bid for an active request. The following par
     # TO UNLOCK A PREVIOUS BID
     # Provide the `txid` and `vout` for that transaction
     # The output can be spent after the locktime is expired
+    # e.g.
+    # value=5000
+    # vout=0
+    # txid="\"a327b15679f7fd0a8984cdb16f07c2c92063c5565af2f7ce99cff8d4750add8d\""
 
     # Fee
     fee=0.001
