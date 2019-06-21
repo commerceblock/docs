@@ -21,6 +21,9 @@ Env variables to set:
 
 * CO_LISTENER_HOST: host address at which the coordinator binds to receive guardnode responses
 * CO_CHALLENGE_FREQUENCY: the frequency in number of blocks that new challenges are created
+* CO_CHALLENGE_DURATION: challenge duration in seconds
+* CO_VERIFY_DURATION: challenge transaction verify duration in seconds
+* CO_LOG_LEVEL: env logger log level
 * CO_API_HOST: rpc api host address
 * CO_API_USER: rpc api user name
 * CO_API_PASS: rpc api password
@@ -33,6 +36,8 @@ Env variables to set:
 * CO_CLIENTCHAIN_PASS: client chain rpc password
 * CO_CLIENTCHAIN_ASSET_HASH: client chain challenge asset hash
 * CO_CLIENTCHAIN_GENESIS_HASH: client chain genesis hash
+* CO_CLIENTCHAIN_ASSET: client chain challenge asset label
+* CO_CLIENTCHAIN_ASSET_KEY: client chain challenge asset key
 * CO_SERVICE_HOST: service chain host address
 * CO_SERVICE_USER: service chain user name
 * CO_SERVICE_PASS: service chain password
