@@ -19,7 +19,7 @@ Use the command line interface to find about active requests:
 
 2. Running the client chain node
 
-Pick one of the active requests with an active auction and run the client chain full node for this chain request by downloading the corresponding docker-compose file from `guardnode github <https://github.com/commerceblock/guardnode/tree/master/contrib/docker-compose/>`_.
+Pick one of the active requests with an active auction and run the client chain full node for this chain request by downloading the `guardnode repo <https://github.com/commerceblock/guardnode/>`_ and running the corresponding docker-compose file in the `contrib directory <https://github.com/commerceblock/guardnode/tree/master/contrib/>`_.
 
 (Under development) Also available in the CB services platform.
 
@@ -27,7 +27,7 @@ Start the client ocean node:
 
 .. code-block:: bash
 
-    docker-compose -f docker-compose-filename.yml up -d ocean
+    docker-compose -f contrib/docker-compose-filename.yml up -d ocean
 
 Using the client chain node generate a pubkey to receive fee rewards on:
 
@@ -107,10 +107,10 @@ Once verified fill the `bidpubkey` and `bidpubkey` arguments on the docker-compo
 
 .. code-block:: bash
 
-    docker-compose -f docker-compose-filename.yml up -d guardnode
+    docker-compose -f contrib/docker-compose-filename.yml up -d guardnode
 
 Monitor the logs using and look out for any alerts:
 
 .. code-block:: bash
 
-    docker-compose -f docker-compose-filename.yml logs --follow guardnode
+    docker-compose -f contrib/docker-compose-filename.yml logs --follow guardnode
