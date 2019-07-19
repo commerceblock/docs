@@ -566,7 +566,7 @@ Result:
 getethaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``getethaddress`` RPC returns an ethereum address from a EC private key.
+The ``getethaddress`` RPC returns an ethereum address from an EC private key.
 
 *Parameter #1 --- (hex, required) private key*
 
@@ -622,6 +622,8 @@ The ``getethpegin`` RPC returns an eth ERC-20 peg-in transaction via geth rpc co
 
    ocean-cli getethpegin 8b75539cc2b54efe15cd3a0f678545e3f154ca69ba87004d484d10eeb1359cc7
 
+Result:
+
 .. code-block:: json
 
     {
@@ -674,7 +676,10 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
 
    ocean-cli createrawethpegin 8b75539cc2b54efe15cd3a0f678545e3f154ca69ba87004d484d10eeb1359cc7 432.109 03220271a8833566153dbfa52c4ba13d2e56970885e6178a4ce6fa81ecaf38c35a
 
+Result:
+
 .. code-block:: text
+
     0200000001016ca60fb08c36a2e77e0810de32181b63e8250fbf9a398f9bf9e53444cbf680300000004000ffffffff0201bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a01000003a3529429a8001976a914923e4d01599a5f200ad0527dc046e85bc4d19a5888ac01bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a010000000000001658000000000000000000050800409452a303000020bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a20a38fcbb10d8cec9ae6346a90d018a14567f5d5406ab810c0f8ae76f84067e5d42103220271a8833566153dbfa52c4ba13d2e56970885e6178a4ce6fa81ecaf38c35a206ca60fb08c36a2e77e0810de32181b63e8250fbf9a398f9bf9e53444cbf6803000000000
 
 validateethpegin
@@ -696,7 +701,10 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
 
    ocean-cli validateethpegin 8b75539cc2b54efe15cd3a0f678545e3f154ca69ba87004d484d10eeb1359cc7 432.109 03220271a8833566153dbfa52c4ba13d2e56970885e6178a4ce6fa81ecaf38c35a
 
+Result:
+
 .. code-block:: text
+
     true
 
 claimethpegin
@@ -718,7 +726,10 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
 
    ocean-cli claimethpegin 8b75539cc2b54efe15cd3a0f678545e3f154ca69ba87004d484d10eeb1359cc7 432.109 03220271a8833566153dbfa52c4ba13d2e56970885e6178a4ce6fa81ecaf38c35a
 
+Result:
+
 .. code-block:: text
+
     bb2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
 sendtoethmainchain
@@ -740,7 +751,10 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
 
    ocean-cli sendtoethmainchain 8e8a0ec05cc3c2b8511aabadeeb821df19ea7564 533.22 false
 
+Result:
+
 .. code-block:: text
+
     aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
 createrawissuance
