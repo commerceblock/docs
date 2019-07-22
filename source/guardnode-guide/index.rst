@@ -19,7 +19,7 @@ Use the command line interface to find about active requests:
 
 2. Running the client chain node
 
-Pick one of the active requests with an active auction and run the client chain full node for this chain request by downloading the `guardnode repo <https://github.com/commerceblock/guardnode/>`_ and running the corresponding docker-compose file in the `contrib directory <https://github.com/commerceblock/guardnode/tree/master/contrib/>`_.
+Pick one of the active requests with an active auction and run the client chain full node for this chain request by downloading the `guardnode repo <https://github.com/commerceblock/guardnode/>`_ and running the corresponding docker-compose file in the `contrib directory <https://github.com/commerceblock/guardnode/tree/master/contrib/docker-compose/>`_.
 
 (Under development) Also available in the CB services platform.
 
@@ -50,7 +50,7 @@ The following script can be used to bid for an active request. The following par
     #!/bin/bash
     shopt -s expand_aliases
 
-    alias ocl="ocean-cli -rpcport=7043 -rpcuser=ocean -rpcpassword=oceanpass"
+    alias ocl="ocean-cli -rpcport=7043 -rpcuser=ocean -rpcpassword=password"
 
     echo "Creating bid in service chain"
 
