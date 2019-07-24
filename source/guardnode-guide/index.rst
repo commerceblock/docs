@@ -95,6 +95,17 @@ The following script can be used to bid for an active request. The following par
     txidbid=`ocl sendrawtransaction $(echo $signedtx | jq -r ".hex")`
     echo "txid: $txidbid"
 
+
+To use the script create a file called `create_bid.sh` with the contents and do the following commands:
+
+.. code-block:: bash
+
+    cp create_bid.sh ../datadir/
+
+    docker-compose -f contrib/docker-compose-filename.yml exec ocean bash
+
+    ./home/bitcoin/.bitcoin/create_bid.sh
+
 4. Running the guardnode service
 
 Verify that the bid has been approved by using the service node:
