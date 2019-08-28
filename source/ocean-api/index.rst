@@ -41,6 +41,7 @@ Wallet
 * `validateethpegin <#validateethpegin>`_
 * `claimethpegin <#claimethpegin>`_
 * `sendtoethmainchain <#sendtoethmainchain>`_
+* `sendanytoaddress <#sendanytoaddress>`_
 
 Utility
 ^^^^^^^
@@ -750,6 +751,41 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
 .. code-block:: bash
 
    ocean-cli sendtoethmainchain 8e8a0ec05cc3c2b8511aabadeeb821df19ea7564 533.22 false
+
+Result:
+
+.. code-block:: text
+
+    aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
+
+sendanytoaddress
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to the address. The cumulative sum of the assets is equal to the desired amount. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
+
+
+*Parameter #1 --- (hex, required) destination address*
+
+*Parameter #2 --- (numeric, required) amount to be sent to the destination*
+
+*Parameter #3 --- (string, optional) A comment used to store what the transaction is for.*
+
+*Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction.*
+
+*Parameter #5 --- (boolean, optional) The fee will be deducted from the amount being sent if this is set to true.*
+
+*Parameter #6 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true.*
+
+*Parameter #7 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true.*
+
+*Parameter #8 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending.*
+
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli sendtanytoaddress 8e8a0ec05cc3c2b8511aabadeeb821df19ea7564 533.22
 
 Result:
 
