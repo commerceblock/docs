@@ -772,13 +772,11 @@ The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to the
 
 *Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction.*
 
-*Parameter #5 --- (boolean, optional) The fee will be deducted from the amount being sent if this is set to true.*
+*Parameter #5 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true.*
 
-*Parameter #6 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true.*
+*Parameter #6 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true.*
 
-*Parameter #7 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true.*
-
-*Parameter #8 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending.*
+*Parameter #7 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending.*
 
 
 *Example*
