@@ -2364,7 +2364,7 @@ contract hash as present in the most recent block header. The file format is as 
    </table>
 
 
-*Result---none if valid, errors returned if invalid inoputs*
+*Result---none if valid, errors returned if invalid inputs*
 
 *Example*
 
@@ -2961,7 +2961,7 @@ The ``clearburnlist`` RPC clears the mempool whitelist of all addresses.
 
 *Parameters: none*
 
-*Result: nome*
+*Result: none*
 
 *Example*
 

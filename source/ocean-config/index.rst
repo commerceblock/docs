@@ -1,7 +1,7 @@
 Ocean configuration
 ===================
 
-Ocean nodes are configured via ``oceand`` command line arguments or parameters specified in the ``ocean.conf`` configuration file located in ``-datadir``. Ocean inherits all of the configuration options from *Elements 0.14* (which in turn inherits all of the configuration options from *Bitcoin 0.13*). Ocean specific configuration options are described below, with examples and whether they form part of the genesis block and are therefore critical to the definition of the chain. 
+Ocean nodes are configured via ``oceand`` command line arguments or parameters specified in the ``ocean.conf`` configuration file located in ``-datadir``. Ocean inherits all of the configuration options from *Elements 0.14* (which in turn inherits all of the configuration options from *Bitcoin 0.13*). Ocean specific configuration options are described below, with examples and whether they form part of the genesis block and are therefore critical to the definition of the chain.
 
 Sample config
 -------------
@@ -62,7 +62,7 @@ Currently the following hardcoded names exist (from ``chainparamsbase.h``\ ):
    #define CHAINPARAMS_OCEAN_TEST "ocean_test"
    #define CHAINPARAMS_ASSET_MAIN "asset_main"
 
-Unlesss the ``--chain`` parameter is specified then the default **ocean_test** name is chosen.
+Unless the ``--chain`` parameter is specified then the default **ocean_test** name is chosen.
 
 Based on this parameter the chain params are chosen as (from ``chainparams.cpp``\ ):
 
@@ -107,7 +107,7 @@ terms and conditions
      - yes
 
 
-The terms and conditions are required in the derivation of new ocean addresses, where the contract hash is used to tweak the corresponding priv/pub key (per BIP175). This hash is, for reference and validation, included in the genesis block of the chain, therefore any ocean node attempting to connect to a speficic chain that has this functionality enabled will need to have a copy of the terms and conditions in the datadir.
+The terms and conditions are required in the derivation of new ocean addresses, where the contract hash is used to tweak the corresponding priv/pub key (per BIP175). This hash is, for reference and validation, included in the genesis block of the chain, therefore any ocean node attempting to connect to a specific chain that has this functionality enabled will need to have a copy of the terms and conditions in the datadir.
 
 The terms and conditions are copied as part of building the Dockerfile but will need to be copied manually when running ocean independently. The latest contracts can be found in ``ocean/doc/$chain``. The ``chain`` name specified above is also used as the directory name under ``doc`` to specify where the contract for each chain is stored.
 
@@ -214,7 +214,7 @@ Script destination for burnlist coins, required if burnlist is enabled (option -
      - yes
 
 
-Script destination for public key hash whitlelist coins, required if whitelist is enabled (option -pkhwhitelist=1). The number of coins is specified by ``policycoins``.
+Script destination for public key hash whitelist coins, required if whitelist is enabled (option -pkhwhitelist=1). The number of coins is specified by ``policycoins``.
 
 --con_mandatorycoinbase
 ^^^^^^^^^^^^^^^^^^^^^^^

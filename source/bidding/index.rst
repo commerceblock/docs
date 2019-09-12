@@ -162,7 +162,7 @@ Any excess amount will have to be returned to an address owned by the user, usin
 Bid transaction validity
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-When a bid transaction is recieved into a block, the ``UpdateRequestBidList`` function will determine its validity, and if it is valid, the TxID and other bid information will be added to the relevant request bid set in the request list. The validity will be determined as follows:
+When a bid transaction is received into a block, the ``UpdateRequestBidList`` function will determine its validity, and if it is valid, the TxID and other bid information will be added to the relevant request bid set in the request list. The validity will be determined as follows:
 
 
 #. Check if transaction is encoded as a bid transaction.
