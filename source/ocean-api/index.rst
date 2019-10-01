@@ -3875,14 +3875,6 @@ Enables node mempool address freezelisting.
     </tbody>
    </table>
 
-*Example---The following examples enable freezelisting*
-
-.. code-block:: bash
-
-   oceand -freezelist
-   
-In ocean.conf:
-   freezelist=1
 
 
 burnlist
@@ -3909,20 +3901,11 @@ Enables node mempool address burnlisting.
     </tbody>
    </table>
 
-*Example---The following examples enable burnlisting*
-
-.. code-block:: bash
-
-   oceand -burnlist
-   
-In ocean.conf:
-   burnlist=1
-   
    
 issuanceblock
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Enables blocking of invalid issuance transactions from mempool. Checks that asset issuance transactions have an issuanceAsset input.
+Enables blocking of invalid issuance transactions from mempool by checking that asset issuance transactions have an issuanceAsset input.
 
 *Argument---TRUE or FALSE*
 
@@ -3942,15 +3925,6 @@ Enables blocking of invalid issuance transactions from mempool. Checks that asse
      </tr>
     </tbody>
    </table>
-
-*Example---The following examples enable issuance blocking*
-
-.. code-block:: bash
-
-   oceand -issuanceblock
-   
-In ocean.conf:
-   issuanceblock=1
    
    
 disablect
@@ -3977,11 +3951,475 @@ Disables confidential transactions and addresses.
     </tbody>
    </table>
 
-*Example---The following examples enables disablect
+   
+   
+embedcontract
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable hash of chain's contract to be embedded in block header and addresses.
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>1</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples will disable contract hash embedding
 
 .. code-block:: bash
 
-   oceand -disablect
+   oceand -embedcontract=0
    
 In ocean.conf:
-   disablect=1
+   embedcontract=0
+
+
+attestationhash
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Embed the given attestation hash in the block header.
+
+*Argument---Attestation hash*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>String (hex)</td>
+      <td>null</td>
+      <td>256-bit attestation hash</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following will set the contract hash for embedding
+
+.. code-block:: bash
+
+   oceand -attestationhash=aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
+   
+In ocean.conf:
+   attestationhash=aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
+
+
+embedmapping
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable asset mapping object embedding in block header.
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>1</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+issuecontrolscript
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Embed the given issuance controller script in the genesis block as a coinbase transaction in an op_return script. Does nothing if set after chain initialisation.
+
+*Argument---issuance control script*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>String (hex)</td>
+      <td>null</td>
+      <td>hex encoding of issuance control script</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+policycoins
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The amount of policy coins created in the genesis block.
+
+*Argument---Number of policy coins to create*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Amount</td>
+      <td>0</td>
+      <td>Amount of policy coins to create</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+
+
+initialfreecoinsdestination
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The destination of the OP_TRUE initial freecoins created in the genesis block. This functionality is used primarily for testing.
+
+*Argument---Address to hold created coins*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Destination of created freecoins</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+freezelistcoinsdestination
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The destination of the tokens for controlling the freezelist.
+
+*Argument---Address to hold created freeze tokens*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Destination of tokens to control freezelist</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+burnlistcoinsdestination
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The destination of the tokens for controlling the burnlist.
+
+*Argument---Address to hold created burn tokens*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <td>Description</td>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Destination of tokens to control burnlist</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+issuancelistcoinsdestination
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The destination of the tokens for controlling issuances.
+
+*Argument---Address to hold created issuance coins*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Destination of tokens to control issueances</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+permissioncoinsdestination
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The destination of the tokens for permitting request creation.
+
+*Argument---Address to hold created permitting request tokens*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Destination of tokens for permitting requests</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+mainchainrpchost
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The rpc host address which the daemon will try to connect to validate peg-ins, if enabled. By default cookie authentication is attempted.
+
+*Argument---main chain rpc host*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>host</td>
+      <td>String</td>
+      <td>Cookie Auth</td>
+     </tr>
+    </tbody>
+   </table>
+   
+ mainchainrpcport
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The rpc port number which the daemon will try to connect to validate peg-ins, if enabled. By default cookie authentication is attempted.
+
+*Argument---main chain rpc port*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>port</td>
+      <td>String</td>
+      <td>Cookie Auth</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+validatepegin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable validation of all peg-in claims.
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+parentgenesisblockhash
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set parent genesis blockhash. Ethereum mainnet is default.
+
+*Argument---parent block hash*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>String (hex)</td>
+      <td>d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3</td>
+      <td>Hex-encoded hash of desired parent block</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+parentcontract
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set parent ERC20 contract script. Enabling causes creation of a new chain with a different genesis block.
+
+*Argument---ERC20 contract script*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>String (hex)</td>
+      <td>076C97e1c869072eE22f8c91978C99B4bcB02591</td>
+      <td>Hex encodeing of ERC20 script</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+fedpegaddress
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set ETH address of federated peg. This creates a new chain with a different genesis block.
+
+*Argument---Ethereum address*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Descritpion</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>null</td>
+      <td>Ethereum address of federated peg</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+peginconfirmationdepth
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set required depth of network for peg-in claims to be considered valid. 
+
+*Argument---block height*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Integer</td>
+      <td>8</td>
+      <td>block height</td>
+     </tr>
+    </tbody>
+   </table>
