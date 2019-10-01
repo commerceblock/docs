@@ -128,7 +128,7 @@ along with the corresponding non-tweaked basis public keys to a specified file.
    </thead>
    <tbody>
     <tr>
-     <td>Filename</td>
+     <td>filename</td>
      <td>String</td>
      <td>Required<br />(exactly 1)</td>
      <td markdown="block">
@@ -172,7 +172,7 @@ tweaked with the current contract hash.
     </thead>
     <tbody>
      <tr>
-      <td>Filename</td>
+      <td>filename</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>The name of the output file for the list of tweaked addressed and base public keys</td>
@@ -211,7 +211,7 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
     </thead>
     <tbody>
      <tr>
-      <td>Filename</td>
+      <td>filename</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The name of the output file for the encrypted list of tweaked public keys</td>
@@ -234,7 +234,7 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
     </thead>
     <tbody>
      <tr>
-      <td>Public Key</td>
+      <td>onboardpubkey</td>
       <td>String (hex)</td>
       <td>Optional<br /> (0 or 1)</td>
       <td>The specific public key to be used for file encryption</td>
@@ -272,7 +272,7 @@ The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as pr
     </thead>
     <tbody>
      <tr>
-      <td>Encrypted Filename</td>
+      <td>filename</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The name of the file containing the encrypted tweaked public key</td>
@@ -295,7 +295,7 @@ The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as pr
     </thead>
     <tbody>
      <tr>
-      <td>Filename</td>
+      <td>outfilename</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The name of the output file for the list of tweaked public keys and coresponding addresses</td>
@@ -334,7 +334,7 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>Filename</td>
+      <td>filename</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Name of the KYC file</td>
@@ -384,7 +384,7 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>Multisiglist</td>
+      <td>multisiglist</td>
       <td>Array of Objects</td>
       <td>Required<br />(1 or more)</td>
       <td>Contains multisig metadata such as number of required signatures and arrays of untweaked public keys</td>
@@ -409,7 +409,7 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>Onboardpubkey</td>
+      <td>onboardpubkey</td>
       <td>String (hex)</td>
       <td>Optional<br />(exactly 1)</td>
       <td>Public key that is used for onboarding encryption</td>
@@ -456,7 +456,7 @@ along with the corresponding non-tweaked basis public keys as a JSON object.
     </thead>
     <tbody>
      <tr>
-      <td>Result
+      <td>result
       </td>
       <td>Object</td>
       <td>Required<br />(exactly 1)</td>
@@ -522,7 +522,7 @@ contract.
     </thead>
     <tbody>
      <tr>
-      <td>Contract</td>
+      <td>contract</td>
       <td>Object</td>
       <td>Required<br />(exactly 1)</td>
       <td>A JSON object containing the plain text of the contract</td>
@@ -567,7 +567,7 @@ If the block height is not supplied, the current contract hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>Block Height</td>
+      <td>blockheight</td>
       <td>Number (int)</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Block height to retrieve the contract hash from (Default: most recent block)</td>
@@ -592,7 +592,7 @@ If the block height is not supplied, the current contract hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>ContractHash</td>
+      <td>contracthash</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex-encoded hash of the contract hash</td>
@@ -636,7 +636,7 @@ If the block height is not supplied, the current mapping hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>Block Height</td>
+      <td>blockheight</td>
       <td>Number (int)</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Block height to retrieve the mapping hash from (Default: most recent block)</td>
@@ -661,7 +661,7 @@ If the block height is not supplied, the current mapping hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>MappingHash</td>
+      <td>mapping</td>
       <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex-encoded hash of the mapping hash</td>
@@ -703,7 +703,7 @@ The ``getethaddress`` RPC returns an ethereum address from an EC private key.
     </thead>
     <tbody>
      <tr>
-      <td>Private Key</td>
+      <td>key</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>private key to generate Ethereum address from</td>
@@ -726,7 +726,7 @@ The ``getethaddress`` RPC returns an ethereum address from an EC private key.
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum Address</td>
+      <td>address</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum address for given private key</td>
@@ -772,7 +772,7 @@ IMPORTANT: getethpeginaddress adds new secrets to wallet.dat, necessitating back
     </thead>
     <tbody>
      <tr>
-      <td>Private Key</td>
+      <td>key</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>private key to generate Ethereum address and claim public key from</td>
@@ -795,13 +795,13 @@ IMPORTANT: getethpeginaddress adds new secrets to wallet.dat, necessitating back
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum Address</td>
+      <td>eth_mainchain_address</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum address for given private key</td>
      </tr>
      <tr>
-      <td>Public Key</td>
+      <td>eth_claim_pubkey</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Claim Public key for given private key</td>
@@ -844,7 +844,7 @@ The ``getethpegin`` RPC returns an eth ERC-20 peg-in transaction via geth rpc co
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction id</td>
@@ -936,7 +936,7 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction id</td>
@@ -959,7 +959,7 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
     </thead>
     <tbody>
      <tr>
-      <td>EthAmount</td>
+      <td>amount</td>
       <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction amount</td>
@@ -982,7 +982,7 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
     </thead>
     <tbody>
      <tr>
-      <td>Claim Public Key</td>
+      <td>claim_pubkey</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Claim public key</td>
@@ -1005,7 +1005,7 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum Address</td>
+      <td>address</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum address for given private key</td>
@@ -1046,7 +1046,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction id</td>
@@ -1069,7 +1069,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
     </thead>
     <tbody>
      <tr>
-      <td>EthAmount</td>
+      <td>amount</td>
       <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction amount</td>
@@ -1092,7 +1092,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
     </thead>
     <tbody>
      <tr>
-      <td>Claim Public Key</td>
+      <td>claim_pubkey</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Claim public key</td>
@@ -1135,7 +1135,7 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction id</td>
@@ -1158,7 +1158,7 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
     </thead>
     <tbody>
      <tr>
-      <td>EthAmount</td>
+      <td>amount</td>
       <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-in transaction amount</td>
@@ -1181,7 +1181,7 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
     </thead>
     <tbody>
      <tr>
-      <td>Claim Public Key</td>
+      <td>claim_pubkey</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Claim public key</td>
@@ -1204,7 +1204,7 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum transaction ID</td>
@@ -1245,7 +1245,7 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum Address</td>
+      <td>address</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Destination Ethereum address for funds</td>
@@ -1268,7 +1268,7 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
     </thead>
     <tbody>
      <tr>
-      <td>EthAmount</td>
+      <td>amount</td>
       <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum peg-out amount</td>
@@ -1291,7 +1291,7 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
     </thead>
     <tbody>
      <tr>
-      <td>Fee Deducted</td>
+      <td>subtractfeefromamount</td>
       <td>Boolean</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Whether to deduct fee from peg-out amount</td>
@@ -1314,7 +1314,7 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
     </thead>
     <tbody>
      <tr>
-      <td>Ethereum txid</td>
+      <td>txid</td>
       <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Ethereum transaction ID</td>
@@ -1341,20 +1341,189 @@ sendanytoaddress
 The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to the address. The cumulative sum of the assets is equal to the desired amount. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
 
 
-*Parameter #1 --- (hex, required) destination address*
+*Parameter #1 --- destination address*
 
-*Parameter #2 --- (numeric, required) amount to be sent to the destination*
+.. raw:: html
 
-*Parameter #3 --- (string, optional) A comment used to store what the transaction is for*
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>String (hex)</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Destination address </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2 --- amount to be sent to the destination*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>amount</td>
+      <td>Amount </td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Amount to be sent </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #3 --- A comment used to store what the transaction is for*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>comment</td>
+      <td>String</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>Comment to store transaction purpose </td>
+     </tr>
+    </tbody>
+   </table>
 
 *Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction*
 
-*Parameter #5 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
+.. raw:: html
 
-*Parameter #6 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true*
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>comment_to</td>
+      <td>String</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>Comment to store name of recipient </td>
+     </tr>
+    </tbody>
+   </table>
 
-*Parameter #7 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending*
+*Parameter #5 --- Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
 
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>ignoreblindfail</td>
+      <td>Boolean</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>If true return a transaction even if blinding attempt fails</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #6 --- Split a transaction that goes over the size limit into smaller transactions if this is set to true*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>splitlargetxs</td>
+      <td>Boolean</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>If true split a transaction that goes over the size limit</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #7 --- Choose which balances should be used first. 1 - descending, 2 - ascending*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>balanceSortType</td>
+      <td>Numeric</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>Specify which balance to use first</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---txid of generated transaction, or RPC error if failure*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>txid</td>
+      <td>String (hex)</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Constructed transaction txid</td>
+     </tr>
+    </tbody>
+   </table>
 
 *Example*
 
