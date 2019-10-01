@@ -27,8 +27,8 @@ Wallet
 
 * `dumpderivedkeys <#dumpderivedkeys>`_
 * `validatederivedkeys <#validatederivedkeys>`_
-* [dumpkycfile][]
-* [readkycfile][]
+* `dumpkycfile <#dumpkycfile>`_
+* `readkycfile <#readkycfile>`_
 * `createkycfile <#createkycfile>`_
 * `getderivedkeys <#getderivedkeys>`_
 * `getcontract <#getcontract>`_
@@ -128,8 +128,8 @@ along with the corresponding non-tweaked basis public keys to a specified file.
    </thead>
    <tbody>
     <tr>
-     <td>filename</td>
-     <td>string</td>
+     <td>Filename</td>
+     <td>String</td>
      <td>Required<br />(exactly 1)</td>
      <td markdown="block">
 
@@ -146,6 +146,7 @@ along with the corresponding non-tweaked basis public keys to a specified file.
 .. code-block:: bash
 
    ocean-cli dumpderivedkeys dumpfile.txt
+
 
 validatederivedkeys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -171,8 +172,8 @@ tweaked with the current contract hash.
     </thead>
     <tbody>
      <tr>
-      <td>filename</td>
-      <td>string (hex)</td>
+      <td>Filename</td>
+      <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>The name of the output file for the list of tweaked addressed and base public keys</td>
      </tr>
@@ -188,10 +189,134 @@ tweaked with the current contract hash.
 
    ocean-cli validatederivedkeys
 
+
+dumpkycfile
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys. A timestamp and best block hash of when the file was constructed is included.
+
+*Parameter #1---the filename of the output file*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Filename</td>
+      <td>String</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>The name of the output file for the encrypted list of tweaked public keys</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2---the public key with which to encrypt*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Public Key</td>
+      <td>String (hex)</td>
+      <td>Optional<br /> (0 or 1)</td>
+      <td>The specific public key to be used for file encryption</td>
+     </tr>
+    </tbody>
+   </table>
+   
+*Result---none if valid, errors returned if invalid inputs*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli dumpkycfile dumpfile.txt 1CDXUtbF3bBtritydFMKhRbbYhxDgCF5oH
+   
+   
+readkycfile
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as produced by `dumpkycfile <#dumpkycfile>`_\) from a specified file, and outputs the unencrypted list of tweaked addresses along with their corresponding non-tweaked public keys.
+
+*Parameter #1---the encrypted filename*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Encrypted Filename</td>
+      <td>String</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>The name of the file containing the encrypted tweaked public key</td>
+     </tr>
+    </tbody>
+   </table>
+   
+*Parameter #2---the filename of the output file*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Filename</td>
+      <td>String</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>The name of the output file for the list of tweaked public keys and coresponding addresses</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---none if valid, errors returned if invalid inputs*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli readkycfile dumpfile.txt dumpfileout.txt
+
+
+
 createkycfile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2sh address data to be whitelisted when onboarding
+The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2sh address data to be whitelisted when onboarding.
 
 *Parameter #1---the created KYC file name*
 
@@ -209,10 +334,10 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>filename</td>
-      <td>string</td>
+      <td>Filename</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
-      <td>Name of the kYC file</td>
+      <td>Name of the KYC file</td>
      </tr>
     </tbody>
    </table>
@@ -235,7 +360,7 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     <tbody>
      <tr>
       <td>pubkeylist</td>
-      <td>array of objects</td>
+      <td>Array of Objects</td>
       <td>Required<br />(1 or more)</td>
       <td>Contains tweaked addresses and respective untweaked public keys</td>
      </tr>
@@ -259,8 +384,8 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>multisiglist</td>
-      <td>array of objects</td>
+      <td>Multisiglist</td>
+      <td>Array of Objects</td>
       <td>Required<br />(1 or more)</td>
       <td>Contains multisig metadata such as number of required signatures and arrays of untweaked public keys</td>
      </tr>
@@ -284,8 +409,8 @@ The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2
     </thead>
     <tbody>
      <tr>
-      <td>onboardpubkey</td>
-      <td>string</td>
+      <td>Onboardpubkey</td>
+      <td>String (hex)</td>
       <td>Optional<br />(exactly 1)</td>
       <td>Public key that is used for onboarding encryption</td>
      </tr>
@@ -331,32 +456,26 @@ along with the corresponding non-tweaked basis public keys as a JSON object.
     </thead>
     <tbody>
      <tr>
-      <td>result
+      <td>Result
       </td>
-      <td>object</td>
+      <td>Object</td>
       <td>Required<br />(exactly 1)</td>
       <td>An object containing a list of contract tweaked addresses and
    basis public keys</td>
      </tr>
      <tr>
       <td markdown="block">
-
       →<br>`address`
-
       </td>
-
       <td>string (hex)</td>
       <td>Required<br />(key pool size)</td>
       <td>Base58check encoded address corresponding to the contract tweaked public key</td>
      </tr>
      <tr>
       <td markdown="block">
-
       →<br>`bpubkey`
-
       </td>
-
-      <td>string (hex)</td>
+      <td>String (hex)</td>
       <td>Required<br />(key pool size)</td>
       <td>Hex encoding of the compressed untweaked public key</td>
      </tr>
@@ -403,8 +522,8 @@ contract.
     </thead>
     <tbody>
      <tr>
-      <td>contract</td>
-      <td>object</td>
+      <td>Contract</td>
+      <td>Object</td>
       <td>Required<br />(exactly 1)</td>
       <td>A JSON object containing the plain text of the contract</td>
      </tr>
@@ -423,7 +542,7 @@ Result:
 .. code-block:: json
 
    {
-     "contract": "These are the current terms and conditions that govern participation in the Ocean network. 1. Be awsome to each other. 2. No smoking."
+     "contract": "These are the current terms and conditions that govern participation in the Ocean network. 1. Be awesome to each other. 2. No smoking."
    }
 
 getcontracthash
@@ -448,8 +567,8 @@ If the block height is not supplied, the current contract hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>block height</td>
-      <td>number (int)</td>
+      <td>Block Height</td>
+      <td>Number (int)</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Block height to retrieve the contract hash from (Default: most recent block)</td>
      </tr>
@@ -473,8 +592,8 @@ If the block height is not supplied, the current contract hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>contracthash</td>
-      <td>string</td>
+      <td>ContractHash</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex-encoded hash of the contract hash</td>
      </tr>
@@ -517,8 +636,8 @@ If the block height is not supplied, the current mapping hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>block height</td>
-      <td>number (int)</td>
+      <td>Block Height</td>
+      <td>Number (int)</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Block height to retrieve the mapping hash from (Default: most recent block)</td>
      </tr>
@@ -542,8 +661,8 @@ If the block height is not supplied, the current mapping hash is returned.
     </thead>
     <tbody>
      <tr>
-      <td>mappinghash</td>
-      <td>string</td>
+      <td>MappingHash</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex-encoded hash of the mapping hash</td>
      </tr>
@@ -768,15 +887,15 @@ The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to the
 
 *Parameter #2 --- (numeric, required) amount to be sent to the destination*
 
-*Parameter #3 --- (string, optional) A comment used to store what the transaction is for.*
+*Parameter #3 --- (string, optional) A comment used to store what the transaction is for*
 
-*Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction.*
+*Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction*
 
-*Parameter #5 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true.*
+*Parameter #5 --- (boolean, optional) Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
 
-*Parameter #6 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true.*
+*Parameter #6 --- (boolean, optional) Split a transaction that goes over the size limit into smaller transactions if this is set to true*
 
-*Parameter #7 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending.*
+*Parameter #7 --- (numeric, optional) Choose which balances should be used first. 1 - descending, 2 - ascending*
 
 
 *Example*
@@ -814,7 +933,7 @@ outputs and spending from a specified input containing an amount of policy asset
     <tbody>
      <tr>
       <td>assetaddress</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Base58check issued asset address</td>
      </tr>
@@ -838,8 +957,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>assetamount</td>
-      <td>amount</td>
+      <td>AssetAmount</td>
+      <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Amount of asset to issue</td>
      </tr>
@@ -864,7 +983,7 @@ outputs and spending from a specified input containing an amount of policy asset
     <tbody>
      <tr>
       <td>tokenaddress</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Base58check reissuance token address</td>
      </tr>
@@ -888,8 +1007,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>tokenamount</td>
-      <td>amount</td>
+      <td>TokenAmount</td>
+      <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Amount of reissuance token</td>
      </tr>
@@ -913,8 +1032,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>changeaddress</td>
-      <td>string</td>
+      <td>ChangeAddress</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Base58check change address</td>
      </tr>
@@ -938,8 +1057,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>changeamount</td>
-      <td>amount</td>
+      <td>ChangeAmount</td>
+      <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Amount of issuanceAsset to return per output</td>
      </tr>
@@ -963,8 +1082,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>numchange</td>
-      <td>integer</td>
+      <td>NumChange</td>
+      <td>Integer</td>
       <td>Required<br />(exactly 1)</td>
       <td>Numebr of issuanceAsset outputs</td>
      </tr>
@@ -988,8 +1107,8 @@ outputs and spending from a specified input containing an amount of policy asset
     </thead>
     <tbody>
      <tr>
-      <td>inputtxid</td>
-      <td>string</td>
+      <td>InputTxid</td>
+      <td>String (hex)</td>
       <td>Required<br />(exactly 1)</td>
       <td>Hex of the input TXID containing the issuanceAsset</td>
      </tr>
@@ -1014,7 +1133,7 @@ outputs and spending from a specified input containing an amount of policy asset
     <tbody>
      <tr>
       <td>vout</td>
-      <td>integer</td>
+      <td>Integer</td>
       <td>Required<br />(exactly 1)</td>
       <td>Input transaction vout</td>
      </tr>
@@ -1058,8 +1177,8 @@ outputs and spending from a specified input containing a valid re-issuance token
     </thead>
     <tbody>
      <tr>
-      <td>assetaddress</td>
-      <td>string</td>
+      <td>AssetAddress</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Base58check re-issued asset address</td>
      </tr>
@@ -1083,8 +1202,8 @@ outputs and spending from a specified input containing a valid re-issuance token
     </thead>
     <tbody>
      <tr>
-      <td>assetamount</td>
-      <td>amount</td>
+      <td>AssetAmount</td>
+      <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Amount of asset to re-issue</td>
      </tr>
@@ -1108,8 +1227,8 @@ outputs and spending from a specified input containing a valid re-issuance token
     </thead>
     <tbody>
      <tr>
-      <td>tokenaddress</td>
-      <td>string</td>
+      <td>TokenAddress</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Base58check reissuance token address</td>
      </tr>
@@ -1133,8 +1252,8 @@ outputs and spending from a specified input containing a valid re-issuance token
     </thead>
     <tbody>
      <tr>
-      <td>tokenamount</td>
-      <td>amount</td>
+      <td>TokenAmount</td>
+      <td>Amount</td>
       <td>Required<br />(exactly 1)</td>
       <td>Amount of reissuance token</td>
      </tr>
@@ -1159,7 +1278,7 @@ outputs and spending from a specified input containing a valid re-issuance token
     <tbody>
      <tr>
       <td>inputtxid</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Hex of the input TXID containing the re-issuance token</td>
      </tr>
@@ -1184,7 +1303,7 @@ outputs and spending from a specified input containing a valid re-issuance token
     <tbody>
      <tr>
       <td>vout</td>
-      <td>integer</td>
+      <td>Integer</td>
       <td>Required<br />(exactly 1)</td>
       <td>Input transaction vout</td>
      </tr>
@@ -1208,8 +1327,8 @@ outputs and spending from a specified input containing a valid re-issuance token
     </thead>
     <tbody>
      <tr>
-      <td>entropy</td>
-      <td>string</td>
+      <td>Entropy</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex encoded asset entropy</td>
      </tr>
@@ -1253,7 +1372,7 @@ The ``createrawburn`` RPC creates a raw unsigned burn (OP_RETURN) transaction wi
     <tbody>
      <tr>
       <td>txid</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Hex of the input TXID containing the burn asset</td>
      </tr>
@@ -1278,7 +1397,7 @@ The ``createrawburn`` RPC creates a raw unsigned burn (OP_RETURN) transaction wi
     <tbody>
      <tr>
       <td>vout</td>
-      <td>integer</td>
+      <td>Integer</td>
       <td>Required<br />(exactly 1)</td>
       <td>Input transaction vout</td>
      </tr>
@@ -1302,8 +1421,8 @@ The ``createrawburn`` RPC creates a raw unsigned burn (OP_RETURN) transaction wi
     </thead>
     <tbody>
      <tr>
-      <td>asset</td>
-      <td>string</td>
+      <td>Asset</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The hex encoded asset id to be burnt</td>
      </tr>
@@ -1412,7 +1531,7 @@ The ``testmempoolaccept`` RPC determines the validity of a raw transaction witho
     <tbody>
      <tr>
       <td>rawtx</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>Hex encoded serialised transaction</td>
      </tr>
@@ -1437,7 +1556,7 @@ The ``testmempoolaccept`` RPC determines the validity of a raw transaction witho
     <tbody>
      <tr>
       <td>nLargeFee</td>
-      <td>boolean</td>
+      <td>Boolean</td>
       <td>Optional<br />(0 or 1)</td>
       <td>Allow large fee</td>
      </tr>
@@ -1462,7 +1581,7 @@ The ``testmempoolaccept`` RPC determines the validity of a raw transaction witho
     <tbody>
      <tr>
       <td>txid</td>
-      <td>string</td>
+      <td>String</td>
       <td>Required<br />(exactly 1)</td>
       <td>The raw transaction ID</td>
      </tr>
@@ -1478,7 +1597,7 @@ The ``testmempoolaccept`` RPC determines the validity of a raw transaction witho
     <tbody>
      <tr>
       <td>reject-reason</td>
-      <td>string</td>
+      <td>String</td>
       <td>Optional<br />(0 or 1)</td>
       <td>The reason if the transaction would be rejected</td>
      </tr>
