@@ -1100,7 +1100,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
     </tbody>
    </table>
    
-*Result---true or false*
+*Result---TRUE or FALSE*
 
 *Example*
 
@@ -1537,6 +1537,68 @@ Result:
 
     aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
+
+getutxoassetinfo
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``getutxoassetinfo`` RPC returns a summary of the total amounts of unspent (and un-burnt)
+assets in the UTXO set. Amounts in transactions marked as frozen (i.e. with one output
+having a zero address) are listed in a separate field.
+
+*Parameters: none*
+
+*Result---an array of JSON objects containing the unspent amounts for each issued asset*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>contract</td>
+      <td>object</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>An array of JSON objects of unspent amounts for each issued asset</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli getutxoassetinfo
+
+Result:
+
+.. code-block:: json
+
+   [
+     {
+       "asset": "7f7c00ca515e46165ea6a13dd49d22759beeb26a952128f1a5af824d208a051e",
+       "spendabletxouts": 1,
+       "amountspendable": 3.00000000,
+       "frozentxouts": 0,
+       "amountfrozen": 0.00000000
+     },
+     {
+       "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
+       "spendabletxouts": 107,
+       "amountspendable": 500000.00000000,
+       "frozentxouts": 0,
+       "amountfrozen": 0.00000000
+     }
+   ]
+   
 createrawissuance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2103,9 +2165,257 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
 
 *Parameter #1---Input object with details on transaction to be spent*
 
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Input
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying an input transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`txid`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The txid of the input transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`vout`
+      </td>
+      <td markdown="span">
+      number (int)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The output index number (vout) of input transaction
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
 *Parameter #2---Output object with request details*
 
-*Result---the unsigned raw transaction in hex*
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Output
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying an output
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`pubkey`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Public key of the output transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`decayConst`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Speed at which tickets value decays
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`endBlockHeight`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      End block of ticket sale window 
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`fee`
+      </td>
+      <td markdown="span">
+     Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Size of fee
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`genesisBlockHash`
+      </td>
+      <td markdown="span">
+      String 
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Hash of genesis block
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`startBlockHeight`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Start block of ticket sale window 
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`startPrice`
+      </td>
+      <td markdown="span">
+      Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Starting price of ticket
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`tickets`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Number of tickets to issue
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`value`
+      </td>
+      <td markdown="span">
+      Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Value of tickets
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---the raw transaction in hex*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td markdown="span">
+      `result`
+      </td>
+      <td markdown="span">
+      string
+      </td>
+      <td markdown="span">
+      Required<br>(Exactly 1)
+      </td>
+      <td markdown="span">
+      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+
+
+
 
 *Example*
 
@@ -2124,9 +2434,9 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
        "fee": 5,
        "genesisBlockHash": "99bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
        "startBlockHeight": 100,
+       "startPrice": 5.0,
        "tickets": 150,
-       "value": 1000.0,
-       "startPrice": 5.0
+       "value": 1000.0
      }
    ]'''
 
@@ -2269,133 +2579,73 @@ The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that enc
     <tbody>
      <tr>
       <td markdown="span">
-
       Inputs
-
       </td>
-
       <td markdown="span">
-
       array
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       An array of objects, each one to be used as an input to the transaction
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → Input
-
       </td>
-
       <td markdown="span">
-
       object
-
       </td>
-
       <td markdown="span">
-
       Required<br>(1 or more)
-
       </td>
-
       <td markdown="span">
-
       An object describing a particular input
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`txid`
-
       </td>
-
       <td markdown="span">
-
       string (hex)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The TXID of the outpoint to be spent encoded as hex in RPC byte order
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`vout`
-
       </td>
-
       <td markdown="span">
-
       number (int)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The output index number (vout) of the outpoint to be spent; the first output in a transaction is index `0`
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`Sequence`
-
       </td>
-
       <td markdown="span">
-
       number (int)
-
       </td>
-
       <td markdown="span">
-
       Optional<br>(0 or 1)
-
       </td>
-
       <td markdown="span">
-
       The sequence number to use for the input
-
       </td>
-
      </tr>
     </tbody>
    </table>
@@ -2418,133 +2668,73 @@ The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that enc
     <tbody>
      <tr>
       <td markdown="span">
-
-      Policy outputs
-
+      Policy output
       </td>
-
       <td markdown="span">
-
       array
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       An array of objects, each one is used to add an address to a policy list.
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → Input
-
       </td>
-
       <td markdown="span">
-
       object
-
       </td>
-
       <td markdown="span">
-
       Required<br>(1 or more)
-
       </td>
-
       <td markdown="span">
-
       An object encoding an output with a policy list address.
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`pubkey`
-
       </td>
-
       <td markdown="span">
-
       string (hex)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The public key of the policy authority wallet used to spend the output
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`value`
-
       </td>
-
       <td markdown="span">
-
       number (coins)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The amount of policy asset to be sent to the output
-
       </td>
-
      </tr>
      <tr>
       <td markdown="span">
-
       → →<br>`address`
-
       </td>
-
       <td markdown="span">
-
       string (base58check)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The address to be added to the policy list
-
       </td>
-
      </tr>
     </tbody>
    </table>
@@ -2567,29 +2757,17 @@ The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that enc
     <tbody>
      <tr>
       <td markdown="span">
-
       Locktime
-
       </td>
-
       <td markdown="span">
-
       numeric (int)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       Indicates the earliest time (in block height or Unix epoch time) a transaction can be added to the block chain
-
       </td>
-
      </tr>
     </tbody>
    </table>
@@ -2612,29 +2790,17 @@ The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that enc
     <tbody>
      <tr>
       <td markdown="span">
-
       Policy asset
-
       </td>
-
       <td markdown="span">
-
       string (hex)
-
       </td>
-
       <td markdown="span">
-
       Required<br>(exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The 32 byte asset ID of the policy asset of the list being updated
-
       </td>
-
      </tr>
     </tbody>
    </table>
@@ -2657,29 +2823,17 @@ The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that enc
     <tbody>
      <tr>
       <td markdown="span">
-
       `result`
-
       </td>
-
       <td markdown="span">
-
       string
-
       </td>
-
       <td markdown="span">
-
       Required<br>(Exactly 1)
-
       </td>
-
       <td markdown="span">
-
       The resulting unsigned raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
-
       </td>
-
      </tr>
     </tbody>
    </table>
@@ -2708,71 +2862,11 @@ Result:
 
    0200000000018eb8f2e93d81b9f904f8613b6520460c00f9313683b5574fc8b67c3e33e615550000000000ffffffff010131e34d9c314f12348e8b2cb401d07450ef5e831d11bba35bd9b124f52e78387301000000746a5288000047512103e6ec6419791bcdc9ec5b2cf7d25cfffa244f2cddfd9997dffbd002c4d88baabe21020000000000000000000000005923c34a75800d2e9a6894d846649b65995dc84252ae00000000
 
-getutxoassetinfo
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The ``getutxoassetinfo`` RPC returns a summary of the total amounts of unspent (and un-burnt)
-assets in the UTXO set. Ammounts in transactions marked as frozen (i.e. with one output
-having a zero address) are listed in a separate field.
-
-*Parameters: none*
-
-*Result---an array of JSON objects containing the unspent amounts for each issued asset*
-
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>contract</td>
-      <td>object</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>An array of JSON objects of unspent amounts for each issued asset</td>
-     </tr>
-    </tbody>
-   </table>
-
-
-*Example*
-
-.. code-block:: bash
-
-   ocean-cli getutxoassetinfo
-
-Result:
-
-.. code-block:: json
-
-   [
-     {
-       "asset": "7f7c00ca515e46165ea6a13dd49d22759beeb26a952128f1a5af824d208a051e",
-       "spendabletxouts": 1,
-       "amountspendable": 3.00000000,
-       "frozentxouts": 0,
-       "amountfrozen": 0.00000000
-     },
-     {
-       "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
-       "spendabletxouts": 107,
-       "amountspendable": 500000.00000000,
-       "frozentxouts": 0,
-       "amountfrozen": 0.00000000
-     }
-   ]
 
 getrequests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``getrequests`` RPC returns all the active client requests in the blockchain
+The ``getrequests`` RPC returns all the active client requests in the blockchain.
 
 *Parameter #1---the client genesis block hash*
 
@@ -3148,7 +3242,7 @@ The ``removefromwhitelist`` RPC removes a specified address from the node mempoo
    </table>
 
 
-*Result---none if valid, errors returned if invalid inoputs*
+*Result---none if valid, errors returned if invalid inputs*
 
 *Example*
 
@@ -3163,7 +3257,7 @@ The ``clearwhitelist`` RPC clears the mempool whitelist of all addresses.
 
 *Parameters: none*
 
-*Result: nome*
+*Result: none*
 
 *Example*
 
@@ -3528,7 +3622,7 @@ The ``removefromfreezelist`` RPC removes a specified address from the node mempo
    </table>
 
 
-*Result---none if valid, errors returned if invalid inoputs*
+*Result---none if valid, errors returned if invalid inputs*
 
 *Example*
 
@@ -3543,7 +3637,7 @@ The ``clearfreezelist`` RPC clears the mempool whitelist of all addresses.
 
 *Parameters: none*
 
-*Result: nome*
+*Result: none*
 
 *Example*
 
@@ -3692,7 +3786,7 @@ The ``removefromburnlist`` RPC removes a specified address from the node mempool
    </table>
 
 
-*Result---none if valid, errors returned if invalid inoputs*
+*Result---none if valid, errors returned if invalid inputs*
 
 *Example*
 
