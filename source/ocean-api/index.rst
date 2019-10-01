@@ -15,6 +15,11 @@ using the ``help`` RPC.  For example,
 .. code-block:: text
 
    ocean-cli help getblockchaininfo
+   
+ 
+As in Elements and Bitcoin, the Configuration options can be passed to oceand as command line arguments or added to ocean.conf configuration file. For a full list of configuration options use ``oceand -help``.
+
+
 
 Quick reference
 ---------------
@@ -78,9 +83,10 @@ Policy
 * `removefromburnlist <#removefromburnlist>`_
 * `clearburnlist <#clearburnlist>`_
 
+
+
 Configuration options
 ^^^^^^^^^^^^^^^^^^^^^
-
 
 * `pkhwhitelist <#pkhwhitelist>`_
 * `freezelist <#freezelist>`_
@@ -3808,3 +3814,174 @@ The ``clearburnlist`` RPC clears the mempool whitelist of all addresses.
 .. code-block:: bash
 
    ocean-cli clearburnlist
+   
+   
+pkhwhitelist
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables node mempool address whitelisting. With this option set all addresses are blacklisted by default and must be added to the whitelist in order to transact.
+
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples enable whitelisting*
+
+.. code-block:: bash
+
+   oceand -pkhwhitelist
+   
+In ocean.conf:
+   pkhwhitelist=1
+   
+
+freezelist
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables node mempool address freezelisting. 
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples enable freezelisting*
+
+.. code-block:: bash
+
+   oceand -freezelist
+   
+In ocean.conf:
+   freezelist=1
+
+
+burnlist
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables node mempool address burnlisting. 
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples enable burnlisting*
+
+.. code-block:: bash
+
+   oceand -burnlist
+   
+In ocean.conf:
+   burnlist=1
+   
+   
+issuanceblock
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables blocking of invalid issuance transactions from mempool. Checks that asset issuance transactions have an issuanceAsset input.
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples enable issuance blocking*
+
+.. code-block:: bash
+
+   oceand -issuanceblock
+   
+In ocean.conf:
+   issuanceblock=1
+   
+   
+disablect
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Disables confidential transactions and addresses.
+
+*Argument---TRUE or FALSE*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Default</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Boolean</td>
+      <td>0</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example---The following examples enables disablect
+
+.. code-block:: bash
+
+   oceand -disablect
+   
+In ocean.conf:
+   disablect=1
