@@ -4013,7 +4013,7 @@ Embed the given attestation hash in the block header.
     </tbody>
    </table>
 
-*Example---The following will set the contract hash for embedding
+*Example---The following will set the contract hash for embedding*
 
 .. code-block:: bash
 
@@ -4129,6 +4129,16 @@ The destination of the OP_TRUE initial freecoins created in the genesis block. T
      </tr>
     </tbody>
    </table>
+   
+*Example*
+  
+.. code-block:: bash
+
+   oceand -initialfreecoinsdestination=76a91427e17844a9dff73ace482eae458105005ad672e488ac
+   
+In ocean.conf:
+   initialfreecoinsdestination=76a91427e17844a9dff73ace482eae458105005ad672e488ac
+
 
 
 freezelistcoinsdestination
@@ -4265,7 +4275,7 @@ The rpc host address which the daemon will try to connect to validate peg-ins, i
     </tbody>
    </table>
    
- mainchainrpcport
+mainchainrpcport
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The rpc port number which the daemon will try to connect to validate peg-ins, if enabled. By default cookie authentication is attempted.
