@@ -111,6 +111,8 @@ Configuration options
 * `fedpegaddress <#>`_
 * `peginconfirmationdepth <#>`_
 
+
+
 dumpderivedkeys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -154,6 +156,7 @@ along with the corresponding non-tweaked basis public keys to a specified file.
    ocean-cli dumpderivedkeys dumpfile.txt
 
 
+
 validatederivedkeys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -194,6 +197,7 @@ tweaked with the current contract hash.
 .. code-block:: text
 
    ocean-cli validatederivedkeys
+
 
 
 dumpkycfile
@@ -255,7 +259,8 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
 .. code-block:: bash
 
    ocean-cli dumpkycfile dumpfile.txt 1CDXUtbF3bBtritydFMKhRbbYhxDgCF5oH
-   
+  
+  
    
 readkycfile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -437,6 +442,8 @@ Result:
 
    028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58
 
+
+
 getderivedkeys
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -504,6 +511,8 @@ Result:
      "bpubkey": ["028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58","0263a73eca5334af77037a1c8844b5220017bf6fb627c5a57c862dff20ea001d99"]
    }
 
+
+
 getcontract
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -550,6 +559,8 @@ Result:
    {
      "contract": "These are the current terms and conditions that govern participation in the Ocean network. 1. Be awesome to each other. 2. No smoking."
    }
+
+
 
 getcontracthash
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -620,6 +631,8 @@ Result:
 
    f4f30db53238a7529bc51fcda04ea22bd8f8b188622a6488da12281874b71f72
 
+
+
 getmappinghash
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -689,6 +702,8 @@ Result:
 
    f4f30db53238a7529bc51fcda04ea22bd8f8b188622a6488da12281874b71f72
 
+
+
 getethaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -752,6 +767,8 @@ Result:
 .. code-block:: text
 
    8a40bfaa73256b60764c1bf40675a99083efb075
+
+
 
 getethpeginaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -829,6 +846,8 @@ Result:
       "eth_mainchain_address": "b6872561de5ba19d38071a7616d9d434b9e37860",
       "eth_claim_pubkey": "0397466f2b32bc3bb76d4741ae51cd1d8578b48d3f1e68da206d47321aec267ce7"
     }
+
+
 
 getethpegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -920,6 +939,8 @@ Result:
       "transactionHash": "0x8b75539cc2b54efe15cd3a0f678545e3f154ca69ba87004d484d10eeb1359cc7",
       "transactionIndex": "0x4b"
     }
+
+
 
 createrawethpegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1031,6 +1052,8 @@ Result:
 
     0200000001016ca60fb08c36a2e77e0810de32181b63e8250fbf9a398f9bf9e53444cbf680300000004000ffffffff0201bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a01000003a3529429a8001976a914923e4d01599a5f200ad0527dc046e85bc4d19a5888ac01bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a010000000000001658000000000000000000050800409452a303000020bfe394bdcd72be5291a04263713c8c79d5d2ab6d45c9e7e5b08af475240a1d4a20a38fcbb10d8cec9ae6346a90d018a14567f5d5406ab810c0f8ae76f84067e5d42103220271a8833566153dbfa52c4ba13d2e56970885e6178a4ce6fa81ecaf38c35a206ca60fb08c36a2e77e0810de32181b63e8250fbf9a398f9bf9e53444cbf6803000000000
 
+
+
 validateethpegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1119,6 +1142,8 @@ Result:
 .. code-block:: text
 
     true
+
+
 
 claimethpegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1230,6 +1255,8 @@ Result:
 
     bb2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
+
+
 sendtoethmainchain
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1340,6 +1367,8 @@ Result:
 .. code-block:: text
 
     aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
+
+
 
 sendanytoaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1544,6 +1573,7 @@ Result:
     aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
 
+
 getutxoassetinfo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1604,6 +1634,8 @@ Result:
        "amountfrozen": 0.00000000
      }
    ]
+   
+   
    
 createrawissuance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1850,6 +1882,8 @@ Result:
 
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754d4c0040174820afc79a50ed4b9de7bfbc286adead7d46300787e3d986dd8bff570902d620100000002dd231b00001976a9143565dfe051b252c6c5d51275fa91850ef0bb26b288ac017c2096b20b81bd5734cb631335fa1a5bfed9c5a10e2ba4ce86df1b28fb2d50e401000000000754d4c0001976a9142c11d12a57cdd294b3ffa89cf2503a612252fbf288ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100000007c0d4e9b00017a91458d6453537165062f887d004b979b054c5fa98c28701230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000000000000c350000000000000
 
+
+
 createrawreissuance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2045,6 +2079,8 @@ Result:
 
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754d4c0040174820afc79a50ed4b9de7bfbc286adead7d46300787e3d986dd8bff570902d620100000002dd231b00001976a9143565dfe051b252c6c5d51275fa91850ef0bb26b288ac017c2096b20b81bd5734cb631335fa1a5bfed9c5a10e2ba4ce86df1b28fb2d50e401000000000754d4c0001976a9142c11d12a57cdd294b3ffa89cf2503a612252fbf288ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100000007c0d4e9b00017a91458d6453537165062f887d004b979b054c5fa98c28701230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000000000000c350000000000000
 
+
+
 createrawburn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2163,6 +2199,8 @@ Result:
 .. code-block:: text
 
    0200000000010a1511ccd0aeb158fddf5afbb32d52127b875c1c6e6de99041a14ea6024eac400000008000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002dd231b0001000000000754dee2e4940c7a0d5de1b201000000000000c350000000000000
+
+
 
 createrawrequesttx
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2452,6 +2490,8 @@ Result:
 
    02000000000151227925212487ef62c10e46f14aec78dce956b02eb41f7e2cce8b6d56292db40100000000feffffff0101d08413554d89a69f0d93a6f7e33242d472a6503b11b1b7c10d3134afb2a36d0101000000174876e800006d0169b17551210246e99744bdee2ce153eb6185019e73ff6bb4d050d50d1a1d7d773f45474d4c362102051d7e7caa636a8fb1eaca4fb163248aff57d5e4e04e84734101b138e1a07d862103640000000a0000000a000000010000000000000000000000000000000000000053ae66000000
 
+
+
 testmempoolaccept
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2562,6 +2602,8 @@ Result:
     "txid": 40ac4e02a64ea14190e96d6e1c5c877b12522db3fb5adffd58b1aed0cc11150a
     "accept": 1
    }
+
+
 
 createrawpolicytx
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2869,6 +2911,7 @@ Result:
    0200000000018eb8f2e93d81b9f904f8613b6520460c00f9313683b5574fc8b67c3e33e615550000000000ffffffff010131e34d9c314f12348e8b2cb401d07450ef5e831d11bba35bd9b124f52e78387301000000746a5288000047512103e6ec6419791bcdc9ec5b2cf7d25cfffa244f2cddfd9997dffbd002c4d88baabe21020000000000000000000000005923c34a75800d2e9a6894d846649b65995dc84252ae00000000
 
 
+
 getrequests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2925,6 +2968,8 @@ Result:
        "txid": "666450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05"
      },
    ]
+
+
 
 addtowhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2992,6 +3037,8 @@ contract hash as present in the most recent block header.
 .. code-block:: bash
 
    ocean-cli addtowhitelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz 028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58
+
+
 
 addmultitowhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3108,6 +3155,8 @@ contract hash as present in the most recent block header.
 
    ocean-cli addmultitowhitelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz [028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58,028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58] 1
 
+
+
 querywhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3176,6 +3225,8 @@ Result:
 
    1
 
+
+
 readwhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3218,6 +3269,8 @@ contract hash as present in the most recent block header. The file format is as 
 
    ocean-cli readwhitelist derivedkeys.txt
 
+
+
 removefromwhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3256,6 +3309,8 @@ The ``removefromwhitelist`` RPC removes a specified address from the node mempoo
 
    ocean-cli removefromwhitelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
+
+
 clearwhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3270,6 +3325,8 @@ The ``clearwhitelist`` RPC clears the mempool whitelist of all addresses.
 .. code-block:: bash
 
    ocean-cli clearwhitelist
+
+
 
 dumpwhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3311,6 +3368,8 @@ addresses in the node mempool whitelist to a specified file.
 .. code-block:: bash
 
    ocean-cli dumpwhitelist dumpfile.txt
+
+
 
 sendaddmultitowhitelisttx
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3426,6 +3485,8 @@ contract hash as present in the most recent block header. Whitelist node reads t
 
    ocean-cli sendaddmultitowhitelisttx 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz [028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58,028f9c608ded55e89aef8ade69b90612510dbd333c8d63cbe1072de9049731bb58] 1
 
+
+
 sendaddtowhitelisttx
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3489,6 +3550,7 @@ The ``sendaddtowhitelisttx`` RPC serializes and sends an OP_REGISTERADDRESS tran
    ocean-cli sendaddtowhitelisttx 100
 
 
+
 addtofreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3529,6 +3591,8 @@ mempool if the '-freezelist' configuration option is enabled.
 .. code-block:: bash
 
    ocean-cli addtofreezelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
+
+
 
 queryfreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3598,6 +3662,8 @@ Result:
 
    1
 
+
+
 removefromfreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3636,6 +3702,8 @@ The ``removefromfreezelist`` RPC removes a specified address from the node mempo
 
    ocean-cli removefromfreezelist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
+
+
 clearfreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3650,6 +3718,8 @@ The ``clearfreezelist`` RPC clears the mempool whitelist of all addresses.
 .. code-block:: bash
 
    ocean-cli clearfreezelist
+
+
 
 addtofreezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3693,6 +3763,8 @@ and ``-burnlist`` configurations options enabled).
 .. code-block:: bash
 
    ocean-cli addtoburnlist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
+
+
 
 queryburnlist
 ^^^^^^^^^^^^^^
@@ -3762,6 +3834,8 @@ Result:
 
    1
 
+
+
 removefromburnlist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3800,6 +3874,8 @@ The ``removefromburnlist`` RPC removes a specified address from the node mempool
 
    ocean-cli removefromburnlist 2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz
 
+
+
 clearburnlist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3814,6 +3890,7 @@ The ``clearburnlist`` RPC clears the mempool whitelist of all addresses.
 .. code-block:: bash
 
    ocean-cli clearburnlist
+   
    
    
 pkhwhitelist
@@ -3849,7 +3926,8 @@ Enables node mempool address whitelisting. With this option set all addresses ar
    
 In ocean.conf:
    pkhwhitelist=1
-   
+  
+  
 
 freezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3901,6 +3979,7 @@ Enables node mempool address burnlisting.
     </tbody>
    </table>
 
+
    
 issuanceblock
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3925,6 +4004,7 @@ Enables blocking of invalid issuance transactions from mempool by checking that 
      </tr>
     </tbody>
    </table>
+   
    
    
 disablect
@@ -3987,6 +4067,7 @@ In ocean.conf:
    embedcontract=0
 
 
+
 attestationhash
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4023,6 +4104,7 @@ In ocean.conf:
    attestationhash=aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
 
+
 embedmapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4046,6 +4128,7 @@ Enable asset mapping object embedding in block header.
      </tr>
     </tbody>
    </table>
+
 
 
 issuecontrolscript
@@ -4075,6 +4158,7 @@ Embed the given issuance controller script in the genesis block as a coinbase tr
    </table>
 
 
+
 policycoins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4100,7 +4184,6 @@ The amount of policy coins created in the genesis block.
      </tr>
     </tbody>
    </table>
-
 
 
 
@@ -4168,6 +4251,7 @@ The destination of the tokens for controlling the freezelist.
    </table>
    
    
+   
 burnlistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4193,6 +4277,7 @@ The destination of the tokens for controlling the burnlist.
      </tr>
     </tbody>
    </table>
+   
    
    
 issuancelistcoinsdestination
@@ -4222,6 +4307,7 @@ The destination of the tokens for controlling issuances.
    </table>
    
    
+   
 permissioncoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4247,6 +4333,7 @@ The destination of the tokens for permitting request creation.
      </tr>
     </tbody>
    </table>
+   
    
    
 mainchainrpchost
@@ -4275,6 +4362,8 @@ The rpc host address which the daemon will try to connect to validate peg-ins, i
     </tbody>
    </table>
    
+   
+   
 mainchainrpcport
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4302,6 +4391,7 @@ The rpc port number which the daemon will try to connect to validate peg-ins, if
    </table>
    
    
+   
 validatepegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4325,6 +4415,7 @@ Enable validation of all peg-in claims.
      </tr>
     </tbody>
    </table>
+   
    
    
 parentgenesisblockhash
@@ -4354,6 +4445,7 @@ Set parent genesis blockhash. Ethereum mainnet is default.
    </table>
    
    
+   
 parentcontract
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4381,6 +4473,7 @@ Set parent ERC20 contract script. Enabling causes creation of a new chain with a
    </table>
    
    
+   
 fedpegaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4406,6 +4499,7 @@ Set ETH address of federated peg. This creates a new chain with a different gene
      </tr>
     </tbody>
    </table>
+   
    
    
 peginconfirmationdepth
