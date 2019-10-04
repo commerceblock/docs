@@ -15,8 +15,8 @@ using the ``help`` RPC.  For example,
 .. code-block:: text
 
    ocean-cli help getblockchaininfo
-   
- 
+
+
 As in Elements and Bitcoin, the Configuration options can be passed to oceand as command line arguments or added to ocean.conf configuration file. For a full list of configuration options use ``oceand -help``.
 
 
@@ -47,6 +47,7 @@ Wallet
 * `claimethpegin <#claimethpegin>`_
 * `sendtoethmainchain <#sendtoethmainchain>`_
 * `sendanytoaddress <#sendanytoaddress>`_
+* `createanytoaddress <#createanytoaddress>`_
 
 Utility
 ^^^^^^^
@@ -251,7 +252,7 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
      </tr>
     </tbody>
    </table>
-   
+
 *Result---none if valid, errors returned if invalid inputs*
 
 *Example*
@@ -259,9 +260,9 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
 .. code-block:: bash
 
    ocean-cli dumpkycfile dumpfile.txt 1CDXUtbF3bBtritydFMKhRbbYhxDgCF5oH
-  
-  
-   
+
+
+
 readkycfile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -290,7 +291,7 @@ The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as pr
      </tr>
     </tbody>
    </table>
-   
+
 *Parameter #2---the filename of the output file*
 
 .. raw:: html
@@ -731,7 +732,7 @@ The ``getethaddress`` RPC returns an ethereum address from an EC private key.
      </tr>
     </tbody>
    </table>
- 
+
 *Result---ethereum address if sucessful, RPC error if invalid data private key given*
 
 .. raw:: html
@@ -754,8 +755,8 @@ The ``getethaddress`` RPC returns an ethereum address from an EC private key.
      </tr>
     </tbody>
    </table>
-   
- 
+
+
 *Example*
 
 .. code-block:: bash
@@ -831,7 +832,7 @@ IMPORTANT: getethpeginaddress adds new secrets to wallet.dat, necessitating back
      </tr>
     </tbody>
    </table>
- 
+
 *Example*
 
 .. code-block:: bash
@@ -876,7 +877,7 @@ The ``getethpegin`` RPC returns an eth ERC-20 peg-in transaction via geth rpc co
      </tr>
     </tbody>
    </table>
-   
+
 *Result---the transaction in JSON format, or RPC error if given transaction is invalid*
 
 .. raw:: html
@@ -1039,7 +1040,7 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
      </tr>
     </tbody>
    </table>
-   
+
 *Example*
 
 .. code-block:: bash
@@ -1082,7 +1083,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
      </tr>
     </tbody>
    </table>
-   
+
 *Parameter #2 --- eth transaction peg-in amount*
 
 .. raw:: html
@@ -1128,7 +1129,7 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
      </tr>
     </tbody>
    </table>
-   
+
 *Result---TRUE or FALSE*
 
 *Example*
@@ -1219,7 +1220,7 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
      </tr>
     </tbody>
    </table>
-   
+
 *Result---ethereum transaction ID, or RPC error if invalid inputs given*
 
 .. raw:: html
@@ -1331,7 +1332,7 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
      </tr>
     </tbody>
    </table>
-   
+
 *Result---ethereum transaction ID of resulting sidechain transaction, or RPC error if invalid inputs given*
 
 .. raw:: html
@@ -1573,6 +1574,186 @@ Result:
     aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
 
+createanytoaddress
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``createanytoaddress`` creates a transaction that sends an amount to a given address with as many non-policy assets as needed. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
+
+
+*Parameter #1 --- destination address*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>address</td>
+      <td>String (hex)</td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Destination address </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2 --- amount to be sent to the destination*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>amount</td>
+      <td>Amount </td>
+      <td>Required<br />(exactly 1)</td>
+      <td>Amount to be sent </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #3 --- Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>ignoreblindfail</td>
+      <td>Boolean</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>If true return a transaction even if blinding attempt fails</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #4 --- Split a transaction that goes over the size limit into smaller transactions if this is set to true*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>splitlargetxs</td>
+      <td>Boolean</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>If true split a transaction that goes over the size limit</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #5 --- Choose which balances should be used first. 1 - descending, 2 - ascending*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>balanceSortType</td>
+      <td>Numeric</td>
+      <td>Optional<br />(1 or 2)</td>
+      <td>Specify which balance to use first</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #6 --- Allow the selection of watch only inputs similar to fundrawtransaction*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>allowwatchonly</td>
+      <td>Boolean</td>
+      <td>Optional<br />(0 or 1)</td>
+      <td>Allow watch only outputs or not</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---array raw generated transactions, or RPC error if failure*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>txs</td>
+      <td>Array (hex string)</td>
+      <td>Required<br />(1 or more)</td>
+      <td>Raw transactions</td>
+     </tr>
+    </tbody>
+   </table>
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli createanytoaddress 2djSpCPTpqFVmES6CLGhSYWFcq6ZpcecVNN 9 True True 2 True
+
+Result:
+
+.. code-block:: text
+
+    ['020000000002f39a588792670f24b2311474796d3b7ba764f080a7b5ce01ee789adeaf93f3fa0000000000feffffffae41e81f92174d7c5182781515ef84e012628ceaaa6af6a4256504c928fcff440000000000feffffff0301bcdcf7ae294c68f8a0cc5adff210591656e2900acb6a02afe078232174a0a170010000000035a4e900001976a9146de4da462cd54703be66657ab8e11b010abc089988ac01aa8b62c60e78b5457747ff06a6eb14d9a32075d7657bb9723d00deee73e35095010000000035a4bcb4001976a914617f3f9964cb82a7fa67ad84cc3011031c0f322688ac01aa8b62c60e78b5457747ff06a6eb14d9a32075d7657bb9723d00deee73e35095010000000000002c4c00004a000000']
+
+
 
 getutxoassetinfo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1634,9 +1815,9 @@ Result:
        "amountfrozen": 0.00000000
      }
    ]
-   
-   
-   
+
+
+
 createrawissuance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2335,7 +2516,7 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
       Required<br>(exactly 1)
       </td>
       <td markdown="span">
-      End block of ticket sale window 
+      End block of ticket sale window
       </td>
      </tr>
      <tr>
@@ -2357,7 +2538,7 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
       →<br>`genesisBlockHash`
       </td>
       <td markdown="span">
-      String 
+      String
       </td>
       <td markdown="span">
       Required<br>(exactly 1)
@@ -2377,7 +2558,7 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
       Required<br>(exactly 1)
       </td>
       <td markdown="span">
-      Start block of ticket sale window 
+      Start block of ticket sale window
       </td>
      </tr>
       <tr>
@@ -3890,9 +4071,9 @@ The ``clearburnlist`` RPC clears the mempool whitelist of all addresses.
 .. code-block:: bash
 
    ocean-cli clearburnlist
-   
-   
-   
+
+
+
 pkhwhitelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3923,16 +4104,16 @@ Enables node mempool address whitelisting. With this option set all addresses ar
 .. code-block:: bash
 
    oceand -pkhwhitelist
-   
+
 In ocean.conf:
    pkhwhitelist=1
-  
-  
+
+
 
 freezelist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Enables node mempool address freezelisting. 
+Enables node mempool address freezelisting.
 
 *Argument---TRUE or FALSE*
 
@@ -3958,7 +4139,7 @@ Enables node mempool address freezelisting.
 burnlist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Enables node mempool address burnlisting. 
+Enables node mempool address burnlisting.
 
 *Argument---TRUE or FALSE*
 
@@ -3980,7 +4161,7 @@ Enables node mempool address burnlisting.
    </table>
 
 
-   
+
 issuanceblock
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4004,9 +4185,9 @@ Enables blocking of invalid issuance transactions from mempool by checking that 
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 disablect
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4031,8 +4212,8 @@ Disables confidential transactions and addresses.
     </tbody>
    </table>
 
-   
-   
+
+
 embedcontract
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4062,7 +4243,7 @@ Enable hash of chain's contract to be embedded in block header and addresses.
 .. code-block:: bash
 
    oceand -embedcontract=0
-   
+
 In ocean.conf:
    embedcontract=0
 
@@ -4099,7 +4280,7 @@ Embed the given attestation hash in the block header.
 .. code-block:: bash
 
    oceand -attestationhash=aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
-   
+
 In ocean.conf:
    attestationhash=aa2364284941f08cceaf49911858125256d61f1b728e544ead6423bf06ea1e15
 
@@ -4212,13 +4393,13 @@ The destination of the OP_TRUE initial freecoins created in the genesis block. T
      </tr>
     </tbody>
    </table>
-   
+
 *Example*
-  
+
 .. code-block:: bash
 
    oceand -initialfreecoinsdestination=76a91427e17844a9dff73ace482eae458105005ad672e488ac
-   
+
 In ocean.conf:
    initialfreecoinsdestination=76a91427e17844a9dff73ace482eae458105005ad672e488ac
 
@@ -4249,9 +4430,9 @@ The destination of the tokens for controlling the freezelist.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 burnlistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4277,9 +4458,9 @@ The destination of the tokens for controlling the burnlist.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 issuancelistcoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4305,9 +4486,9 @@ The destination of the tokens for controlling issuances.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 permissioncoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4333,9 +4514,9 @@ The destination of the tokens for permitting request creation.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 mainchainrpchost
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4361,9 +4542,9 @@ The rpc host address which the daemon will try to connect to validate peg-ins, i
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 mainchainrpcport
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4389,9 +4570,9 @@ The rpc port number which the daemon will try to connect to validate peg-ins, if
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 validatepegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4415,9 +4596,9 @@ Enable validation of all peg-in claims.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 parentgenesisblockhash
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4443,9 +4624,9 @@ Set parent genesis blockhash. Ethereum mainnet is default.
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 parentcontract
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4471,9 +4652,9 @@ Set parent ERC20 contract script. Enabling causes creation of a new chain with a
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 fedpegaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -4499,13 +4680,13 @@ Set ETH address of federated peg. This creates a new chain with a different gene
      </tr>
     </tbody>
    </table>
-   
-   
-   
+
+
+
 peginconfirmationdepth
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Set required depth of network for peg-in claims to be considered valid. 
+Set required depth of network for peg-in claims to be considered valid.
 
 *Argument---block height*
 
