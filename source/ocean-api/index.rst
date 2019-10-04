@@ -1577,7 +1577,7 @@ Result:
 createanytoaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``createanytoaddress`` creates a transaction that sends an amount to a given address with as many non-policy assets as needed. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
+The ``createanytoaddress`` RPC creates a transaction that sends an amount to a given address with as many non-policy assets as needed. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
 
 
 *Parameter #1 --- destination address*
@@ -1603,6 +1603,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
     </tbody>
    </table>
 
+
 *Parameter #2 --- amount to be sent to the destination*
 
 .. raw:: html
@@ -1625,6 +1626,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
      </tr>
     </tbody>
    </table>
+
 
 *Parameter #3 --- Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
 
@@ -1649,6 +1651,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
     </tbody>
    </table>
 
+
 *Parameter #4 --- Split a transaction that goes over the size limit into smaller transactions if this is set to true*
 
 .. raw:: html
@@ -1671,6 +1674,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
      </tr>
     </tbody>
    </table>
+
 
 *Parameter #5 --- Choose which balances should be used first. 1 - descending, 2 - ascending*
 
@@ -1695,6 +1699,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
     </tbody>
    </table>
 
+
 *Parameter #6 --- Allow the selection of watch only inputs similar to fundrawtransaction*
 
 .. raw:: html
@@ -1718,6 +1723,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
     </tbody>
    </table>
 
+
 *Result---array raw generated transactions, or RPC error if failure*
 
 .. raw:: html
@@ -1740,6 +1746,7 @@ The ``createanytoaddress`` creates a transaction that sends an amount to a given
      </tr>
     </tbody>
    </table>
+
 
 *Example*
 
