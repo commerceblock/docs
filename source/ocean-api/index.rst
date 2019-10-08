@@ -29,7 +29,6 @@ The following RPCs are unique to the Ocean client
 Wallet
 ^^^^^^
 
-
 * `dumpderivedkeys <#dumpderivedkeys>`_
 * `validatederivedkeys <#validatederivedkeys>`_
 * `dumpkycfile <#dumpkycfile>`_
@@ -49,9 +48,9 @@ Wallet
 * `sendanytoaddress <#sendanytoaddress>`_
 * `createanytoaddress <#createanytoaddress>`_
 
+
 Utility
 ^^^^^^^
-
 
 * `getutxoassetinfo <#getutxoassetinfo>`_
 * `createrawissuance <#createrawissuance>`_
@@ -61,10 +60,12 @@ Utility
 * `createrawpolicytx <#createrawpolicytx>`_
 * `createrawrequesttx <#createrawrequesttx>`_
 * `getrequests <#getrequests>`_
+* `createrawbidtx <#createrawbidtx>`_
+* `getrequestbids <#getrequestbids>`_
+
 
 Policy
 ^^^^^^
-
 
 * `addtowhitelist <#addtowhitelist>`_
 * `addmultitowhitelist <#addmultitowhitelist>`_
@@ -83,7 +84,6 @@ Policy
 * `queryburnlist <#queryburnlist>`_
 * `removefromburnlist <#removefromburnlist>`_
 * `clearburnlist <#clearburnlist>`_
-
 
 
 Configuration options
@@ -111,7 +111,6 @@ Configuration options
 * `parentcontract <#>`_
 * `fedpegaddress <#>`_
 * `peginconfirmationdepth <#>`_
-
 
 
 dumpderivedkeys
@@ -2390,295 +2389,6 @@ Result:
 
 
 
-createrawrequesttx
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The ``createrawrequesttx`` RPC creates a raw request transaction with a single input and single output.
-
-*Parameter #1---Input object with details on transaction to be spent*
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Input
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying an input transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`txid`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The txid of the input transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`vout`
-      </td>
-      <td markdown="span">
-      number (int)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The output index number (vout) of input transaction
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-*Parameter #2---Output object with request details*
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Output
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying an output
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`pubkey`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Public key of the output transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`decayConst`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Speed at which tickets value decays
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`endBlockHeight`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      End block of ticket sale window
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`fee`
-      </td>
-      <td markdown="span">
-     Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Size of fee
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`genesisBlockHash`
-      </td>
-      <td markdown="span">
-      String
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Hash of genesis block
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`startBlockHeight`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Start block of ticket sale window
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`startPrice`
-      </td>
-      <td markdown="span">
-      Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Starting price of ticket
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`tickets`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Number of tickets to issue
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`value`
-      </td>
-      <td markdown="span">
-      Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Value of tickets
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-*Result---the raw transaction in hex*
-
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      `result`
-      </td>
-      <td markdown="span">
-      string
-      </td>
-      <td markdown="span">
-      Required<br>(Exactly 1)
-      </td>
-      <td markdown="span">
-      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-
-
-
-
-*Example*
-
-.. code-block:: bash
-
-   ocean-cli createrawrequesttx '''[
-     {
-       "txid": "43bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
-       "vout": 1,
-     }
-   ]''' '''[
-     {
-       "pubkey": "03d5be1ca0b06b54f6a29a8e245fdf58698164538191c5b376d3b27e6d3229b81a",
-       "decayConst": 5,
-       "endBlockHeight": 250,
-       "fee": 5,
-       "genesisBlockHash": "99bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
-       "startBlockHeight": 100,
-       "startPrice": 5.0,
-       "tickets": 150,
-       "value": 1000.0
-     }
-   ]'''
-
-Result:
-
-.. code-block:: text
-
-   02000000000151227925212487ef62c10e46f14aec78dce956b02eb41f7e2cce8b6d56292db40100000000feffffff0101d08413554d89a69f0d93a6f7e33242d472a6503b11b1b7c10d3134afb2a36d0101000000174876e800006d0169b17551210246e99744bdee2ce153eb6185019e73ff6bb4d050d50d1a1d7d773f45474d4c362102051d7e7caa636a8fb1eaca4fb163248aff57d5e4e04e84734101b138e1a07d862103640000000a0000000a000000010000000000000000000000000000000000000053ae66000000
-
-
 
 testmempoolaccept
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3100,6 +2810,296 @@ Result:
 
 
 
+createrawrequesttx
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``createrawrequesttx`` RPC creates a raw request transaction with a single input and single output.
+
+*Parameter #1---Input object with details on transaction to be spent*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Input
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying an input transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`txid`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The txid of the input transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`vout`
+      </td>
+      <td markdown="span">
+      number (int)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The output index number (vout) of input transaction
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2---Output object with request details*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Output
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying an output
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`pubkey`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Target request public key
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`decayConst`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Speed at which tickets value decays
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`endBlockHeight`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      End block of ticket sale window
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`fee`
+      </td>
+      <td markdown="span">
+     Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Size of fee
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`genesisBlockHash`
+      </td>
+      <td markdown="span">
+      String
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Hash of genesis block
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`startBlockHeight`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Start block of ticket sale window
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`startPrice`
+      </td>
+      <td markdown="span">
+      Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Starting price of ticket
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`tickets`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Number of tickets to issue
+      </td>
+     </tr>
+      <tr>
+      <td markdown="span">
+      →<br>`value`
+      </td>
+      <td markdown="span">
+      Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Value of tickets
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---the raw transaction in hex*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td markdown="span">
+      `result`
+      </td>
+      <td markdown="span">
+      string
+      </td>
+      <td markdown="span">
+      Required<br>(Exactly 1)
+      </td>
+      <td markdown="span">
+      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+
+
+
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli createrawrequesttx '''[
+     {
+       "txid": "43bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
+       "vout": 1,
+     }
+   ]''' '''[
+     {
+       "pubkey": "03d5be1ca0b06b54f6a29a8e245fdf58698164538191c5b376d3b27e6d3229b81a",
+       "decayConst": 5,
+       "endBlockHeight": 250,
+       "fee": 5,
+       "genesisBlockHash": "99bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
+       "startBlockHeight": 100,
+       "startPrice": 5.0,
+       "tickets": 150,
+       "value": 1000.0
+     }
+   ]'''
+
+Result:
+
+.. code-block:: text
+
+   02000000000151227925212487ef62c10e46f14aec78dce956b02eb41f7e2cce8b6d56292db40100000000feffffff0101d08413554d89a69f0d93a6f7e33242d472a6503b11b1b7c10d3134afb2a36d0101000000174876e800006d0169b17551210246e99744bdee2ce153eb6185019e73ff6bb4d050d50d1a1d7d773f45474d4c362102051d7e7caa636a8fb1eaca4fb163248aff57d5e4e04e84734101b138e1a07d862103640000000a0000000a000000010000000000000000000000000000000000000053ae66000000
+
+
+
 getrequests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3154,6 +3154,345 @@ Result:
        "feePercentage": 5,
        "endBlockHeight": 350,
        "txid": "666450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05"
+     },
+   ]
+
+
+
+createrawbidtx
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``createrawbidtx`` RPC creates a raw bid transaction funded by given inputs. Bids must be in the domain asset.
+
+*Parameter #1---Input object with details on transactions to be spent*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Input
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying the input transactions
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`txid`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The txid of the input transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`vout`
+      </td>
+      <td markdown="span">
+      number (int)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      The output index number (vout) of input transaction
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Parameter #2---Output object with request details*
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+     <tr>
+      <td markdown="span">
+      Output
+      </td>
+      <td markdown="span">
+      object
+      </td>
+      <td markdown="span">
+      Required<br>(1 or more)
+      </td>
+      <td markdown="span">
+      An object identifying an output
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`pubkey`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Target stake public key 
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`value`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Staked value locked in target pubkey
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`change`
+      </td>
+      <td markdown="span">
+     Amount
+      </td>
+      <td markdown="span">
+      Optional<br>(0 or 1)
+      </td>
+      <td markdown="span">
+      Change value of transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`changeAddr`
+      </td>
+      <td markdown="span">
+     Amount
+      </td>
+      <td markdown="span">
+      Optional<br>(0 or 1)
+      </td>
+      <td markdown="span">
+      Address to send change to
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`fee`
+      </td>
+      <td markdown="span">
+     Amount
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Size of fee
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`endBlockHeight`
+      </td>
+      <td markdown="span">
+      Integer
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Block height 
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`requestTxid`
+      </td>
+      <td markdown="span">
+      String (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      transaction Id of request transaction
+      </td>
+     </tr>
+     <tr>
+      <td markdown="span">
+      →<br>`feePubkey`
+      </td>
+      <td markdown="span">
+      string (hex)
+      </td>
+      <td markdown="span">
+      Required<br>(exactly 1)
+      </td>
+      <td markdown="span">
+      Public key to pay fees on client chain
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+*Result---the raw transaction in hex*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td markdown="span">
+      `result`
+      </td>
+      <td markdown="span">
+      string
+      </td>
+      <td markdown="span">
+      Required<br>(Exactly 1)
+      </td>
+      <td markdown="span">
+      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
+      </td>
+     </tr>
+    </tbody>
+   </table>
+
+
+
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli createrawbidtx '''[
+     {
+       "txid": "43bd75af773cce38fd190f6c0943d311ce2dd8a26c7e7a9e600c58f8b21e53d4",
+       "vout": 1,
+     }
+   ]''' '''[
+     {
+       "pubkey": "03d5be1ca0b06b54f6a29a8e245fdf58698164538191c5b376d3b27e6d3229b81a",
+       "value": 50,
+       "change": 15,
+       "changeAddr": "2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz",
+       "fee": 5,
+       "endBlockHeight": 250,
+       "requestTxid": "666450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05",
+       "feePubKey": "05bf356342a0aa4f6a29a8e245fdf58698164538191c5b376d3b27ebc7816e1a0"
+     }
+   ]'''
+
+Result:
+
+.. code-block:: text
+
+   02000000000564739500498487ef62c10e46f14aec78dce956b02eb41f7e2cce8b6d56292db40100000000feffffff0101d08413554d89a69f0d93a6f7e33242d472a6503b11b1b7c10d3134afb2a36d0101000000174876e800006d0169b17551210246e99744bdee2ce153eb6185019e73ff6bb4d050d50d1a1d7d773f45474d4c362102051d7e7caa636a8fb1eaca4fb163248aff57d5e4e04e84734101b138e1a07d862103640000000a0000000a000000010000000000000000000000000000000000000053ae66000000
+
+
+
+getrequestbids
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``getrequestbids`` RPC returns all the active bids for a given requests in the blockchain.
+
+*Parameter #1---the request transaction hash*
+
+
+.. raw:: html
+
+   <table>
+    <thead>
+     <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Presence</th>
+      <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>request transaction hash</td>
+      <td>hash (string)</td>
+      <td>Optional</td>
+      <td>Hash of the request tranasction to find bids for</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+*Result---an array of JSON objects containing details for each active request and its corresponding bids*
+
+*Example*
+
+.. code-block:: bash
+
+   ocean-cli getrequestbids
+   ocean-cli getrequestbids 123450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05
+
+Result:
+
+.. code-block:: json
+
+   [
+     {
+       "genesisBlock": "123450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05",
+       "startBlockHeight": 105,
+       "numTickets": 20,
+       "decayConst": 2,
+       "startPrice": 5.0,
+       "auctionPrice": 4.8,
+       "feePercentage": 5,
+       "endBlockHeight": 350,
+       "txid": "666450e138b1014173844ee0e4d557ff8a2463b14fcaeab18f6a63aa7c7e1d05"
+       "bids": [
+         {
+            "hash":2dZhhVmJkXCaWUzPmhmwQ3gBJm2NJSnrvyz,
+            "feePubKey":05bf356342a0aa4f6a29a8e245fdf58698164538191c5b376d3b27ebc7816e1a0,
+         }
+       ]
      },
    ]
 
