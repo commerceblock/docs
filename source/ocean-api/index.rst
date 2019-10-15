@@ -130,7 +130,7 @@ along with the corresponding non-tweaked basis public keys to a specified file.
 | filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |
 +----------+--------+---------------------+------------------------------------------------------------------------------------+
 
-
+fd
 
 *Example*
 
