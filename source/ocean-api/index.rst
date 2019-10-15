@@ -122,15 +122,12 @@ along with the corresponding non-tweaked basis public keys to a specified file.
 
 *Parameter #1---the filename of the output file*
 
-
-
 +----------+--------+---------------------+------------------------------------------------------------------------------------+
 | Name     | Type   | Presence            | Description                                                                        |
 +----------+--------+---------------------+------------------------------------------------------------------------------------+
 | filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |
 +----------+--------+---------------------+------------------------------------------------------------------------------------+
 
-fd
 
 *Example*
 
@@ -150,27 +147,11 @@ tweaked with the current contract hash.
 
 *Parameter #1---the filename of the input file*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>filename</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The name of the output file for the list of tweaked addressed and base public keys</td>
-     </tr>
-    </tbody>
-   </table>
++----------+--------+---------------------+------------------------------------------------------------------------------------+
+| Name     | Type   | Presence            | Description                                                                        |
++----------+--------+---------------------+------------------------------------------------------------------------------------+
+| filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |
++----------+--------+---------------------+------------------------------------------------------------------------------------+
 
 
 *Result---nothing if valid keys, RPC errors if invalid keys found*
@@ -190,50 +171,21 @@ The ``dumpkycfile`` RPC outputs an encrypted list of wallet tweaked public keys.
 
 *Parameter #1---the filename of the output file*
 
++----------+--------+---------------------+---------------------------------------------------------------------------+
+| Name     | Type   | Presence            | Description                                                               |
++----------+--------+---------------------+---------------------------------------------------------------------------+
+| filename | String | Required(exactly 1) | The name of the output file for the encrypted list of tweaked public keys |
++----------+--------+---------------------+---------------------------------------------------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>filename</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The name of the output file for the encrypted list of tweaked public keys</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2---the public key with which to encrypt*
 
-.. raw:: html
++---------------+-------------+-------------------+--------------------------------------------------------+
+| Name          | Type        | Presence          | Description                                            |
++---------------+-------------+-------------------+--------------------------------------------------------+
+| onboardpubkey | String(hex) | Optional (0 or 1) | The specific public key to be used for file encryption |
++---------------+-------------+-------------------+--------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>onboardpubkey</td>
-      <td>String (hex)</td>
-      <td>Optional<br /> (0 or 1)</td>
-      <td>The specific public key to be used for file encryption</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---none if valid, errors returned if invalid inputs*
 
@@ -252,50 +204,21 @@ The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as pr
 
 *Parameter #1---the encrypted filename*
 
++----------+--------+---------------------+---------------------------------------------------------------------------+
+| Name     | Type   | Presence            | Description                                                               |
++----------+--------+---------------------+---------------------------------------------------------------------------+
+| filename | String | Required(exactly 1) | The name of the output file for the encrypted list of tweaked public keys |
++----------+--------+---------------------+---------------------------------------------------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>filename</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The name of the file containing the encrypted tweaked public key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2---the filename of the output file*
 
-.. raw:: html
++-------------+--------+---------------------+--------------------------------------------------------------------------------------------+
+| Name        | Type   | Presence            | Description                                                                                |
++-------------+--------+---------------------+--------------------------------------------------------------------------------------------+
+| outfilename | String | Required(exactly 1) | The name of the output file for the list of tweaked public keys and coresponding addresses |
++-------------+--------+---------------------+--------------------------------------------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>outfilename</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The name of the output file for the list of tweaked public keys and coresponding addresses</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---none if valid, errors returned if invalid inputs*
 
@@ -310,106 +233,42 @@ The ``readkycfile`` RPC reads in an encrypted list of tweaked public keys (as pr
 createkycfile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``createkycfile`` RPC creates an encrypted kyc file that stores p2pkh and p2sh address data to be whitelisted when onboarding.
+The ``createkycfile`` RPC creates an encrypted kyc file that stores tweaked public key p2pkh and multisig address p2sh data to be whitelisted when onboarding.
 
 *Parameter #1---the created KYC file name*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>filename</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Name of the KYC file</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+--------+---------------------+----------------------+
+| Name        | Type   | Presence            | Description          |
++-------------+--------+---------------------+----------------------+
+| outfilename | String | Required(exactly 1) | Name of the KYC file |
++-------------+--------+---------------------+----------------------+
 
 
 *Parameter #2---P2PKH data for whitelisting in an onboarding transaction*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>pubkeylist</td>
-      <td>Array of Objects</td>
-      <td>Required<br />(1 or more)</td>
-      <td>Contains tweaked addresses and respective untweaked public keys</td>
-     </tr>
-    </tbody>
-   </table>
++------------+----------------------------+----------------------+-----------------------------------------------------------------+
+| Name       | Type                       | Presence             | Description                                                     |
++------------+----------------------------+----------------------+-----------------------------------------------------------------+
+| pubkeylist | JSON array of JSON Objects | Required (1 or more) | Contains tweaked addresses and respective untweaked public keys |
++------------+----------------------------+----------------------+-----------------------------------------------------------------+
 
 
 *Parameter #3---P2SH data for whitelisting in an onboarding transaction*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>multisiglist</td>
-      <td>Array of Objects</td>
-      <td>Required<br />(1 or more)</td>
-      <td>Contains multisig metadata such as number of required signatures and arrays of untweaked public keys</td>
-     </tr>
-    </tbody>
-   </table>
++--------------+----------------------------+----------------------+------------------------------------------------------------------------------------------------------+
+| Name         | Type                       | Presence             | Description                                                                                          |
++--------------+----------------------------+----------------------+------------------------------------------------------------------------------------------------------+
+| multisiglist | JSON array of JSON Objects | Required (1 or more) | Contains multisig metadata such as number of required signatures and arrays of untweaked public keys |
++--------------+----------------------------+----------------------+------------------------------------------------------------------------------------------------------+
 
 
-*Parameter #4---the public key issued by the server for onboarding encryption.*
+*Parameter #4---the public key issued by the server for encryption.*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>onboardpubkey</td>
-      <td>String (hex)</td>
-      <td>Optional<br />(exactly 1)</td>
-      <td>Public key that is used for onboarding encryption</td>
-     </tr>
-    </tbody>
-   </table>
++---------------+-------------+----------------------+---------------------------------------------------+
+| Name          | Type        | Presence             | Description                                       |
++---------------+-------------+----------------------+---------------------------------------------------+
+| onboardpubkey | String(hex) | Optional (exactly 1) | Public key that is used for onboarding encryption |
++---------------+-------------+----------------------+---------------------------------------------------+
 
 *Result---onboarding user public key if successful, null or rpc errors if passed data is invalid or wallet is not available*
 
@@ -438,45 +297,20 @@ along with the corresponding non-tweaked basis public keys as a JSON object.
 
 *Result---the txid and vout of the reissuance output*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>result
-      </td>
-      <td>Object</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>An object containing a list of contract tweaked addresses and
-   basis public keys</td>
-     </tr>
-     <tr>
-      <td markdown="block">
-      →<br>`address`
-      </td>
-      <td>string (hex)</td>
-      <td>Required<br />(key pool size)</td>
-      <td>Base58check encoded address corresponding to the contract tweaked public key</td>
-     </tr>
-     <tr>
-      <td markdown="block">
-      →<br>`bpubkey`
-      </td>
-      <td>String (hex)</td>
-      <td>Required<br />(key pool size)</td>
-      <td>Hex encoding of the compressed untweaked public key</td>
-     </tr>
-    </tbody>
-   </table>
++-----------+--------------+-------------------------+------------------------------------------------------------------------------+
+| Name      | Type         | Presence                | Description                                                                  |
++-----------+--------------+-------------------------+------------------------------------------------------------------------------+
+| result    | Objects      | Required (exactly 1)    | An object containing a list of contract tweaked addresses and                |
+|           |              |                         | basis public keys                                                            |
++-----------+--------------+-------------------------+------------------------------------------------------------------------------+
+|           | String (hex) | Required(key pool size) | Base58check encoded address corresponding to the contract tweaked public key |
+| →         |              |                         |                                                                              |
+| `address` |              |                         |                                                                              |
++-----------+--------------+-------------------------+------------------------------------------------------------------------------+
+|           | String (hex) | Required(key pool size) | Hex encoding of the compressed untweaked public key                          |
+| →         |              |                         |                                                                              |
+| `bpubkey` |              |                         |                                                                              |
++-----------+--------------+-------------------------+------------------------------------------------------------------------------+
 
 
 *Example*
@@ -506,27 +340,11 @@ contract.
 
 *Result---the full plain text of the current contract*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>contract</td>
-      <td>Object</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>A JSON object containing the plain text of the contract</td>
-     </tr>
-    </tbody>
-   </table>
++----------+---------+----------------------+---------------------------------------------------------+
+| Name     | Type    | Presence             | Description                                             |
++----------+---------+----------------------+---------------------------------------------------------+
+| contract | Objects | Required (exactly 1) | A JSON object containing the plain text of the contract |
++----------+---------+----------------------+---------------------------------------------------------+
 
 
 *Example*
@@ -553,53 +371,20 @@ If the block height is not supplied, the current contract hash is returned.
 
 *Parameter #1---the blockheight at which a contract was in force*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>blockheight</td>
-      <td>Number (int)</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Block height to retrieve the contract hash from (Default: most recent block)</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+---------+------------------+------------------------------------------------------------------------------+
+| Name        | Type    | Presence         | Description                                                                  |
++-------------+---------+------------------+------------------------------------------------------------------------------+
+| blockheight | Integer | Optional(0 or 1) | Block height to retrieve the contract hash from (Default: most recent block) |
++-------------+---------+------------------+------------------------------------------------------------------------------+
 
 
 *Result---the contract hash*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>contracthash</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The hex-encoded hash of the contract hash</td>
-     </tr>
-
-    </tbody>
-   </table>
++--------------+--------+-------------------------------------------+
+| Name         | Type   | Description                               |
++--------------+--------+-------------------------------------------+
+| contracthash | String | The hex-encoded hash of the contract hash |
++--------------+--------+-------------------------------------------+
 
 
 *Example*
@@ -624,53 +409,21 @@ If the block height is not supplied, the current mapping hash is returned.
 
 *Parameter #1---the blockheight at which a mapping was in force*
 
++-------------+---------+------------------+------------------------------------------------------------------------------+
+| Name        | Type    | Presence         | Description                                                                  |
++-------------+---------+------------------+------------------------------------------------------------------------------+
+| blockheight | Integer | Optional(0 or 1) | Block height to retrieve the contract hash from (Default: most recent block) |
++-------------+---------+------------------+------------------------------------------------------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>blockheight</td>
-      <td>Number (int)</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Block height to retrieve the mapping hash from (Default: most recent block)</td>
-     </tr>
-    </tbody>
-   </table>
 
 
 *Result---the mapping hash*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>mapping</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The hex-encoded hash of the mapping hash</td>
-     </tr>
-
-    </tbody>
-   </table>
++---------+--------+-------------------------------------------+
+| Name    | Type   | Description                               |
++---------+--------+-------------------------------------------+
+| mapping | String | The hex-encoded hash of the contract hash |
++---------+--------+-------------------------------------------+
 
 
 *Example*
@@ -692,51 +445,21 @@ getethaddress
 
 The ``getethaddress`` RPC returns an ethereum address from an EC private key.
 
-*Parameter #1 ---private key*
+*Parameter #1 ---EC private key*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>key</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>private key to generate Ethereum address from</td>
-     </tr>
-    </tbody>
-   </table>
++------+--------------+----------------------+-----------------------------------------------+
+| Name | Type         | Presence             | Description                                   |
++------+--------------+----------------------+-----------------------------------------------+
+| key  | String (hex) | Required (exactly 1) | private key to generate Ethereum address from |
++------+--------------+----------------------+-----------------------------------------------+
 
 *Result---ethereum address if sucessful, RPC error if invalid data private key given*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum address for given private key</td>
-     </tr>
-    </tbody>
-   </table>
++---------+--------------+----------------------------------------+
+| Name    | Type         | Description                            |
++---------+--------------+----------------------------------------+
+| address | String (hex) | Ethereum address for given private key |
++---------+--------------+----------------------------------------+
 
 
 *Example*
@@ -765,55 +488,23 @@ IMPORTANT: getethpeginaddress adds new secrets to wallet.dat, necessitating back
 
 *Parameter #1 --- private key*
 
-.. raw:: html
++------+--------------+----------------------+--------------------------------------------------------------------+
+| Name | Type         | Presence             | Description                                                        |
++------+--------------+----------------------+--------------------------------------------------------------------+
+| key  | String (hex) | Required (exactly 1) | private key to generate Ethereum address and claim public key from |
++------+--------------+----------------------+--------------------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>key</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>private key to generate Ethereum address and claim public key from</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---JSON object containing Ethereum address and corresponding public key, or RPC error if unvalid private key given*
 
-.. raw:: html
++------------------------+--------------+----------------------------------------+
+| Name                   | Type         | Description                            |
++------------------------+--------------+----------------------------------------+
+| eth_mainchain_addresss | String (hex) | Ethereum address for given private key |
++------------------------+--------------+----------------------------------------+
+| eth_claim_pubkey       | String (hex) | Claim Public key for given private key |
++------------------------+--------------+----------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>eth_mainchain_address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum address for given private key</td>
-     </tr>
-     <tr>
-      <td>eth_claim_pubkey</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Claim Public key for given private key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Example*
 
@@ -839,49 +530,22 @@ The ``getethpegin`` RPC returns an eth ERC-20 peg-in transaction via geth rpc co
 
 *Parameter #1 --- eth transaction id*
 
-.. raw:: html
++------+--------------+----------------------+--------------------------------+
+| Name | Type         | Presence             | Description                    |
++------+--------------+----------------------+--------------------------------+
+| txid | String (hex) | Required (exactly 1) | Ethereum peg-in transaction id |
++------+--------------+----------------------+--------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction id</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---the transaction in JSON format, or RPC error if given transaction is invalid*
 
-.. raw:: html
++--------+------+---------------------------+
+| Name   | Type | Description               |
++--------+------+---------------------------+
+| result | JSON | The resulting transaction |
++--------+------+---------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>result</td>
-      <td>JSON</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The resulting transaction </td>
-     </tr>
-    </tbody>
-   </table>
+
 *Example*
 
 .. code-block:: bash
@@ -933,95 +597,39 @@ The ``createrawethpegin`` RPC creates a raw CBT peg-in from an eth ERC-20 transa
 
 *Parameter #1 --- eth transaction id*
 
-.. raw:: html
++------+--------------+----------------------+--------------------------------+
+| Name | Type         | Presence             | Description                    |
++------+--------------+----------------------+--------------------------------+
+| txid | String (hex) | Required (exactly 1) | Ethereum peg-in transaction id |
++------+--------------+----------------------+--------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction id</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2 --- eth transaction peg-in amount*
 
-.. raw:: html
++--------+--------+----------------------+------------------------------------+
+| Name   | Type   | Presence             | Description                        |
++--------+--------+----------------------+------------------------------------+
+| amount | Amount | Required (exactly 1) | Ethereum peg-in transaction amount |
++--------+--------+----------------------+------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction amount</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3 --- claim pubkey generated by getethpeginaddress*
 
-.. raw:: html
++--------------+--------------+----------------------+------------------+
+| Name         | Type         | Presence             | Description      |
++--------------+--------------+----------------------+------------------+
+| claim_pubkey | String (hex) | Required (exactly 1) | Claim public key |
++--------------+--------------+----------------------+------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>claim_pubkey</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Claim public key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---ethereum address, or RPC error if invalid claim public key given*
 
-.. raw:: html
++---------+--------------+----------------------------------------+
+| Name    | Type         | Description                            |
++---------+--------------+----------------------------------------+
+| address | String (hex) | Ethereum address for given private key |
++---------+--------------+----------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum address for given private key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Example*
 
@@ -1045,74 +653,38 @@ The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from
 
 *Parameter #1 --- eth transaction id*
 
-.. raw:: html
++------+--------------+----------------------+--------------------------------+
+| Name | Type         | Presence             | Description                    |
++------+--------------+----------------------+--------------------------------+
+| txid | String (hex) | Required (exactly 1) | Ethereum peg-in transaction id |
++------+--------------+----------------------+--------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction id</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2 --- eth transaction peg-in amount*
 
-.. raw:: html
++--------+--------+----------------------+------------------------------------+
+| Name   | Type   | Presence             | Description                        |
++--------+--------+----------------------+------------------------------------+
+| amount | Amount | Required (exactly 1) | Ethereum peg-in transaction amount |
++--------+--------+----------------------+------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction amount</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3 --- claim pubkey generated by getethpeginaddress*
 
-.. raw:: html
++--------------+--------------+----------------------+------------------+
+| Name         | Type         | Presence             | Description      |
++--------------+--------------+----------------------+------------------+
+| claim_pubkey | String (hex) | Required (exactly 1) | Claim public key |
++--------------+--------------+----------------------+------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>claim_pubkey</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Claim public key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---TRUE or FALSE*
+
++--------+------+-------------------+
+| Name   | Type | Description       |
++--------+------+-------------------+
+| result | Bool | validation result |
++--------+------+-------------------+
 
 *Example*
 
@@ -1136,95 +708,39 @@ The ``claimethpegin`` RPC claims ERC-20 CBT tokens from eth to Ocean.
 
 *Parameter #1 --- eth transaction id*
 
-.. raw:: html
++------+--------------+----------------------+--------------------------------+
+| Name | Type         | Presence             | Description                    |
++------+--------------+----------------------+--------------------------------+
+| txid | String (hex) | Required (exactly 1) | Ethereum peg-in transaction id |
++------+--------------+----------------------+--------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction id</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2 --- eth transaction peg-in amount*
 
-.. raw:: html
++--------+--------+----------------------+------------------------------------+
+| Name   | Type   | Presence             | Description                        |
++--------+--------+----------------------+------------------------------------+
+| amount | Amount | Required (exactly 1) | Ethereum peg-in transaction amount |
++--------+--------+----------------------+------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-in transaction amount</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3 --- claim pubkey generated by getethpeginaddress*
 
-.. raw:: html
++--------------+--------------+----------------------+------------------+
+| Name         | Type         | Presence             | Description      |
++--------------+--------------+----------------------+------------------+
+| claim_pubkey | String (hex) | Required (exactly 1) | Claim public key |
++--------------+--------------+----------------------+------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>claim_pubkey</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Claim public key</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---ethereum transaction ID, or RPC error if invalid inputs given*
 
-.. raw:: html
++------+--------------+-------------------------+
+| Name | Type         | Description             |
++------+--------------+-------------------------+
+| txid | String (hex) | Ethereum transaction ID |
++------+--------------+-------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum transaction ID</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Example*
 
@@ -1248,95 +764,38 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
 
 *Parameter #1 --- destination address on eth mainchain*
 
-.. raw:: html
++---------+--------------+----------------------+----------------------------------------+
+| Name    | Type         | Presence             | Description                            |
++---------+--------------+----------------------+----------------------------------------+
+| address | String (hex) | Required (exactly 1) | Destination Ethereum address for funds |
++---------+--------------+----------------------+----------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Destination Ethereum address for funds</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2 --- eth amount pegged-out to eth mainchain*
 
-.. raw:: html
++--------+--------+----------------------+-------------------------+
+| Name   | Type   | Presence             | Description             |
++--------+--------+----------------------+-------------------------+
+| amount | Amount | Required (exactly 1) | Ethereum peg-out amount |
++--------+--------+----------------------+-------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum peg-out amount</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3 --- Fee deducted from amount being pegged-out*
 
-.. raw:: html
++-----------------------+---------+-------------------+-------------------------------------------+
+| Name                  | Type    | Presence          | Description                               |
++-----------------------+---------+-------------------+-------------------------------------------+
+| subtractfeefromamount | Boolean | Optional (0 or 1) | Whether to deduct fee from peg-out amount |
++-----------------------+---------+-------------------+-------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>subtractfeefromamount</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Whether to deduct fee from peg-out amount</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---ethereum transaction ID of resulting sidechain transaction, or RPC error if invalid inputs given*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Ethereum transaction ID</td>
-     </tr>
-    </tbody>
-   </table>
++------+--------------+-------------------------+
+| Name | Type         | Description             |
++------+--------------+-------------------------+
+| txid | String (hex) | Ethereum transaction ID |
++------+--------------+-------------------------+
 
 
 *Example*
@@ -1356,192 +815,80 @@ Result:
 sendanytoaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to the address. The cumulative sum of the assets is equal to the desired amount. This rpc should only used in chains that are comprised of non-policy assets which are fungible.
+The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to a given address. The cumulative sum of the assets is equal to the desired amount. This rpc should only be used in chains that are comprised of non-policy assets which are fungible.
 
 
 *Parameter #1 --- destination address*
 
-.. raw:: html
++---------+--------------+----------------------+----------------------+
+| Name    | Type         | Presence             | Description          |
++---------+--------------+----------------------+----------------------+
+| address | String (hex) | Required (exactly 1) | Destination  address |
++---------+--------------+----------------------+----------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Destination address </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2 --- amount to be sent to the destination*
 
-.. raw:: html
++--------+--------+----------------------+-------------------------+
+| Name   | Type   | Presence             | Description             |
++--------+--------+----------------------+-------------------------+
+| amount | Amount | Required (exactly 1) | Total amount to be send |
++--------+--------+----------------------+-------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount </td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount to be sent </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3 --- A comment used to store what the transaction is for*
 
-.. raw:: html
++---------+--------+-------------------+--------------------------------------+
+| Name    | Type   | Presence          | Description                          |
++---------+--------+-------------------+--------------------------------------+
+| comment | String | Optional (0 or 1) | Comment to store transaction purpose |
++---------+--------+-------------------+--------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>comment</td>
-      <td>String</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Comment to store transaction purpose </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #4 --- (string, optional) A comment to store the name of the person or organization to which you're sending the transaction*
 
-.. raw:: html
++------------+--------+-------------------+------------------------------------+
+| Name       | Type   | Presence          | Description                        |
++------------+--------+-------------------+------------------------------------+
+| comment_to | String | Optional (0 or 1) | Comment to store name of recipient |
++------------+--------+-------------------+------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>comment_to</td>
-      <td>String</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Comment to store name of recipient </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #5 --- Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
 
-.. raw:: html
++-----------------+---------+-------------------+-------------------------------------------------------------+
+| Name            | Type    | Presence          | Description                                                 |
++-----------------+---------+-------------------+-------------------------------------------------------------+
+| ignoreblindfail | Boolean | Optional (0 or 1) | If true return a transaction even if blinding attempt fails |
++-----------------+---------+-------------------+-------------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>ignoreblindfail</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>If true return a transaction even if blinding attempt fails</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #6 --- Split a transaction that goes over the size limit into smaller transactions if this is set to true*
 
-.. raw:: html
++---------------+---------+-------------------+-----------------------------------------------------------+
+| Name          | Type    | Presence          | Description                                               |
++---------------+---------+-------------------+-----------------------------------------------------------+
+| splitlargetxs | Boolean | Optional (0 or 1) | If true split a transaction that goes over the size limit |
++---------------+---------+-------------------+-----------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>splitlargetxs</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>If true split a transaction that goes over the size limit</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #7 --- Choose which balances should be used first. 1 - descending, 2 - ascending*
 
-.. raw:: html
++-----------------+---------+-------------------+------------------------------------+
+| Name            | Type    | Presence          | Description                        |
++-----------------+---------+-------------------+------------------------------------+
+| balanceSortType | Integer | Optional (0 or 1) | Specify which balance to use first |
++-----------------+---------+-------------------+------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>balanceSortType</td>
-      <td>Numeric</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Specify which balance to use first</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Result---txid of generated transaction, or RPC error if failure*
 
-.. raw:: html
++------+--------------+------------------------------+
+| Name | Type         | Description                  |
++------+--------------+------------------------------+
+| txid | String (hex) | Constructed transaction txid |
++------+--------------+------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Constructed transaction txid</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Example*
 
@@ -1564,170 +911,66 @@ The ``createanytoaddress`` RPC creates a transaction that sends an amount to a g
 
 *Parameter #1 --- destination address*
 
-.. raw:: html
++---------+--------------+----------------------+----------------------+
+| Name    | Type         | Presence             | Description          |
++---------+--------------+----------------------+----------------------+
+| address | String (hex) | Required (exactly 1) | Destination  address |
++---------+--------------+----------------------+----------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Destination address </td>
-     </tr>
-    </tbody>
-   </table>
 
 
 *Parameter #2 --- amount to be sent to the destination*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>amount</td>
-      <td>Amount </td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount to be sent </td>
-     </tr>
-    </tbody>
-   </table>
++--------+--------+----------------------+-------------------+
+| Name   | Type   | Presence             | Description       |
++--------+--------+----------------------+-------------------+
+| amount | Amount | Required (exactly 1) | Amount to be send |
++--------+--------+----------------------+-------------------+
 
 
 *Parameter #3 --- Return a transaction even when a blinding attempt fails due to number of blinded inputs/outputs if this is set to true*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>ignoreblindfail</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>If true return a transaction even if blinding attempt fails</td>
-     </tr>
-    </tbody>
-   </table>
++-----------------+---------+-------------------+-------------------------------------------------------------+
+| Name            | Type    | Presence          | Description                                                 |
++-----------------+---------+-------------------+-------------------------------------------------------------+
+| ignoreblindfail | Boolean | Optional (0 or 1) | If true return a transaction even if blinding attempt fails |
++-----------------+---------+-------------------+-------------------------------------------------------------+
 
 
 *Parameter #4 --- Split a transaction that goes over the size limit into smaller transactions if this is set to true*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>splitlargetxs</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>If true split a transaction that goes over the size limit</td>
-     </tr>
-    </tbody>
-   </table>
++---------------+---------+-------------------+-----------------------------------------------------------+
+| Name          | Type    | Presence          | Description                                               |
++---------------+---------+-------------------+-----------------------------------------------------------+
+| splitlargetxs | Boolean | Optional (0 or 1) | If true split a transaction that goes over the size limit |
++---------------+---------+-------------------+-----------------------------------------------------------+
 
 
 *Parameter #5 --- Choose which balances should be used first. 1 - descending, 2 - ascending*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>balanceSortType</td>
-      <td>Numeric</td>
-      <td>Optional<br />(1 or 2)</td>
-      <td>Specify which balance to use first</td>
-     </tr>
-    </tbody>
-   </table>
++-----------------+---------+-------------------+------------------------------------+
+| Name            | Type    | Presence          | Description                        |
++-----------------+---------+-------------------+------------------------------------+
+| balanceSortType | Integer | Optional (0 or 1) | Specify which balance to use first |
++-----------------+---------+-------------------+------------------------------------+
 
 
 *Parameter #6 --- Allow the selection of watch only inputs similar to fundrawtransaction*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>allowwatchonly</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Allow watch only outputs or not</td>
-     </tr>
-    </tbody>
-   </table>
++----------------+---------+-------------------+---------------------------------+
+| Name           | Type    | Presence          | Description                     |
++----------------+---------+-------------------+---------------------------------+
+| allowwatchonly | Boolean | Optional (0 or 1) | Allow watch only outputs or not |
++----------------+---------+-------------------+---------------------------------+
 
 
 *Result---array raw generated transactions, or RPC error if failure*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txs</td>
-      <td>Array (hex string)</td>
-      <td>Required<br />(1 or more)</td>
-      <td>Raw transactions</td>
-     </tr>
-    </tbody>
-   </table>
++------+--------------------+------------------+
+| Name | Type               | Description      |
++------+--------------------+------------------+
+| txs  | Array (hex string) | Raw transactions |
++------+--------------------+------------------+
 
 
 *Example*
