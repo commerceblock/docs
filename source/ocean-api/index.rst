@@ -123,11 +123,13 @@ along with the corresponding non-tweaked basis public keys to a specified file.
 *Parameter #1---the filename of the output file*
 
 
-+----------+--------+---------------------+------------------------------------------------------------------------------------+--+
-| Name     | Type   | Presence            | Description                                                                        |  |
-+----------+--------+---------------------+------------------------------------------------------------------------------------+--+
-| filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |  |
+
 +----------+--------+---------------------+------------------------------------------------------------------------------------+
+| Name     | Type   | Presence            | Description                                                                        |
++----------+--------+---------------------+------------------------------------------------------------------------------------+
+| filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |
++----------+--------+---------------------+------------------------------------------------------------------------------------+
+
 
 
 *Example*
