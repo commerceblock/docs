@@ -123,30 +123,11 @@ along with the corresponding non-tweaked basis public keys to a specified file.
 *Parameter #1---the filename of the output file*
 
 
-.. raw:: html
-
-   <table>
-   <thead>
-    <tr>
-     <th>Name</th>
-     <th>Type</th>
-     <th>Presence</th>
-     <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td>filename</td>
-     <td>String</td>
-     <td>Required<br />(exactly 1)</td>
-     <td markdown="block">
-
-     The name of the output file for the list of tweaked addresses and base public keys
-
-     </td>
-     </tr>
-    </tbody>
-   </table>
++----------+--------+---------------------+------------------------------------------------------------------------------------+--+
+| Name     | Type   | Presence            | Description                                                                        |  |
++----------+--------+---------------------+------------------------------------------------------------------------------------+--+
+| filename | String | Required(exactly 1) | The name of the output file for the list of tweaked addresses and base public keys |  |
++----------+--------+---------------------+------------------------------------------------------------------------------------+
 
 
 *Example*
