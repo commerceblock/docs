@@ -11,64 +11,27 @@ The full node wallet will need to be funded with PERMISSION assets in order to c
 
 2. Create a request
 
-The following script can be used to create a request. The following parameters need to be filled:
+The `create_request.sh <https://github.com/commerceblock/coordinator/blob/develop/scripts/create_request.sh>`_ script can be used to create a request. It takes the following arguments:
 
 * Client chain genesis hash
+* Start price
+* End price
+* Auction duration
+* Service period duration
 * Number of tickets
-* Fee percentage paid
-* Start block height
-* End block height
-* Starting auction price
-* Auction decay constant
+* Fee percentage to reward guardnodes
+* Private key of address containing permission asset (optional)
+* txid of previous request transaction to fund new request (optional) 
+* vout of previous request transaction to fund new request (optional) 
 
-.. code-block:: bash
+Node information is gathered from ENV variables:
 
-    #!/bin/bash
-    shopt -s expand_aliases
+* $RPC_CONNECT
+* $RPC_PORT
+* $RPC_USER
+* $RPC_PASS
 
-    alias ocl="ocean-cli -rpcport=7043 -rpcuser=ocean -rpcpassword=oceanpass"
-
-    echo "Creating request in service chain"
-
-    # Address permission tokens will be locked in
-    pub=`ocl validateaddress $(ocl getnewaddress) | jq -r ".pubkey"`
-    # Get permission asset unspent
-    unspent=`ocl listunspent 1 9999999 [] true "PERMISSION" | jq .[0]`
-    value=`echo $unspent | jq -r ".amount"`
-    txid=`echo $unspent | jq ".txid"`
-    vout=`echo $unspent | jq -r ".vout"`
-
-    # TO UNLOCK A PREVIOUS REQUEST
-    # Provide the `txid` and `vout` for that transaction
-    # The output can be spent after the locktime is expired
-    # e.g.
-    # txid="\"1d91bae7353c0b1fb7178b92b642746ea4ace1d79e1c5d3c680526ef9f4589a7\""
-    # vout=0
-    # value=210000
-
-    # Client chain genesis block hash
-    genesis=""
-    # Request start height
-    start=
-    # Request end height
-    end=
-    # Number of tickets
-    tickets=
-    # Starting price
-    price=
-    # Fee percentage paid
-    fee=
-    # Decay constant
-    decay=1000000
-
-    # Generate and sign request transaction
-    inputs="{\"txid\":$txid,\"vout\":$vout}"
-    outputs="{\"decayConst\":$decay,\"endBlockHeight\":$end,\"fee\":$fee,\"genesisBlockHash\":\"$genesis\",\
-    \"startBlockHeight\":$start,\"tickets\":$tickets,\"startPrice\":$price,\"value\":$value,\"pubkey\":\"$pub\"}"
-
-    signedtx=`ocl signrawtransaction $(ocl createrawrequesttx $inputs $outputs)`
-    txid=`ocl sendrawtransaction $(echo $signedtx | jq -r ".hex")`
-    echo "txid: $txid"
+The script checks for currently active requests for the given client chain genesis hash. If none are currently active then a new request is created and pulished. This allows for automatic request generation by running the script as a cron job. 
 
 3. Monitor a request
 
