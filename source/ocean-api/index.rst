@@ -29,88 +29,88 @@ The following RPCs are unique to the Ocean client
 Wallet
 ^^^^^^
 
-* `dumpderivedkeys <#dumpderivedkeys>`_
-* `validatederivedkeys <#validatederivedkeys>`_
-* `dumpkycfile <#dumpkycfile>`_
-* `readkycfile <#readkycfile>`_
-* `createkycfile <#createkycfile>`_
-* `getderivedkeys <#getderivedkeys>`_
-* `getcontract <#getcontract>`_
-* `getcontracthash <#getcontracthash>`_
-* `getmappinghash <#getmappinghash>`_
-* `getethaddress <#getethaddress>`_
-* `getethpeginaddress <#getethpeginaddress>`_
-* `getethpegin <#getethpegin>`_
-* `createrawethpegin <#createrawethpegin>`_
-* `validateethpegin <#validateethpegin>`_
-* `claimethpegin <#claimethpegin>`_
-* `sendtoethmainchain <#sendtoethmainchain>`_
-* `sendanytoaddress <#sendanytoaddress>`_
-* `createanytoaddress <#createanytoaddress>`_
+* `dumpderivedkeys`_
+* `validatederivedkeys`_
+* `dumpkycfile`_
+* `readkycfile`_
+* `createkycfile`_
+* `getderivedkeys`_
+* `getcontract`_
+* `getcontracthash`_
+* `getmappinghash`_
+* `getethaddress`_
+* `getethpeginaddress`_
+* `getethpegin`_
+* `createrawethpegin`_
+* `validateethpegin`_
+* `claimethpegin`_
+* `sendtoethmainchain`_
+* `sendanytoaddress`_
+* `createanytoaddress`_
 
 
 Utility
 ^^^^^^^
 
-* `getutxoassetinfo <#getutxoassetinfo>`_
-* `createrawissuance <#createrawissuance>`_
-* `createrawreissuance <#createrawissuance>`_
-* `createrawburn <#createrawburn>`_
-* `testmempoolaccept <#testmempoolaccept>`_
-* `createrawpolicytx <#createrawpolicytx>`_
-* `createrawrequesttx <#createrawrequesttx>`_
-* `getrequests <#getrequests>`_
-* `createrawbidtx <#createrawbidtx>`_
-* `getrequestbids <#getrequestbids>`_
+* `getutxoassetinfo`_
+* `createrawissuance`_
+* `createrawreissuance`_
+* `createrawburn`_
+* `testmempoolaccept`_
+* `createrawpolicytx`_
+* `createrawrequesttx`_
+* `getrequests`_
+* `createrawbidtx`_
+* `getrequestbids`_
 
 
 Policy
 ^^^^^^
 
-* `addtowhitelist <#addtowhitelist>`_
-* `addmultitowhitelist <#addmultitowhitelist>`_
-* `readwhitelist <#readwhitelist>`_
-* `querywhitelist <#querywhitelist>`_
-* `removefromwhitelist <#removefromwhitelist>`_
-* `clearwhitelist <#clearwhitelist>`_
-* `dumpwhitelist <#dumpwhitelist>`_
-* `sendaddtowhitelisttx <#sendaddtowhitelisttx>`_
-* `sendaddmultitowhitelisttx <#sendaddmultitowhitelisttx>`_
-* `addtofreezelist <#addtofreezelist>`_
-* `queryfreezelist <#queryfreezelist>`_
-* `removefromfreezelist <#removefromfreezelist>`_
-* `clearfreezelist <#clearfreezelist>`_
-* `addtoburnlist <#addtoburnlist>`_
-* `queryburnlist <#queryburnlist>`_
-* `removefromburnlist <#removefromburnlist>`_
-* `clearburnlist <#clearburnlist>`_
+* `addtowhitelist`_
+* `addmultitowhitelist`_
+* `readwhitelist`_
+* `querywhitelist`_
+* `removefromwhitelist`_
+* `clearwhitelist`_
+* `dumpwhitelist`_
+* `sendaddtowhitelisttx`_
+* `sendaddmultitowhitelisttx`_
+* `addtofreezelist`_
+* `queryfreezelist`_
+* `removefromfreezelist`_
+* `clearfreezelist`_
+* `addtoburnlist`_
+* `queryburnlist`_
+* `removefromburnlist`_
+* `clearburnlist`_
 
 
 Configuration options
 ^^^^^^^^^^^^^^^^^^^^^
 
-* `pkhwhitelist <#pkhwhitelist>`_
-* `freezelist <#freezelist>`_
-* `burnlist <#burnlist>`_
-* `issuanceblock <#issuanceblock>`_
-* `disablect <#disablect>`_
-* `embedcontract <#embedcontract>`_
-* `attestationhash <#attestationhash>`_
-* `embedmapping <#embedmapping>`_
-* `issuecontrolscript <#issuecontrolscript>`_
-* `policycoins <#policycoins>`_
-* `initialfreecoinsdestination <#initialfreecoinsdestination>`_
-* `freezelistcoinsdestination <#initialfreecoinsdestination>`_
-* `burnlistcoinsdestination <#initialfreecoinsdestination>`_
-* `issuancecoinsdestination <#initialfreecoinsdestination>`_
-* `permissioncoinsdestination <#permissioncoinsdestination>`_
-* `mainchainrpchost <#>`_
-* `mainchainrpcport <#>`_
-* `validatepegin <#>`_
-* `parentgenesisblockhash <#>`_
-* `parentcontract <#>`_
-* `fedpegaddress <#>`_
-* `peginconfirmationdepth <#>`_
+* `pkhwhitelist`_
+* `freezelist`_
+* `burnlist`_
+* `issuanceblock`_
+* `disablect`_
+* `embedcontract`_
+* `attestationhash`_
+* `embedmapping`_
+* `issuecontrolscript`_
+* `policycoins`_
+* `initialfreecoinsdestination`_
+* `freezelistcoinsdestination`_
+* `burnlistcoinsdestination`_
+* `issuancecoinsdestination`_
+* `permissioncoinsdestination`_
+* `mainchainrpchost`_
+* `mainchainrpcport`_
+* `validatepegin`_
+* `parentgenesisblockhash`_
+* `parentcontract`_
+* `fedpegaddress`_
+* `peginconfirmationdepth`_
 
 
 dumpderivedkeys
