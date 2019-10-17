@@ -297,20 +297,20 @@ along with the corresponding non-tweaked basis public keys as a JSON object.
 
 *Result---the txid and vout of the reissuance output*
 
-+-----------+--------------+-------------------------+------------------------------------------------------------------------------+
-| Name      | Type         | Presence                | Description                                                                  |
-+-----------+--------------+-------------------------+------------------------------------------------------------------------------+
-| result    | Objects      | Required (exactly 1)    | An object containing a list of contract tweaked addresses and                |
-|           |              |                         | basis public keys                                                            |
-+-----------+--------------+-------------------------+------------------------------------------------------------------------------+
-|           | String (hex) | Required(key pool size) | Base58check encoded address corresponding to the contract tweaked public key |
-| →         |              |                         |                                                                              |
-| `address` |              |                         |                                                                              |
-+-----------+--------------+-------------------------+------------------------------------------------------------------------------+
-|           | String (hex) | Required(key pool size) | Hex encoding of the compressed untweaked public key                          |
-| →         |              |                         |                                                                              |
-| `bpubkey` |              |                         |                                                                              |
-+-----------+--------------+-------------------------+------------------------------------------------------------------------------+
++-----------+----------------------+-------------------------+------------------------------------------------------------------------------+
+| Name      | Type                 | Presence                | Description                                                                  |
++-----------+----------------------+-------------------------+------------------------------------------------------------------------------+
+| result    | Objects              | Required (exactly 1)    | An object containing a list of contract tweaked addresses and                |
+|           |                      |                         | basis public keys                                                            |
++-----------+----------------------+-------------------------+------------------------------------------------------------------------------+
+|           | String (base58check) | Required(key pool size) | Base58check encoded address corresponding to the contract tweaked public key |
+| →         |                      |                         |                                                                              |
+| `address` |                      |                         |                                                                              |
++-----------+----------------------+-------------------------+------------------------------------------------------------------------------+
+|           | String (hex)         | Required(key pool size) | Hex encoding of the compressed untweaked public key                          |
+| →         |                      |                         |                                                                              |
+| `bpubkey` |                      |                         |                                                                              |
++-----------+----------------------+-------------------------+------------------------------------------------------------------------------+
 
 
 *Example*
@@ -455,11 +455,11 @@ The ``getethaddress`` RPC returns an ethereum address from an EC private key.
 
 *Result---ethereum address if sucessful, RPC error if invalid data private key given*
 
-+---------+--------------+----------------------------------------+
-| Name    | Type         | Description                            |
-+---------+--------------+----------------------------------------+
-| address | String (hex) | Ethereum address for given private key |
-+---------+--------------+----------------------------------------+
++---------+----------------------+----------------------------------------+
+| Name    | Type                 | Description                            |
++---------+----------------------+----------------------------------------+
+| address | String (base58check) | Ethereum address for given private key |
++---------+----------------------+----------------------------------------+
 
 
 *Example*
@@ -764,11 +764,11 @@ The ``sendtoethmainchain`` RPC sends sidechain funds to the given eth mainchain 
 
 *Parameter #1 --- destination address on eth mainchain*
 
-+---------+--------------+----------------------+----------------------------------------+
-| Name    | Type         | Presence             | Description                            |
-+---------+--------------+----------------------+----------------------------------------+
-| address | String (hex) | Required (exactly 1) | Destination Ethereum address for funds |
-+---------+--------------+----------------------+----------------------------------------+
++---------+--------------+----------------------+------------------------------------------------+
+| Name    | Type         | Presence             | Description                                    |
++---------+--------------+----------------------+------------------------------------------------+
+| address | String (hex) | Required (exactly 1) | Destination Ethereum address for funds         |
++---------+--------------+----------------------+------------------------------------------------+
 
 
 *Parameter #2 --- eth amount pegged-out to eth mainchain*
@@ -820,11 +820,11 @@ The ``sendanytoaddress`` RPC sends a combination of any non-policy assets to a g
 
 *Parameter #1 --- destination address*
 
-+---------+--------------+----------------------+----------------------+
-| Name    | Type         | Presence             | Description          |
-+---------+--------------+----------------------+----------------------+
-| address | String (hex) | Required (exactly 1) | Destination  address |
-+---------+--------------+----------------------+----------------------+
++---------+----------------------+----------------------+----------------------+
+| Name    | Type                 | Presence             | Description          |
++---------+----------------------+----------------------+----------------------+
+| address | String (base58check) | Required (exactly 1) | Destination  address |
++---------+----------------------+----------------------+----------------------+
 
 
 *Parameter #2 --- amount to be sent to the destination*
@@ -911,11 +911,11 @@ The ``createanytoaddress`` RPC creates a transaction that sends an amount to a g
 
 *Parameter #1 --- destination address*
 
-+---------+--------------+----------------------+----------------------+
-| Name    | Type         | Presence             | Description          |
-+---------+--------------+----------------------+----------------------+
-| address | String (hex) | Required (exactly 1) | Destination  address |
-+---------+--------------+----------------------+----------------------+
++---------+----------------------+----------------------+----------------------+
+| Name    | Type                 | Presence             | Description          |
++---------+----------------------+----------------------+----------------------+
+| address | String (base58check) | Required (exactly 1) | Destination  address |
++---------+----------------------+----------------------+----------------------+
 
 
 
@@ -998,27 +998,26 @@ having a zero address) are listed in a separate field.
 
 *Result---an array of JSON objects containing the unspent amounts for each issued asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>contract</td>
-      <td>object</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>An array of JSON objects of unspent amounts for each issued asset</td>
-     </tr>
-    </tbody>
-   </table>
++-------------------+--------------+-------------------------------------------------------------------+
+| Name              | Type         | Description                                                       |
++-------------------+--------------+-------------------------------------------------------------------+
+| contract          | Object       | An array of JSON objects of unspent amounts for each issued asset |
++-------------------+--------------+-------------------------------------------------------------------+
+| →                 | String (hex) | Asset ID                                                          |
+| `asset`           |              |                                                                   |
++-------------------+--------------+-------------------------------------------------------------------+
+| →                 | Integer      | Number of spendable utxos for the asset                           |
+| `spendabletxouts` |              |                                                                   |
++-------------------+--------------+-------------------------------------------------------------------+
+| →                 | Amount       | Total amount of the asset that is spendable                       |
+| `amountspendable` |              |                                                                   |
++-------------------+--------------+-------------------------------------------------------------------+
+| →                 | Integer      | The number of the assets outputs that are frozen                  |
+| `frozentxouts`    |              |                                                                   |
++-------------------+--------------+-------------------------------------------------------------------+
+| →                 | Amount       | Total amount of the asset that is frozen                          |
+| `amountfrozen`    |              |                                                                   |
++-------------------+--------------+-------------------------------------------------------------------+
 
 
 *Example*
@@ -1058,230 +1057,92 @@ outputs and spending from a specified input containing an amount of policy asset
 
 *Parameter #1---the Base58check address for the issued asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>assetaddress</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check issued asset address</td>
-     </tr>
-    </tbody>
-   </table>
++--------------+----------------------+----------------------+----------------------------------+
+| Name         | Type                 | Presence             | Description                      |
++--------------+----------------------+----------------------+----------------------------------+
+| assetaddress | String (base58check) | Required (exactly 1) | Base58check issued asset address |
++--------------+----------------------+----------------------+----------------------------------+
 
 
 *Parameter #2---the amount of issued asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>AssetAmount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of asset to issue</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+--------+----------------------+--------------------------+
+| Name        | Type   | Presence             | Description              |
++-------------+--------+----------------------+--------------------------+
+| assetamount | Amount | Required (exactly 1) | Amount of asset to issue |
++-------------+--------+----------------------+--------------------------+
 
 
 *Parameter #3---the Base58check address for the reissuance token*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>tokenaddress</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check reissuance token address</td>
-     </tr>
-    </tbody>
-   </table>
++--------------+----------------------+----------------------+--------------------------------------+
+| Name         | Type                 | Presence             | Description                          |
++--------------+----------------------+----------------------+--------------------------------------+
+| tokenaddress | String (base58check) | Required (exactly 1) | Base58check reissuance token address |
++--------------+----------------------+----------------------+--------------------------------------+
 
 
 *Parameter #4---the amount of reissuance token*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>TokenAmount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of reissuance token</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+--------+----------------------+----------------------------------------+
+| Name        | Type   | Presence             | Description                            |
++-------------+--------+----------------------+----------------------------------------+
+| tokenamount | Amount | Required (exactly 1) | Amount of reissuance token to generate |
++-------------+--------+----------------------+----------------------------------------+
 
 
 *Parameter #5---the Base58check address for the issuanceAsset change*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>ChangeAddress</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check change address</td>
-     </tr>
-    </tbody>
-   </table>
++---------------+----------------------+----------------------+----------------------------+
+| Name          | Type                 | Presence             | Description                |
++---------------+----------------------+----------------------+----------------------------+
+| changeaddress | String (base58check) | Required (exactly 1) | Base58check change address |
++---------------+----------------------+----------------------+----------------------------+
 
 
 *Parameter #6---the amount of issuanceAsset change*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>ChangeAmount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of issuanceAsset to return per output</td>
-     </tr>
-    </tbody>
-   </table>
++--------------+--------+----------------------+------------------------------------+
+| Name         | Type   | Presence             | Description                        |
++--------------+--------+----------------------+------------------------------------+
+| changeamount | Amount | Required (exactly 1) | Amount of issuance asset to return |
++--------------+--------+----------------------+------------------------------------+
 
 
 *Parameter #7---the number of issuanceAsset outputs*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>NumChange</td>
-      <td>Integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Numebr of issuanceAsset outputs</td>
-     </tr>
-    </tbody>
-   </table>
++-----------+---------+----------------------+----------------------------------+
+| Name      | Type    | Presence             | Description                      |
++-----------+---------+----------------------+----------------------------------+
+| changenum | Integer | Required (exactly 1) | number of issuance asset outputs |
++-----------+---------+----------------------+----------------------------------+
 
 
 *Parameter #8---input TXID*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>InputTxid</td>
-      <td>String (hex)</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Hex of the input TXID containing the issuanceAsset</td>
-     </tr>
-    </tbody>
-   </table>
++-----------+--------------+----------------------+-----------------------------------+
+| Name      | Type         | Presence             | Description                       |
++-----------+--------------+----------------------+-----------------------------------+
+| inputtxid | String (hex) | Required (exactly 1) | Domain asset input transaction id |
++-----------+--------------+----------------------+-----------------------------------+
 
 
 *Parameter #9---input transaction vout*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>vout</td>
-      <td>Integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Input transaction vout</td>
-     </tr>
-    </tbody>
-   </table>
++------+---------+----------------------+--------------------------------+
+| Name | Type    | Presence             | Description                    |
++------+---------+----------------------+--------------------------------+
+| vout | Integer | Required (exactly 1) | Domain asset input vout number |
++------+---------+----------------------+--------------------------------+
 
 
-*Result---the unsigned raw transaction in hex*
+*Result---the unsigned raw transaction in hex, or JSON RPC error*
+
++--------+--------------+-----------------------------+
+| Name   | Type         | Description                 |
++--------+--------------+-----------------------------+
+| result | String (hex) | Hex encoded raw transaction |
++--------+--------------+-----------------------------+
 
 *Example*
 
@@ -1305,180 +1166,75 @@ outputs and spending from a specified input containing a valid re-issuance token
 
 *Parameter #1---the Base58check address for the re-issued asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>AssetAddress</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check re-issued asset address</td>
-     </tr>
-    </tbody>
-   </table>
++--------------+----------------------+----------------------+------------------------------------------------+
+| Name         | Type                 | Presence             | Description                                    |
++--------------+----------------------+----------------------+------------------------------------------------+
+| assetaddress | String (base58check) | Required (exactly 1) | Base58check address to send re-issued asset to |
++--------------+----------------------+----------------------+------------------------------------------------+
 
 
 *Parameter #2---the amount of re-issued asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>AssetAmount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of asset to re-issue</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+--------+----------------------+-----------------------------+
+| Name        | Type   | Presence             | Description                 |
++-------------+--------+----------------------+-----------------------------+
+| assetamount | Amount | Required (exactly 1) | Amount of asset to re-issue |
++-------------+--------+----------------------+-----------------------------+
 
 
-*Parameter #3---the Base58check address for the return reissuance token*
+*Parameter #3---the Base58check address for the reissuance token*
+
++--------------+----------------------+----------------------+--------------------------------------+
+| Name         | Type                 | Presence             | Description                          |
++--------------+----------------------+----------------------+--------------------------------------+
+| tokenaddress | String (base58check) | Required (exactly 1) | Base58check reissuance token address |
++--------------+----------------------+----------------------+--------------------------------------+
 
 
-.. raw:: html
+*Parameter #4---the amount of reissuance token*
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>TokenAddress</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check reissuance token address</td>
-     </tr>
-    </tbody>
-   </table>
-
-
-*Parameter #4---the amount of reissuance token to return*
-
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>TokenAmount</td>
-      <td>Amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of reissuance token</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+--------+----------------------+----------------------------------------+
+| Name        | Type   | Presence             | Description                            |
++-------------+--------+----------------------+----------------------------------------+
+| tokenamount | Amount | Required (exactly 1) | Amount of reissuance token             |
++-------------+--------+----------------------+----------------------------------------+
 
 
 *Parameter #5---input TXID*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>inputtxid</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Hex of the input TXID containing the re-issuance token</td>
-     </tr>
-    </tbody>
-   </table>
++-----------+--------------+----------------------+----------------------------------------+
+| Name      | Type         | Presence             | Description                            |
++-----------+--------------+----------------------+----------------------------------------+
+| inputtxid | String (hex) | Required (exactly 1) | Re-issuance token input transaction ID |
++-----------+--------------+----------------------+----------------------------------------+
 
 
 *Parameter #6---input transaction vout*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>vout</td>
-      <td>Integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Input transaction vout</td>
-     </tr>
-    </tbody>
-   </table>
++------+---------+----------------------+-------------------------------------+
+| Name | Type    | Presence             | Description                         |
++------+---------+----------------------+-------------------------------------+
+| vout | Integer | Required (exactly 1) | Re-issuance token input vout number |
++------+---------+----------------------+-------------------------------------+
 
 
 *Parameter #7---the asset entropy*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Entropy</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The hex encoded asset entropy</td>
-     </tr>
-    </tbody>
-   </table>
++---------+--------------+----------------------+----------------------------+
+| Name    | Type         | Presence             | Description                |
++---------+--------------+----------------------+----------------------------+
+| entropy | String (hex) | Required (exactly 1) | Hex encoded asset entropy  |
++---------+--------------+----------------------+----------------------------+
 
 
-*Result---the unsigned raw transaction in hex*
+*Result---the unsigned raw transaction in hex, or JSN RPC error*
+
++--------+--------------+-----------------------------+
+| Name   | Type         | Description                 |
++--------+--------------+-----------------------------+
+| result | String (hex) | Hex encoded raw transaction |
++--------+--------------+-----------------------------+
+
 
 *Example*
 
@@ -1497,109 +1253,51 @@ Result:
 createrawburn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``createrawburn`` RPC creates a raw unsigned burn (OP_RETURN) transaction with a single input and single output.
+The ``createrawburn`` RPC creates a raw unsigned burn transaction with a single input containing the burn amount and a single OP_RETURN output.
 
 *Parameter #1---input TXID*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Hex of the input TXID containing the burn asset</td>
-     </tr>
-    </tbody>
-   </table>
++------+--------------+----------------------+-------------------------------------------------------+
+| Name | Type         | Presence             | Description                                           |
++------+--------------+----------------------+-------------------------------------------------------+
+| txid | String (hex) | Required (exactly 1) | Input transaction ID containing the asset to be burnt |
++------+--------------+----------------------+-------------------------------------------------------+
 
 
 *Parameter #2---input transaction vout*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>vout</td>
-      <td>Integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Input transaction vout</td>
-     </tr>
-    </tbody>
-   </table>
++------+---------+----------------------+------------------------+
+| Name | Type    | Presence             | Description            |
++------+---------+----------------------+------------------------+
+| vout | Integer | Required (exactly 1) | Input transaction vout |
++------+---------+----------------------+------------------------+
 
 
 *Parameter #3---the asset type*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Asset</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The hex encoded asset id to be burnt</td>
-     </tr>
-    </tbody>
-   </table>
++-------+--------------+----------------------+-------------------------------+
+| Name  | Type         | Presence             | Description                   |
++-------+--------------+----------------------+-------------------------------+
+| asset | String (hex) | Required (exactly 1) | Asset ID of asset to be burnt |
++-------+--------------+----------------------+-------------------------------+
 
 
 *Parameter #4---the amount to burn (must equal the input amount)*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>burnamount</td>
-      <td>amount</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Amount of burnt asset</td>
-     </tr>
-    </tbody>
-   </table>
++--------+--------+----------------------+-------------------------+
+| Name   | Type   | Presence             | Description             |
++--------+--------+----------------------+-------------------------+
+| amount | Amount | Required (exactly 1) | Amount of asset to burn |
++--------+--------+----------------------+-------------------------+
 
 
 *Result---the unsigned raw transaction in hex*
+
++--------+--------------+--------------------------------------+
+| Name   | Type         | Description                          |
++--------+--------------+--------------------------------------+
+| result | String (hex) | Hex encoded unsigned raw transaction |
++--------+--------------+--------------------------------------+
 
 *Example*
 
@@ -1615,7 +1313,6 @@ Result:
 
 
 
-
 testmempoolaccept
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1623,93 +1320,34 @@ The ``testmempoolaccept`` RPC determines the validity of a raw transaction witho
 
 *Parameter #1---signed raw transaction*
 
++--------+--------------+----------------------+---------------------------------------+
+| Name   | Type         | Presence             | Description                           |
++--------+--------------+----------------------+---------------------------------------+
+| rawtxs | String (hex) | Required (exactly 1) | Hex encodings of signed transacitons  |
++--------+--------------+----------------------+---------------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>rawtx</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Hex encoded serialised transaction</td>
-     </tr>
-    </tbody>
-   </table>
 
 
 *Parameter #2---accept large fee*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>nLargeFee</td>
-      <td>Boolean</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>Allow large fee</td>
-     </tr>
-    </tbody>
-   </table>
++---------------+---------+-------------------+-----------------+
+| Name          | Type    | Presence          | Description     |
++---------------+---------+-------------------+-----------------+
+| allowhighfees | Boolean | Optional (0 or 1) | Allow large fee |
++---------------+---------+-------------------+-----------------+
 
 
 *Result---a JSON object containing the transaction ID, whether the transaction is accepted or rejected, and if rejected the reason*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>txid</td>
-      <td>String</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The raw transaction ID</td>
-     </tr>
-    </tbody>
-    <tbody>
-     <tr>
-      <td>allowed</td>
-      <td>boolean</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>The determination on whether the transaction is valid/allowed</td>
-     </tr>
-    </tbody>
-    <tbody>
-     <tr>
-      <td>reject-reason</td>
-      <td>String</td>
-      <td>Optional<br />(0 or 1)</td>
-      <td>The reason if the transaction would be rejected</td>
-     </tr>
-    </tbody>
-   </table>
++---------------+--------------+---------------------------------------------------------------+
+| Name          | Type         | Description                                                   |
++---------------+--------------+---------------------------------------------------------------+
+| txid          | String (hex) | The raw transaction ID                                        |
++---------------+--------------+---------------------------------------------------------------+
+| allowed       | boolean      | The determination on whether the transaction is valid/allowed |
++---------------+--------------+---------------------------------------------------------------+
+| reject-reason | String       | The reason if the transaction is rejected                     |
++---------------+--------------+---------------------------------------------------------------+
 
 
 *Example*
@@ -1732,283 +1370,76 @@ Result:
 createrawpolicytx
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that encodes an address to be added to a policy list. To be accepted, the asset type must match the policy asset type as defined in the genesis block (via ``-freezelistcoinsdestination`` and ``-burnlistcoinsdestination``. The policy asset input(s) are specified in an array, and the outputs are specified in an array of objects that contain a policy public key, the address to be added to to the policy list and the value. Spending these outputs removes the addresses from the policy lists.
+The ``createrawpolicytx`` RPC creates a raw unsigned policy transaction that encodes an address to be added to a policy list. To be accepted, the asset type must match the policy asset type as defined in the genesis block (via ``-freezelistcoinsdestination`` and ``-burnlistcoinsdestination``). The policy asset input(s) are specified in an array, and the outputs are specified in an array of objects that contain a policy public key, the address to be added to to the policy list and the value. Spending these outputs removes the addresses from the policy lists.
 
 *Parameter #1---Inputs*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      Inputs
-      </td>
-      <td markdown="span">
-      array
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      An array of objects, each one to be used as an input to the transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → Input
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object describing a particular input
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`txid`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The TXID of the outpoint to be spent encoded as hex in RPC byte order
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`vout`
-      </td>
-      <td markdown="span">
-      number (int)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The output index number (vout) of the outpoint to be spent; the first output in a transaction is index `0`
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`Sequence`
-      </td>
-      <td markdown="span">
-      number (int)
-      </td>
-      <td markdown="span">
-      Optional<br>(0 or 1)
-      </td>
-      <td markdown="span">
-      The sequence number to use for the input
-      </td>
-     </tr>
-    </tbody>
-   </table>
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+| Name       | Type         | Presence             | Description                                                             |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+| inputs     | array        | Required (exactly 1) | An array of objects, each one to be used as an input to the transaction |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+|            | Object       | Required(1 or more)  | An object describing a particular input with fields listed below        |
+| →          |              |                      |                                                                         |
+| `Input`    |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+| →→         | String (hex) | Required(exactly 1)  | The transaction ID of the output to be spent in hex encoding            |
+| `txid`     |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+| →→         | Integer      | Required(exactly 1)  | The output index number (vout) of the output to be spent                |
+| `vout`     |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
+| →→         | Integer      | Optional (0 or 1)    | The sequence number to use for the input                                |
+| `sequence` |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------------------------+
 
 
-*Parameter #1---Addresses to add to policy lists and control keys*
+*Parameter #2---Addresses to add to policy lists and control keys*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      Policy output
-      </td>
-      <td markdown="span">
-      array
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      An array of objects, each one is used to add an address to a policy list.
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → Input
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object encoding an output with a policy list address.
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`pubkey`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The public key of the policy authority wallet used to spend the output
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`value`
-      </td>
-      <td markdown="span">
-      number (coins)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The amount of policy asset to be sent to the output
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      → →<br>`address`
-      </td>
-      <td markdown="span">
-      string (base58check)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The address to be added to the policy list
-      </td>
-     </tr>
-    </tbody>
-   </table>
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| Name          | Type                 | Presence             | Description                                                              |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| policy output | array                | Required (exactly 1) | An array of objects, each one is used to add an address to a policy list |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| →             | Object               | Required (1 or more) | An object encoding a policy output, with fields listed below             |
+| `Input`       |                      |                      |                                                                          |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| →→            | String (hex)         | Required (exactly 1) | The public key of the policy authority wallet used to spend the output   |
+| `pubkey`      |                      |                      |                                                                          |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| →→            | Amount               | Required (exactly 1) | The amount of policy asset to be sent to the output                      |
+| `value`       |                      |                      |                                                                          |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
+| →→            | String (base58check) | Required (exactly 1) | The address to be added to the policy list                               |
+| `address`     |                      |                      |                                                                          |
++---------------+----------------------+----------------------+--------------------------------------------------------------------------+
 
 
 *Parameter #3---locktime*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      Locktime
-      </td>
-      <td markdown="span">
-      numeric (int)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Indicates the earliest time (in block height or Unix epoch time) a transaction can be added to the block chain
-      </td>
-     </tr>
-    </tbody>
-   </table>
++----------+---------+---------------------+----------------------------------------------------------------------------------------------------------------+
+| Name     | Type    | Presence            | Description                                                                                                    |
++----------+---------+---------------------+----------------------------------------------------------------------------------------------------------------+
+| locktime | Integer | Required(exactly 1) | Indicates the earliest time (in block height or Unix epoch time) a transaction can be added to the block chain |
++----------+---------+---------------------+----------------------------------------------------------------------------------------------------------------+
 
 
 *Parameter #4---policy asset*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      Policy asset
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The 32 byte asset ID of the policy asset of the list being updated
-      </td>
-     </tr>
-    </tbody>
-   </table>
++--------------+--------------+----------------------+--------------------------------------------------------------------+
+| Name         | Type         | Presence             | Description                                                        |
++--------------+--------------+----------------------+--------------------------------------------------------------------+
+| policy asset | String (hex) | Required (exactly 1) | The 32 byte asset ID of the policy asset of the list being updated |
++--------------+--------------+----------------------+--------------------------------------------------------------------+
 
 
-*Result---the unsigned raw transaction in hex*
+*Result---the unsigned raw transaction in hex. If the transaction couldn't be generated, result will be set to JSON `null` and the JSON-RPC error field may contain an error message*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      `result`
-      </td>
-      <td markdown="span">
-      string
-      </td>
-      <td markdown="span">
-      Required<br>(Exactly 1)
-      </td>
-      <td markdown="span">
-      The resulting unsigned raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
-      </td>
-     </tr>
-    </tbody>
-   </table>
++--------+--------------+-------------------------------------------------------------------------+
+| Name   | Type         | Description                                                             |
++--------+--------------+-------------------------------------------------------------------------+
+| result | String (hex) | The resulting unsigned raw transaction in serialized transaction format |
++--------+--------------+-------------------------------------------------------------------------+
 
 
 *Example*
@@ -2043,256 +1474,64 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
 
 *Parameter #1---Input object with details on transaction to be spent*
 
-.. raw:: html
++------------+--------------+----------------------+-----------------------------------------------------+
+| Name       | Type         | Presence             | Description                                         |                  
++------------+--------------+----------------------+-----------------------------------------------------+
+| →          | Object       | Required(1 or more)  | An object describing an input transaction           |
+| `Input`    |              |                      |                                                     |                    
++------------+--------------+----------------------+-----------------------------------------------------+
+| →→         | String (hex) | Required(exactly 1)  |  The txid of the input transaction                  |
+| `txid`     |              |                      |                                                     |
++------------+--------------+----------------------+-----------------------------------------------------+
+| →→         | Integer      | Required(exactly 1)  | The output index number (vout) of input transaction |
+| `vout`     |              |                      |                                                     |
++------------+--------------+----------------------+-----------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Input
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying an input transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`txid`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The txid of the input transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`vout`
-      </td>
-      <td markdown="span">
-      number (int)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The output index number (vout) of input transaction
-      </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2---Output object with request details*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Output
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying an output
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`pubkey`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Target request public key
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`decayConst`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Speed at which tickets value decays
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`endBlockHeight`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      End block of ticket sale window
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`fee`
-      </td>
-      <td markdown="span">
-     Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Size of fee
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`genesisBlockHash`
-      </td>
-      <td markdown="span">
-      String
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Hash of genesis block
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`startBlockHeight`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Start block of ticket sale window
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`startPrice`
-      </td>
-      <td markdown="span">
-      Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Starting price of ticket
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`tickets`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Number of tickets to issue
-      </td>
-     </tr>
-      <tr>
-      <td markdown="span">
-      →<br>`value`
-      </td>
-      <td markdown="span">
-      Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Value of tickets
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-*Result---the raw transaction in hex*
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| Name               | Type         | Presence             | Description                                                       |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| Output             | Object       | Required(1 or more)  | An object identifying an output                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | string (hex) | Required (exactly 1) | Target request public key                                         |
+| `pubkey`           |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+|                    | Number       | Required (exactly 1) | Decay constant determining speed at which tickets value decreases |
+| →                  |              |                      |                                                                   |
+| `decayConst        |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Integer      | Required (exactly 1) | End block request servcie period                                  |
+| `endBlockHeight``  |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Amount       | Required (exactly 1) | Percentage of fees to be paid to guardnodes                       |
+| `fee`              |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | String       | Required (exactly 1) | Hash of client chain genesis block                                |
+| `genesisBlockHash` |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Integer      | Required (exactly 1) | Start block request servcie period, end block of auction period   |
+| `startBlockHeight` |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Amount       | Required (exactly 1) | Starting price of ticket                                          |
+| `startPrice`       |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Integer      | Required (exactly 1) | Number of tickets to issue                                        |
+| `tickets`          |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
+| →                  | Amount       | Required (exactly 1) | value of input transaction                                        |
+| `value`            |              |                      |                                                                   |
++--------------------+--------------+----------------------+-------------------------------------------------------------------+
 
 
-.. raw:: html
+*Result---the unsigned raw transaction in hex. If the transaction couldn't be generated, result will be set to JSON `null` and the JSON-RPC error field may contain an error message*
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      `result`
-      </td>
-      <td markdown="span">
-      string
-      </td>
-      <td markdown="span">
-      Required<br>(Exactly 1)
-      </td>
-      <td markdown="span">
-      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-
-
++--------+--------------+-------------------------------------------------------------------------+
+| Name   | Type         | Description                                                             |
++--------+--------------+-------------------------------------------------------------------------+
+| result | String (hex) | The resulting unsigned raw transaction in serialized transaction format |
++--------+--------------+-------------------------------------------------------------------------+
 
 
 *Example*
@@ -2318,6 +1557,7 @@ The ``createrawrequesttx`` RPC creates a raw request transaction with a single i
      }
    ]'''
 
+
 Result:
 
 .. code-block:: text
@@ -2333,30 +1573,48 @@ The ``getrequests`` RPC returns all the active client requests in the blockchain
 
 *Parameter #1---the client genesis block hash*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>genesis block hash</td>
-      <td>hash (string)</td>
-      <td>Optional</td>
-      <td>The genesis block hash to filter requests by</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+---------+----------+----------------------------------------------+
+| Name        | Type    | Presence | Description                                  |
++-------------+---------+----------+----------------------------------------------+
+| genesishash | string  | Optional | The genesis block hash to filter requests by |
++-------------+---------+----------+----------------------------------------------+
 
 
 *Result---an array of JSON objects containing details for each active request*
+
++------------------+--------------+-------------------------------------------------------------+
+| Name             | Type         | Description                                                 |
++------------------+--------------+-------------------------------------------------------------+
+| result           | array        | array of JSON objects of details for each active request    |
++------------------+--------------+-------------------------------------------------------------+
+| →                | string (hex) | JSON objects containing details for each active request     |
+| `request`        |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | string       | Client chain genesis block hash                             |
+| `genesisBlock`   |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Integer      | Number of tickets available                                 |
+| `numTickets`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Number       | Decay constant determining speed at which tickets value     |
+| `decayConst`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Starting price of ticket                                    |
+| `startPrice`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Current price of tickets                                    |
+| `auctionPrice`   |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Percentage of fees to be paid to guardnodes                 |
+| `feePercentage`  |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Integer      | End block request servcie period                            |
+| `endBlockHeight` |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | String (hex) | Request transaction ID                                      |
+| `txid`           |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+
 
 *Example*
 
@@ -2392,241 +1650,61 @@ The ``createrawbidtx`` RPC creates a raw bid transaction funded by given inputs.
 
 *Parameter #1---Input object with details on transactions to be spent*
 
-.. raw:: html
++------------+--------------+----------------------+------------------------------------------------------+
+| Name       | Type         | Presence             | Description                                          |                  
++------------+--------------+----------------------+------------------------------------------------------+
+|            | Object       | Required(1 or more)  | An object describing an input transaction            |
+| →          |              |                      |                                                                         
+| `Input`    |              |                      |                                                                         
++------------+--------------+----------------------+-------------------------------------------------------+
+| →→         | String (hex) | Required(exactly 1)  |  The txid of the input transaction                    |
+| `txid`     |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------+
+| →→         | Integer      | Required(exactly 1)  | T The output index number (vout) of input transaction |
+| `vout`     |              |                      |                                                                         |
++------------+--------------+----------------------+-------------------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Input
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying the input transactions
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`txid`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The txid of the input transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`vout`
-      </td>
-      <td markdown="span">
-      number (int)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      The output index number (vout) of input transaction
-      </td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2---Output object with request details*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-     <tr>
-      <td markdown="span">
-      Output
-      </td>
-      <td markdown="span">
-      object
-      </td>
-      <td markdown="span">
-      Required<br>(1 or more)
-      </td>
-      <td markdown="span">
-      An object identifying an output
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`pubkey`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Target stake public key 
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`value`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Staked value locked in target pubkey
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`change`
-      </td>
-      <td markdown="span">
-     Amount
-      </td>
-      <td markdown="span">
-      Optional<br>(0 or 1)
-      </td>
-      <td markdown="span">
-      Change value of transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`changeAddr`
-      </td>
-      <td markdown="span">
-     Amount
-      </td>
-      <td markdown="span">
-      Optional<br>(0 or 1)
-      </td>
-      <td markdown="span">
-      Address to send change to
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`fee`
-      </td>
-      <td markdown="span">
-     Amount
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Size of fee
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`endBlockHeight`
-      </td>
-      <td markdown="span">
-      Integer
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Block height 
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`requestTxid`
-      </td>
-      <td markdown="span">
-      String (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      transaction Id of request transaction
-      </td>
-     </tr>
-     <tr>
-      <td markdown="span">
-      →<br>`feePubkey`
-      </td>
-      <td markdown="span">
-      string (hex)
-      </td>
-      <td markdown="span">
-      Required<br>(exactly 1)
-      </td>
-      <td markdown="span">
-      Public key to pay fees on client chain
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-*Result---the raw transaction in hex*
++-----------------+----------------------+----------------------+---------------------------------------------+
+| Name            | Type                 | Presence             | Description                                 |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| Output          | object               | Required (1 or more) | JSON objects identifying an output          |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | string (hex)         | Required (exactly 1) | Target stake public key                     |
+| `pubkey`        |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | Amount               | Required (exactly 1) | Staked value locked in target pubkey        |
+| `value`         |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | Amount               | Optional (0 or 1)    | Change value of transaction                 |
+| `change`        |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | String (base58check) | Optional (0 or 1)    | Change address of transaction               |
+| `changeAddr`    |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | Amount               | Required (exactly 1) | Fee value of transaction                    |
+| `fee`           |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | Integer              | Required (exactly 1) | Service end block height                    |
+| `endBlockHeigt` |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | String (hex)         | Required (exactly 1) | Percentage of fees to be paid to guardnodes |
+| `requestTxid`   |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
+| →               | String (hex)         | Required (exactly 1) | Public key to receive fees on client chain  |
+| `feePubKey`     |                      |                      |                                             |
++-----------------+----------------------+----------------------+---------------------------------------------+
 
 
-.. raw:: html
+*Result---the unsigned raw transaction in hex. If the transaction couldn't be generated, result will be set to JSON `null` and the JSON-RPC error field may contain an error message*
 
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td markdown="span">
-      `result`
-      </td>
-      <td markdown="span">
-      string
-      </td>
-      <td markdown="span">
-      Required<br>(Exactly 1)
-      </td>
-      <td markdown="span">
-      The resulting raw transaction in serialized transaction format, encoded as hex.  If the transaction couldn't be generated, this will be set to JSON `null` and the JSON-RPC error field may contain an error message
-      </td>
-     </tr>
-    </tbody>
-   </table>
-
-
++--------+--------------+-------------------------------------------------------------------------+
+| Name   | Type         | Description                                                             |
++--------+--------------+-------------------------------------------------------------------------+
+| result | String (hex) | The resulting unsigned raw transaction in serialized transaction format |
++--------+--------------+-------------------------------------------------------------------------+
 
 
 *Example*
@@ -2666,30 +1744,56 @@ The ``getrequestbids`` RPC returns all the active bids for a given requests in t
 
 *Parameter #1---the request transaction hash*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>request transaction hash</td>
-      <td>hash (string)</td>
-      <td>Optional</td>
-      <td>Hash of the request tranasction to find bids for</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+---------+----------+----------------------------------------------------+
+| Name        | Type    | Presence | Description                                        |
++-------------+---------+----------+----------------------------------------------------+
+| requesthash | string  | Optional | Hash of the request tranasction to return bids for |
++-------------+---------+----------+----------------------------------------------------+
 
 
 *Result---an array of JSON objects containing details for each active request and its corresponding bids*
+
++------------------+--------------+-------------------------------------------------------------+
+| Name             | Type         | Description                                                 |
++------------------+--------------+-------------------------------------------------------------+
+| result           | array        | array of JSON objects of details for each active request    |
++------------------+--------------+-------------------------------------------------------------+
+| →                | string (hex) | JSON objects containing details for each active request     |
+| `request`        |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | string       | Client chain genesis block hash                             |
+| `genesisBlock`   |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Integer      | Number of tickets available                                 |
+| `numTickets`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Number       | Decay constant determining speed at which tickets value     |
+| `decayConst`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Starting price of ticket                                    |
+| `startPrice`     |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Current price of tickets                                    |
+| `auctionPrice`   |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Amount       | Percentage of fees to be paid to guardnodes                 |
+| `feePercentage`  |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | Integer      | End block request servcie period                            |
+| `endBlockHeight` |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | String (hex) | Request transaction ID                                      |
+| `txid`           |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→               | array        | array of objects containing bids information                |
+| `bids`           |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→→              | String       | hash of bid transaction                                     |
+| `hash`           |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
+| →→→              | String (hex) | Public key that receives fees on client service chain       |
+| `feePubKey`      |              |                                                             |
++------------------+--------------+-------------------------------------------------------------+
 
 *Example*
 
@@ -2735,52 +1839,20 @@ contract hash as present in the most recent block header.
 
 *Parameter #1---the Base58check contract tweaked address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded contract tweaked address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+----------------------------------------------+
+| Name    | Type                 | Presence             | Description                                  |
++---------+----------------------+----------------------+----------------------------------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check encoded contract tweaked address |
++---------+----------------------+----------------------+----------------------------------------------+
 
 
 *Parameter #2---the base (un-tweaked) compressed public key*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>bpubkey</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Hex encoded base public key</td>
-     </tr>
-    </tbody>
-   </table>
++---------+--------------+----------------------+-----------------------------+
+| Name    | Type         | Presence             | Description                 |
++---------+--------------+----------------------+-----------------------------+
+| bpubkey | String (hex) | Required (exactly 1) | Hex encoded base public key |
++---------+--------------+----------------------+-----------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -2804,100 +1876,38 @@ contract hash as present in the most recent block header.
 
 *Parameter #1---the Base58check contract tweaked p2sh address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>tweakedaddress</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded contract tweaked p2sh address</td>
-     </tr>
-    </tbody>
-   </table>
++----------------+----------------------+----------------------+---------------------------------------------------+
+| Name           | Type                 | Presence             | Description                                       |
++----------------+----------------------+----------------------+---------------------------------------------------+
+| tweakedaddress | String (base58check) | Required (exactly 1) | Base58check encoded contract tweaked p2sh address |
++----------------+----------------------+----------------------+---------------------------------------------------+
 
 
 *Parameter #2---the base (un-tweaked) compressed public keys that the p2sh was created with*
 
++-------------+-------+----------------------+------------------------------+
+| Name        | Type  | Presence             | Description                  |
++-------------+-------+----------------------+------------------------------+
+| basepubkeys | array | Required (1 or more) | Hex encoded base public keys |
++-------------+-------+----------------------+------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>basepubkeys</td>
-      <td>array</td>
-      <td>Required<br />(1 or more)</td>
-      <td>Hex encoded base public keys</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3---the n of Multisig*
 
++-------------+---------+----------------------+--------------------------------------------+
+| Name        | Type    | Presence             | Description                                |
++-------------+---------+----------------------+--------------------------------------------+
+| nmultisig   | Integer | Required (exactly 1) | Number of signatures required for multisig |
++-------------+---------+----------------------+--------------------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>nmultisig</td>
-      <td>integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>number of signatures required for multisig</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #4---the Base58 KYC address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>kycaddress</td>
-      <td>string</td>
-      <td>Optional<br />(exactly 1)</td>
-      <td>Base58 KYC address</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+-----------------------+----------------------+--------------------------------------------+
+| Name        | Type                  | Presence             | Description                                |
++-------------+-----------------------+----------------------+--------------------------------------------+
+| kycaddress   | string (base58check) | Optional (0 or 1)    | Base58check encoded KYC address            |
++-------------+-----------------------+----------------------+--------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -2917,53 +1927,20 @@ The ``querywhitelist`` RPC queries if a specified address is present in the node
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+-----------------------+----------------------+--------------------------------------------+
+| Name        | Type                  | Presence             | Description                                |
++-------------+-----------------------+----------------------+--------------------------------------------+
+| address     | string (base58check)  | Required (exactly 1) | Base58check encoded address                |
++-------------+-----------------------+----------------------+--------------------------------------------+
 
 
 *Result---TRUE of FALSE*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>output</td>
-      <td>boolian</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>1 is the address is present, 0 otherwise</td>
-     </tr>
-
-    </tbody>
-   </table>
++--------+---------+------------------------------------------+
+| Name   | Type    | Description                              |
++--------+---------+------------------------------------------+
+| result | boolean | 1 if the address is present, 0 otherwise |
++--------+---------+------------------------------------------+
 
 
 *Example*
@@ -2991,27 +1968,11 @@ contract hash as present in the most recent block header. The file format is as 
 
 *Parameter #1---the filename to read in the list*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>filename</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Name of file containing the list of contract tweaked address and base public keys</td>
-     </tr>
-    </tbody>
-   </table>
++----------+---------+----------------------+-----------------------------------------------------------------------------------+
+| Name     | Type    | Presence             | Description                                                                       |
++----------+---------+----------------------+-----------------------------------------------------------------------------------+
+| filename | string  | required (exactly 1) | Name of file containing the list of contract tweaked address and base public keys |
++----------+---------+----------------------+-----------------------------------------------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3031,27 +1992,11 @@ The ``removefromwhitelist`` RPC removes a specified address from the node mempoo
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+-----------------------+----------------------+--------------------------------------------+
+| Name        | Type                  | Presence             | Description                                |
++-------------+-----------------------+----------------------+--------------------------------------------+
+| address     | string (base58check)  | Required (exactly 1) | Base58check encoded address                |
++-------------+-----------------------+----------------------+--------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3089,31 +2034,11 @@ addresses in the node mempool whitelist to a specified file.
 
 *Parameter #1---the filename of the output file*
 
-
-.. raw:: html
-
-   <table>
-   <thead>
-    <tr>
-     <th>Name</th>
-     <th>Type</th>
-     <th>Presence</th>
-     <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td>filename</td>
-     <td>string</td>
-     <td>Required<br />(exactly 1)</td>
-     <td markdown="block">
-
-     The name of the output file for the list of whitelist addresses
-
-     </td>
-     </tr>
-    </tbody>
-   </table>
++----------+--------+----------------------+------------------------------------------------------------------------------------+
+| Name     | Type   | Presence             | Description                                                                        |
++----------+--------+----------------------+------------------------------------------------------------------------------------+
+| filename | String | Required (exactly 1) |  The name of the output file for the list of whitelist addresses                     |
++----------+--------+----------------------+------------------------------------------------------------------------------------+
 
 
 *Example*
@@ -3134,103 +2059,46 @@ contract hash as present in the most recent block header. Whitelist node reads t
 
 *Parameter #1---the Base58check contract tweaked p2sh address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>tweakedaddress</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded contract tweaked p2sh address</td>
-     </tr>
-    </tbody>
-   </table>
++----------------+----------------------+----------+---------------------------------------------------+
+| Name           | Type                 | Presence | Description                                       |
++----------------+----------------------+----------+---------------------------------------------------+
+| tweakedaddress | string (base58check) | Required | Base58check encoded contract tweaked p2sh address |
++----------------+----------------------+----------+---------------------------------------------------+
 
 
 *Parameter #2---the base (un-tweaked) compressed public keys that the p2sh was created with*
 
++-------------+-------+----------------------+------------------------------+
+| Name        | Type  | Presence             | Description                  |
++-------------+-------+----------------------+------------------------------+
+| basepubkeys | array | Required (1 or more) | Hex encoded base public keys |
++-------------+-------+----------------------+------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>basepubkeys</td>
-      <td>array</td>
-      <td>Required<br />(1 or more)</td>
-      <td>Hex encoded base public keys</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #3---the n of Multisig*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>nmultisig</td>
-      <td>integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>number of signatures required for multisig</td>
-     </tr>
-    </tbody>
-   </table>
++-------------+---------+----------------------+--------------------------------------------+
+| Name        | Type    | Presence             | Description                                |
++-------------+---------+----------------------+--------------------------------------------+
+| nmultisig   | Integer | Required (exactly 1) | Number of signatures required for multisig |
++-------------+---------+----------------------+--------------------------------------------+
 
 *Parameter #4---the fee asset type*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>feeasset</td>
-      <td>string</td>
-      <td>Optional<br />(exactly 1)</td>
-      <td>Type of the fee asset</td>
-     </tr>
-    </tbody>
-   </table>
++----------+---------+-------------------+-------------------------------+
+| Name     | Type    | Presence          | Description                   |
++----------+---------+-------------------+-------------------------------+
+| feeasset | String  | Optional (0 or 1) | Type of asset for fee payment |
++----------+---------+-------------------+-------------------------------+
 
 
-*Result---transaction hex if valid, errors returned if invalid inputs or null if wallet is not working*
+*Result---transaction hex if valid, errors returned if invalid inputs or wallet error occurs*
+
++--------+--------------+------------------------------------------------------------+
+| Name   | Type         | Description                                                |
++--------+--------------+------------------------------------------------------------+
+| result | String (hex) | The resulting transaction id serialized transaction format |
++--------+--------------+------------------------------------------------------------+
 
 *Example*
 
@@ -3247,54 +2115,30 @@ The ``sendaddtowhitelisttx`` RPC serializes and sends an OP_REGISTERADDRESS tran
 
 *Parameter #1---Number of addresses that should be taken from the wallet pool and whitelisted*
 
++------------+----------+----------------------+---------------------------------+
+| Name       | Type     | Presence             | Description                     |
++------------+----------+----------------------+---------------------------------+
+| naddresses | Integer  | Required (exactly 1) | Number of addresses to register |
++------------+----------+----------------------+---------------------------------+
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>naddresses</td>
-      <td>integer</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Number of addresses to register</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Parameter #2---the fee asset type*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>feeasset</td>
-      <td>string</td>
-      <td>Optional<br />(exactly 1)</td>
-      <td>Type of the fee asset</td>
-     </tr>
-    </tbody>
-   </table>
++----------+--------+--------------------+-----------------------+
+| Name     | Type   | Presence           | Description           |
++----------+--------+--------------------+-----------------------+
+| feeasset | String | Optional (0 or 1)  | Type of asset for fee |
++----------+--------+--------------------+-----------------------+
 
 
-*Result---transaction hex if valid, null if wallet is not working*
+*Result---transaction hex if valid, errors returned if invalid inputs or wallet error*
+
++--------+--------------+------------------------------------------------------------+
+| Name   | Type         | Description                                                |
++--------+--------------+------------------------------------------------------------+
+| result | String (hex) | The resulting transaction id serialized transaction format |
++--------+--------------+------------------------------------------------------------+
+
 
 *Example*
 
@@ -3314,27 +2158,11 @@ mempool if the '-freezelist' configuration option is enabled.
 
 *Parameter #1---the Base58check address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+-------------------------------------------+
+| Name    | Type                 | Presence             | Description                               |
++---------+----------------------+----------------------+-------------------------------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address to add to freeze list |
++---------+----------------------+----------------------+-------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3354,53 +2182,20 @@ The ``queryfreezelist`` RPC queries if a specified address is present in the nod
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+---------------------+
+| Name    | Type                 | Presence             | Description         |
++---------+----------------------+----------------------+---------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address |
++---------+----------------------+----------------------+---------------------+
 
 
 *Result---TRUE of FALSE*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>output</td>
-      <td>boolian</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>1 is the address is present, 0 otherwise</td>
-     </tr>
-
-    </tbody>
-   </table>
++--------+---------+------------------------------------------+
+| Name   | Type    | Description                              |
++--------+---------+------------------------------------------+
+| result | Boolean | 1 if the address is present, 0 otherwise |
++--------+---------+------------------------------------------+
 
 
 *Example*
@@ -3424,27 +2219,11 @@ The ``removefromfreezelist`` RPC removes a specified address from the node mempo
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+------------------------------------------------+
+| Name    | Type                 | Presence             | Description                                    |
++---------+----------------------+----------------------+------------------------------------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address to remove from freeze list |
++---------+----------------------+----------------------+------------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3486,27 +2265,11 @@ and ``-burnlist`` configurations options enabled).
 
 *Parameter #1---the Base58check address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+-------------------------------------------+
+| Name    | Type                 | Presence             | Description                               |
++---------+----------------------+----------------------+-------------------------------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address to add to freeze list |
++---------+----------------------+----------------------+-------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3526,53 +2289,20 @@ The ``queryburnlist`` RPC queries if a specified address is present in the node 
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+---------------------+
+| Name    | Type                 | Presence             | Description         |
++---------+----------------------+----------------------+---------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address |
++---------+----------------------+----------------------+---------------------+
 
 
 *Result---TRUE of FALSE*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>output</td>
-      <td>boolian</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>1 is the address is present, 0 otherwise</td>
-     </tr>
-
-    </tbody>
-   </table>
++--------+---------+------------------------------------------+
+| Name   | Type    | Description                              |
++--------+---------+------------------------------------------+
+| result | Boolean | 1 is the address is present, 0 otherwise |
++--------+---------+------------------------------------------+
 
 
 *Example*
@@ -3596,27 +2326,11 @@ The ``removefromburnlist`` RPC removes a specified address from the node mempool
 
 *Parameter #1---the Base58check encoded address*
 
-
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Presence</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>string</td>
-      <td>Required<br />(exactly 1)</td>
-      <td>Base58check encoded address</td>
-     </tr>
-    </tbody>
-   </table>
++---------+----------------------+----------------------+----------------------------------------------+
+| Name    | Type                 | Presence             | Description                                  |
++---------+----------------------+----------------------+----------------------------------------------+
+| address | String (base58check) | Required (exactly 1) | Base58check address to remove from burn list |
++---------+----------------------+----------------------+----------------------------------------------+
 
 
 *Result---none if valid, errors returned if invalid inputs*
@@ -3654,22 +2368,11 @@ Enables node mempool address whitelisting. With this option set all addresses ar
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+--------------------------+
+| Type    | Default | Description              |
++---------+---------+--------------------------+
+| Boolean | 0       | 1 to enable whitelisting |
++---------+---------+--------------------------+
 
 *Example---The following examples enable whitelisting*
 
@@ -3689,22 +2392,11 @@ Enables node mempool address freezelisting.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+-------------------------+
+| Type    | Default | Description             |
++---------+---------+-------------------------+
+| Boolean | 0       | 1 to enable freeze list |
++---------+---------+-------------------------+
 
 
 
@@ -3715,22 +2407,11 @@ Enables node mempool address burnlisting.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+-----------------------+
+| Type    | Default | Description           |
++---------+---------+-----------------------+
+| Boolean | 0       | 1 to enable burn list |
++---------+---------+-----------------------+
 
 
 
@@ -3741,22 +2422,11 @@ Enables blocking of invalid issuance transactions from mempool by checking that 
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+-------------+
+| Type    | Default | Description |
++---------+---------+-------------+
+| Boolean | 0       | 1 to enable |
++---------+---------+-------------+
 
 
 
@@ -3767,22 +2437,11 @@ Disables confidential transactions and addresses.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+----------------------------------------+
+| Type    | Default | Description                            |
++---------+---------+----------------------------------------+
+| Boolean | 0       | 1 to disable confidential transactions |
++---------+---------+----------------------------------------+
 
 
 
@@ -3793,24 +2452,13 @@ Enable hash of chain's contract to be embedded in block header and addresses.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
++---------+---------+-------------+
+| Type    | Default | Description |
++---------+---------+-------------+
+| Boolean | 0       | 1 to enable |
++---------+---------+-------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>1</td>
-     </tr>
-    </tbody>
-   </table>
-
-*Example---The following examples will disable contract hash embedding
+*Example---The following examples will disable contract hash embedding*
 
 .. code-block:: bash
 
@@ -3828,24 +2476,12 @@ Embed the given attestation hash in the block header.
 
 *Argument---Attestation hash*
 
-.. raw:: html
++--------+---------+------------------------------------------+
+| Type   | Default | Description                              |
++--------+---------+------------------------------------------+
+| String | null    | 256-bit hex encoding of attestation hash |
++--------+---------+------------------------------------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>String (hex)</td>
-      <td>null</td>
-      <td>256-bit attestation hash</td>
-     </tr>
-    </tbody>
-   </table>
 
 *Example---The following will set the contract hash for embedding*
 
@@ -3865,22 +2501,11 @@ Enable asset mapping object embedding in block header.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>1</td>
-     </tr>
-    </tbody>
-   </table>
++---------+-----------------------+
+| Type    | Default | Description |
++---------+-----------------------+
+| Boolean | 0       | 1 to enable |
++---------------------------------+
 
 
 
@@ -3891,25 +2516,11 @@ Embed the given issuance controller script in the genesis block as a coinbase tr
 
 *Argument---issuance control script*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>String (hex)</td>
-      <td>null</td>
-      <td>hex encoding of issuance control script</td>
-     </tr>
-    </tbody>
-   </table>
-
++--------------+---------+-----------------------------------------+
+| Type         | Default | Description                             |
++--------------+---------+-----------------------------------------+
+| String (hex) | null    | hex encoding of issuance control script |
++--------------+---------+-----------------------------------------+
 
 
 policycoins
@@ -3919,25 +2530,11 @@ The amount of policy coins created in the genesis block.
 
 *Argument---Number of policy coins to create*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Amount</td>
-      <td>0</td>
-      <td>Amount of policy coins to create</td>
-     </tr>
-    </tbody>
-   </table>
-
++--------+---------+----------------------------------+
+| Type   | Default | Description                      |
++--------+---------+----------------------------------+
+| Amount | 0       | Amount of policy coins to create |
++--------+---------+----------------------------------+
 
 
 initialfreecoinsdestination
@@ -3947,24 +2544,11 @@ The destination of the OP_TRUE initial freecoins created in the genesis block. T
 
 *Argument---Address to hold created coins*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Destination of created freecoins</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+----------------------------------+
+| Type    | Default | Description                      |
++---------+---------+----------------------------------+
+| address | null    | Destination of created freecoins |
++---------+---------+----------------------------------+
 
 *Example*
 
@@ -3984,24 +2568,11 @@ The destination of the tokens for controlling the freezelist.
 
 *Argument---Address to hold created freeze tokens*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Destination of tokens to control freezelist</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+------------------------------------------+
+| Type    | Default | Description                              |
++---------+---------+------------------------------------------+
+| address | null    | Destination of freeze list policy tokens |
++---------+---------+------------------------------------------+
 
 
 
@@ -4012,24 +2583,11 @@ The destination of the tokens for controlling the burnlist.
 
 *Argument---Address to hold created burn tokens*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <td>Description</td>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Destination of tokens to control burnlist</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+----------------------------------------+
+| Type    | Default | Description                            |
++---------+---------+----------------------------------------+
+| address | null    | Destination of burn list policy tokens |
++---------+---------+----------------------------------------+
 
 
 
@@ -4040,52 +2598,26 @@ The destination of the tokens for controlling issuances.
 
 *Argument---Address to hold created issuance coins*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Destination of tokens to control issueances</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+---------------------------------------+
+| Type    | Default | Description                           |
++---------+---------+---------------------------------------+
+| address | null    | Destination of issuance policy tokens |
++---------+---------+---------------------------------------+
 
 
 
 permissioncoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The destination of the tokens for permitting request creation.
+The destination of the policy tokens for permitting request creation.
 
 *Argument---Address to hold created permitting request tokens*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Destination of tokens for permitting requests</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------+-----------------------------------------+
+| Type    | Default | Description                             |
++---------+---------+-----------------------------------------+
+| address | null    | Destination of permission policy tokens |
++---------+---------+-----------------------------------------+
 
 
 
@@ -4096,25 +2628,11 @@ The rpc host address which the daemon will try to connect to validate peg-ins, i
 
 *Argument---main chain rpc host*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>host</td>
-      <td>String</td>
-      <td>Cookie Auth</td>
-     </tr>
-    </tbody>
-   </table>
-
++------+--------+---------------+
+| Name | Type   | Description   |
++------+--------+---------------+
+| host | String | host address  |
++------+--------+---------------+
 
 
 mainchainrpcport
@@ -4124,24 +2642,11 @@ The rpc port number which the daemon will try to connect to validate peg-ins, if
 
 *Argument---main chain rpc port*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>port</td>
-      <td>String</td>
-      <td>Cookie Auth</td>
-     </tr>
-    </tbody>
-   </table>
++------+---------+-------------+
+| Name | Type    | Description |
++------+---------+-------------+
+| port | Integer | port number |
++------+---------+-------------+
 
 
 
@@ -4152,22 +2657,11 @@ Enable validation of all peg-in claims.
 
 *Argument---TRUE or FALSE*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Boolean</td>
-      <td>0</td>
-     </tr>
-    </tbody>
-   </table>
++---------+---------------------------------------------+
+| Type    | Default | Description                       |
++---------+---------------------------------------------+
+| Boolean | 0       | 1 to enable validation of peg-ins |
++-------------------------------------------------------+
 
 
 
@@ -4178,25 +2672,11 @@ Set parent genesis blockhash. Ethereum mainnet is default.
 
 *Argument---parent block hash*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>String (hex)</td>
-      <td>d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3</td>
-      <td>Hex-encoded hash of desired parent block</td>
-     </tr>
-    </tbody>
-   </table>
-
++--------------+------------------------------------------------------------------+------------------------------+
+| Type         | Default                                                          | Description                  |
++--------------+------------------------------------------------------------------+------------------------------+
+| String (hex) | d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3 | Hash of desired parent block |
++--------------+------------------------------------------------------------------+------------------------------+
 
 
 parentcontract
@@ -4206,53 +2686,25 @@ Set parent ERC20 contract script. Enabling causes creation of a new chain with a
 
 *Argument---ERC20 contract script*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>String (hex)</td>
-      <td>076C97e1c869072eE22f8c91978C99B4bcB02591</td>
-      <td>Hex encodeing of ERC20 script</td>
-     </tr>
-    </tbody>
-   </table>
-
++--------------+------------------------------------------+-------------------------------+
+| Type         | Default                                  | Description                   |
++--------------+------------------------------------------+-------------------------------+
+| String (hex) | 076C97e1c869072eE22f8c91978C99B4bcB02591 | Hex encodeing of ERC20 script |
++--------------+------------------------------------------+-------------------------------+
 
 
 fedpegaddress
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Set ETH address of federated peg. This creates a new chain with a different genesis block.
+Set ETH address of federated peg. Here a new chain is created with a different genesis block.
 
 *Argument---Ethereum address*
 
-.. raw:: html
-
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Descritpion</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>address</td>
-      <td>null</td>
-      <td>Ethereum address of federated peg</td>
-     </tr>
-    </tbody>
-   </table>
-
++---------+---------+-----------------------------------+
+| Type    | Default | Description                       |
++---------+---------+-----------------------------------+
+| address | null    | Ethereum address of federated peg |
++---------+---------+-----------------------------------+
 
 
 peginconfirmationdepth
@@ -4262,21 +2714,9 @@ Set required depth of network for peg-in claims to be considered valid.
 
 *Argument---block height*
 
-.. raw:: html
++--------------+---------+---------+--------------+
+| Name         | Type    | Default | Description  |
++--------------+---------+---------+--------------+
+| block height | Integer | 8       | block height |
++--------------+---------+---------+--------------+
 
-   <table>
-    <thead>
-     <tr>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>Integer</td>
-      <td>8</td>
-      <td>block height</td>
-     </tr>
-    </tbody>
-   </table>
