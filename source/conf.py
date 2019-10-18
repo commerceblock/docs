@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'CommerceBlock Network'
+project = 'CommerceBlock'
 copyright = '2019, CommerceBlock'
 author = 'CommerceBlock'
 

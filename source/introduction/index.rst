@@ -1,18 +1,25 @@
-CommerceBlock Overview
-======================
+Ocean Platform
+================
 
-CommerceBlock open-source technology, infrastructure and services have been developed to enable the tokenisation of assets and securities by companies and institutions. To remove the unnecessary second layer of trust required on a shared blockchain platform, the CommerceBlock model enables asset custodians to issue tokens on a permissioned sidechain that they control, but which has trustless immutability derived from the Bitcoin blockchain proof-of-work.
+.. image:: ocean.png
+    :width: 140px
+    :alt: Ocean Platform
+    :align: center
+
+The open-source Ocean platform has been developed to enable the tokenisation of assets and securities by companies and institutions. To remove the unnecessary second layer of trust required on a shared blockchain platform, the Ocean platform enables asset custodians to issue tokens on a permissioned sidechain that they control, but which has trustless immutability derived from the Bitcoin blockchain proof-of-work.
 
 Immutability and censorship resistance are the two revolutionary properties that the decentralisation the Bitcoin blockchain has provided. However, for many applications token issuers do not require or desire full censorship resistance — certainly for asset or equity backed tokens, as there is intrinsic permission required from the issuer to redeem an asset. In addition, issuers of security tokens may be legally required to control who can transact with a token and when. The value of having tokens issued on a blockchain in this design is that the ledger is publicly verifiable: it provides independent and legal proof of ownership and transfer of ownership of a token representing an asset or security — a cryptographic proof based on the possession of private keys. If the blockchain on which the token is transacted is also trustlessly immutable, then you can prove your ownership of the token, and hence the asset, independently.
 
-The CommerceBlock ecosystem provides a platform which simultaneously achieves 1) the *trustless* immutability that can only be provided by public, global proof-of-work via Bitcoin and 2) the legal control, scalability and reliability offered by publicly verifiable permissioned blockchains. This is accomplished via an architecture where asset backed blockchains - controlled by the asset issuer - can individually link to the CommerceBlock *Mainstay* service that immutably binds the sidechain to the Bitcoin blockchain. Companies, institutions and consortiums can then launch customised and configurable federated blockchains with tokenized asset support and full ID/KYC integration, according to their own requirements and policies. Assets can then be issued on these blockchains and transacted peer-to-peer using CommerceBlock multi-asset wallet tooling.
+The Ocean platform model simultaneously achieves 1) the *trustless* immutability that can only be provided by public, global proof-of-work via Bitcoin and 2) the legal control, scalability and reliability offered by publicly verifiable permissioned blockchains. This is accomplished via an architecture where asset backed blockchains - controlled by the asset issuer - can individually link to the CommerceBlock *Mainstay* service that immutably binds the sidechain to the Bitcoin blockchain. Companies, institutions and consortiums can then launch customised and configurable federated blockchains with tokenized asset support and full ID/KYC integration, according to their own requirements and policies. Assets can then be issued on these blockchains and transacted peer-to-peer via the Ocean Wallet.
 
-Asset-backed sidechains on the CommerceBlock network cab be configured as fully public blockchains, and in order to increase the decentralisation, resilience and security of the system, organisations and individuals over the globe can be incentivised to run fully validating *Guardnodes*, which enforce the sidechain consensus rules and provide services to the network. Operators of Guardnodes are free to chose the sidechains they wish to provide services to, and cab be rewarded with transaction fees generated on the asset backed sidechains.
+Asset-backed sidechains can be configured as either private or publicly verifiable blockchains. If configured as public, the security and decentralisation of the network can be optionally enhanced through CommerceBlock's *Guardnode* network. 
 
 .. image:: cb-arch.png
     :width: 400px
     :alt: CommerceBlock archetecture
     :align: center
+
+The Ocean sidechain client (incorporating full node and wallet) is derived from the open-source Elements project, which in turn was built from the main Bitcoin Core codebase. The core routines, data structures and cryptographic algorithms are the same as those used in the Bitcoin protocol, which is the most secure and battle-tested blockchain platform ever created.
 
 CommerceBlock Sidechain features
 ################################
@@ -51,3 +58,9 @@ Scalability
 -----------
 
 Sidechains are independently controlled, so transaction throughput is not constrained by a separate network. Scalability can be controlled by the asset issuer and the federation, and is only really limited by hardware. Ocean nodes can be launched easily on cloud infrastructure, being fully containerised (with Docker images for AWS etc.). Attestation to Bitcoin via Mainstay requires only one Bitcoin transaction every 10 minutes, the cost of which is shared among all sidechains using the CommerceBlock Mainstay service. 
+
+.. note::
+	Ocean is released under the terms of the MIT license.
+
+.. hint::
+	For a more extensive set of documentation for the Elements platform, including easy to understand descriptions of the underlying technologies and detailed tutorials and examples, visit `elementsproject.org <http://elementsproject.org>`_.

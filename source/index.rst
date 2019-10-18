@@ -1,5 +1,5 @@
-CommerceBlock Documentation Index
-=================================================
+CommerceBlock Documentation
+============================
 
 .. image:: cb-logo.png
     :width: 160px
@@ -18,25 +18,19 @@ Independent permissioned sidechains built using CommerceBlock technology and uti
 - Multisig token issuance with asset management and reporting tools
 - Backed by Bitcoins Proof-of-Work via the Mainstay protocol
 
-This documentation covers the central components of the CommerceBlock technology stack, including the sidechain client Ocean, the process of sidechain creation and operation via a permissioned federation of block signing nodes, the tools for controlling user whitelists, and the tools that enable the management and mapping of issued tokens. In addition, the full protocol descriptions and documentation of the two services offered by CommerceBlock to secure individual sidechains: Mainstay and the Guardnode system, are included.
+This documentation covers the central components of the CommerceBlock technology stack, including the Ocean platform sidechain client and wallet, the process of sidechain creation and operation via a permissioned federation of block signing nodes, the tools for controlling user whitelists, and the tools that enable the management and mapping of issued tokens. In addition, the full protocol descriptions and documentation of the two services offered by CommerceBlock to secure individual sidechains: Mainstay and the Guardnode system, are included.
 
 .. note::
   All CommerceBlock software is fully open-source and free to use, available via our Github repository:
   `github.com/commerceblock <https://github.com/commerceblock>`_. Technical questions and suggestions
-  for improvements can be raised as issues on the relevant repos. In addition, technical questions related
+  for improvements can be raised as issues on the relevant repositories. In addition, technical questions related
   to our software and processes are welcomed on our Telegram group.
 
 .. toctree::
    :maxdepth: 2
-   :caption: CommerceBlock Platform:
+   :caption: Ocean platform:
 
    introduction/index
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Ocean sidechain client:
-
-   ocean/index
    policy/index
    ocean-config/index
    running-node/index
@@ -58,7 +52,7 @@ This documentation covers the central components of the CommerceBlock technology
 
 .. toctree::
    :maxdepth: 2
-   :caption: Guardnode system:
+   :caption: Guardnodes:
 
    guardnodes/index
    bidding/index

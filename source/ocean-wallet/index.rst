@@ -1,3 +1,3 @@
-Lightweight wallet
-==================================
+Ocean Wallet
+=============
 

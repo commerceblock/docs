@@ -1,14 +1,10 @@
 Ocean API reference
 ===================
 
-The Ocean client includes all of the Remote Procedure Calls (RPCs) of
-the Elements platform (described in the reference
-`here <https://github.com/ElementsProject/elementsbp-api-reference/blob/master/api.md>`_\ )
-as well as additional RPCs that control advanced and extended features unique to the Ocean client.
-This document describes these new RPCs and their function as well as additional
-Ocean client configuration options that enable them.
+The Ocean client inherits all of the *Remote Procedure Calls* (RPCs) from *Elements 0.14* (described `here <https://github.com/ElementsProject/elementsbp-api-reference/blob/master/api.md>`_\) which in turn inherits all RPCs from *Bitcoin 0.13*. Ocean specific RPCs control the advanced and extended features unique to the platform.
+This document describes these new RPCs and their function as well as additional Ocean client configuration options that enable them.
 
-For any RPC supported in the Ocean client (including those inherited from Elements and
+For any RPC supported in the Ocean platform client (including those inherited from Elements and
 Bitcoin), you can get information about function and correct usage from the command line
 using the ``help`` RPC.  For example,
 
@@ -16,10 +12,7 @@ using the ``help`` RPC.  For example,
 
    ocean-cli help getblockchaininfo
 
-
-As in Elements and Bitcoin, the Configuration options can be passed to oceand as command line arguments or added to ocean.conf configuration file. For a full list of configuration options use ``oceand -help``.
-
-
+As in Elements and Bitcoin, the Configuration options can be passed to oceand as command line arguments or added to the ``ocean.conf`` configuration file. For a full list of RPCs and configuration options use ``oceand -help``.
 
 Quick reference
 ---------------
