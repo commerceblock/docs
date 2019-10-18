@@ -31,20 +31,12 @@ The following sections describe the full process and protocol for the operation 
 #. Service delivery and proof verification
 #. Fee payment allocation and distribution
 
+.. image:: fig1_gn.png
+    :width: 280px
+    :alt: Staychain
+    :align: center
 
-.. raw:: html
-
-   <p align="center">
-   <img src="images/fig1_gn.png" align="middle" width="440" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 1</b>: Illustration of a sequence of request creation and fulfillment. 
-   </p>
+Fig. 1. Illustration of a sequence of request creation and fulfillment. 
 
 
 Request creation: client chain connection
@@ -70,19 +62,12 @@ In return, the coordinator provides the commissioner with a client chain address
 The time-locked ``pToken`` output is set as spendable after a time ``sEnd`` (set via ``OP_CHECKLOCKTIMEVERIFY``\ ). The target number of nodes (\ ``np``\ ) is the number of distributed independent Guardnodes that the client chain operator determines are needed to meet their service level, security properties and decentralisation requirements. The higher this number, the smaller the fee income per Guardnode and the smaller the eventual ticket price - reducing the incentives and hence reliability of individual nodes. 
 
 
-.. raw:: html
+.. image:: fig3_gn.png
+    :width: 280px
+    :alt: Staychain
+    :align: center
 
-   <p align="center">
-   <img src="images/fig3_gn.png" align="middle" width="680" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 2</b>: Schematic of the creation of a request via a request transaction. 
-   </p>
+Fig. 2: Schematic of the creation of a request via a request transaction. 
 
 
 The client chain commissioner can specify the services required, which include:
@@ -117,19 +102,12 @@ The auction finalises when either ``nb`` = ``np`` or the time reaches ``sStart``
 After this point, the stakes of CBT and REP in each of the confirmed bid transactions become locked and unspendable until the time ``sEnd`` encoded in the request is reached. The exception to this is if the value of CBT in the output is greater than ``pfinal`` (which is the case for all bids made before finalisation) - in this case, then one additional transaction (including the same request ``TxID`` as in the bid transaction) spending the CBT output is permitted with the rule that it contains two outputs: one for exactly ``pfinal`` and one for the difference (change). When confirmed, the ``pfinal`` output becomes locked and unspendable until ``sEnd``\ , and the other can be transacted freely. 
 
 
-.. raw:: html
+.. image:: fig4_gn.png
+    :width: 280px
+    :alt: Staychain
+    :align: center
 
-   <p align="center">
-   <img src="images/fig4_gn.png" align="middle" width="800" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 3</b>: Schematic of the creation of a bid transaction and the refund of the excess CBT at the end of the auction. 
-   </p>
+Fig. 3: Schematic of the creation of a bid transaction and the refund of the excess CBT at the end of the auction. 
 
 
 The locked output then represents the ticket for the specified request - and the holder can prove their possession by providing a signature corresponding the address using in the locked CBT output. By performing the auction via on-chain transactions and enforcing the auction via consensus rules the process is transparent and immutable (via Mainstay) and so cheating (by anyone, including the coordinator) is impossible. 
@@ -155,22 +133,15 @@ Alert system and interface
 
 The guardnode is configured to recognise when it receives two (or more) blocks (or block headers) on the client chain at the same block height with valid signatures. This is direct proof of a consensus fork - and should not happen under any circumstances (unlike in Bitcoin) if the block-signing keys are secure. Conflicting block signatures mean that the block-signing nodes have been compromised and that a potential double-spend attack is underway (e.g. with an attacker sending different blockchain histories to different network participants). If this happens, all users should cease transacting until the situation is investigated and resolved via a network wide upgrade, and so long as a single valid history is agreed up to the conflict point, the proof of ownership of client assets is assured. 
 
-When a conflicting block is detected, the guardnode is configured to send an authenticated *fraud proof* to both the CBServices portal and third-party forums (e.g. mailing lists, Twitter etc.). The fraud-proof consists of two valid (i.e. signed with the client chain block-signing script) block-headers at the same block height. This fraud proof is signed with the ticket address key, and can then be independently verified by anyone as incontrovertible proof of chain consensus failure. 
+When a conflicting block is detected, the guardnode sends an authenticated *fraud proof* to both the CBServices portal and third-party forums (e.g. mailing lists, Twitter etc.). The fraud-proof consists of two valid (i.e. signed with the client chain block-signing script) block-headers at the same block height. This fraud proof is signed with the ticket address key, and can then be independently verified by anyone as incontrovertible proof of chain consensus failure. 
 
 
-.. raw:: html
+.. image:: fig2_gn.png
+    :width: 280px
+    :alt: Staychain
+    :align: center
 
-   <p align="center">
-   <img src="images/fig2_gn.png" align="middle" width="575" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 4</b>: Illustration of the coordinator and guardnode interface connectivity and architecture. 
-   </p>
+Fig. 4: Illustration of the coordinator and guardnode interface connectivity and architecture. 
 
 
 Service fee payments
@@ -179,5 +150,3 @@ Service fee payments
 At the end of the service period (as specified in the request) ``sEnd`` the guardnode interface can halt the client chain node (if there is no automatic renewal protocol enabled - see below) and stop responding to service proof requests. 
 
 During the service period specified in the request, the specified proportion of transaction fees generated on the client chain is paid to ``fAddress`` (which is controlled by the coordinator via an HSM). This payment occurs *on the client chain* in either a native token, pegged in token or an asset-backed token. At the end of the service period, the coordinator determines which of the ticket holders have satisfactorily provided the guardnode service (by timely responses to challenges) and divides the payment ``fAddress`` among the qualifying ticket holders. The fee portion is paid to the address of the locked CBT output of the bid/ticket transaction. (it is assumed the client chain will be an Ocean based chain, and therefore have a compatible key/address format to the service chain)
-
-Once the fee payment is made, the coordinator then issues reputation tokens (REP) to the address of the locked REP output in the bid/ticket. The number of reputation tickets issued is proportional to the length of the service interval (one token per day of service). The reputation tokens are transferable and fungible. 
