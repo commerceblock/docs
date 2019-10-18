@@ -21,7 +21,7 @@ Asset-backed sidechains can be configured as either private or publicly verifiab
 
 The Ocean sidechain client (incorporating full node and wallet) is derived from the open-source Elements project, which in turn was built from the main Bitcoin Core codebase. The core routines, data structures and cryptographic algorithms are the same as those used in the Bitcoin protocol, which is the most secure and battle-tested blockchain platform ever created.
 
-CommerceBlock Sidechain features
+Ocean sidechain features
 ################################
 
 Immutability

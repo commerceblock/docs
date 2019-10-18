@@ -1,7 +1,7 @@
-Federated block signing
+Block signing
 ========================
 
-The federation client/daemon is used to validate and sign blocks in an Ocean blockchain via a fault tolerant multiparty protocol. The federation is defined by the public keys in the M-of-N multisig blocksigning script which is specified in the Ocean node configuration. Each federation signing node coordinates with the other federation nodes to prodice valid blocks and combining M signatures on a valid block extending the blockchain over a specified block creation interval. In addition to block creation and signing, the federation client can perform token reissuance operations with the same fault-tolerance properties enabling secure and verifiable inflation of assets accordning to a specified schedule. 
+The Ocean platform incorporates a client/daemon that is used on infrastructure controlled by the issuer to validate and sign blocks on an Ocean sidechain via a fault tolerant multiparty protocol (referred to as *Federated block signing* and the nodes with block-signing permissions as *The Federation*). The block signing permissions are defined by the public keys in the M-of-N multisig blocksigning script which is specified in the Ocean sidechain configuration (``signblockscript``). Each federation signing node coordinates with the other federation nodes to produce valid blocks and combining M signatures on a valid block extending the blockchain over a specified block creation interval. In addition to block creation and signing, the federation client can perform token reissuance operations with the same fault-tolerance properties enabling secure and verifiable inflation of assets according to a specified schedule. 
 
 Instructions
 ------------
