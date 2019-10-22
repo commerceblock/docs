@@ -48,23 +48,13 @@ The `create_bid.sh <https://github.com/commerceblock/guardnode/blob/master/contr
 * txid of specified UTXO to fund bid transaction (Optional)
 * vout of specified UTXO to fund bid transaction (Optional)
 
-Node information must be set via ENV variables:
+Node connection information must be set via ENV variables:
 
 * $RPC_CONNECT
 * $RPC_PORT
 * $RPC_USER
 * $RPC_PASS
 
-
-To use the script create a file called `create_bid.sh` with the contents and do the following commands:
-
-.. code-block:: bash
-
-    cp create_bid.sh ../datadir/
-
-    docker-compose -f contrib/docker-compose-filename.yml exec ocean bash
-
-    ./home/bitcoin/.bitcoin/create_bid.sh
 
 4. Running the guardnode service
 
