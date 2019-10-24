@@ -11,7 +11,8 @@ Instructions
 #. ``python3 setup.py build && python3 setup.py install``
 #. For the demo run ``./run_demo`` or ``python3 -m demo``
 #. For the federation run ``./run_federation`` or ``python3 -m federation`` and provide the following arguments:
-   ``--rpcconnect $HOST --rpocport $PORT --rpcuser $USER --rpcpass $PASS --id $NODE_ID --msgtype $MSG_TYPE --nodes $NODES_LIST``
+.. code-block:: bash
+   --rpcconnect $HOST --rpocport $PORT --rpcuser $USER --rpcpass $PASS --id $NODE_ID --msgtype $MSG_TYPE --nodes $NODES_LIST
 
 Federation arguments:
 
@@ -33,7 +34,9 @@ Federation arguments:
 Example use:
 
 
-* zmq: ``python3 -m federation --rpconnect 127.0.0.1 --rpcport 18443 --rpcuser user --rpcpass pass --id 1 --msgtype zmq --nodes “node0:1503,node1:1502”``
+* zmq: 
+.. code-block:: bash
+  python3 -m federation --rpconnect 127.0.0.1 --rpcport 18443 --rpcuser user --rpcpass pass --id 1 --msgtype zmq --nodes “node0:1503,node1:1502”
 * kafka: ``python3 -m federation --rpconnect 127.0.0.1 --rpcport 18443 --rpcuser user --rpcpass pass --id 1`` (check federation.py - defaults to 5 nodes)
 
 Using HSMs
@@ -57,7 +60,8 @@ To build the federation container with hsm signing run:
 
 Inside this container federation can be initiated by:
 
-``python3 -u -m federation --rpconnect signing1 --rpcport 18886 --rpcuser username1 --rpcpass password1 --id 1 --msgtype zmq --nodes "federation0:6666,federation1:7777,federation2:8888" --hsm 1``
+.. code-block:: bash
+  python3 -u -m federation --rpconnect signing1 --rpcport 18886 --rpcuser username1 --rpcpass password1 --id 1 --msgtype zmq --nodes "federation0:6666,federation1:7777,federation2:8888" --hsm 1
 
 Inflating assets
 ^^^^^^^^^^^^^^^^

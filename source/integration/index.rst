@@ -114,68 +114,68 @@ This will return the JSON encoded deserialized transaction. e.g.
 
 .. code-block:: bash
 
-{
-  "hex": "0200000000013b60b9276d9e1d6fbeb9d580057f40a63a3d1209b663960e28c96a2898f601ca010000006b483045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685012102faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451feffffff0301230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000009184e72855c001976a914668f07ad957d44271fc563c60fddda292bab9c4088ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100001b48eb57e000001976a9145b92412ad76ea5344f22d0a4ff8742a9b212aeef88ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b2010000000000001aa400006f000000",
-  "txid": "1c606ab1490c4111bc0cc79af559b3566eb104f0f81f783d63911087d789ffae",
-  "hash": "1c606ab1490c4111bc0cc79af559b3566eb104f0f81f783d63911087d789ffae",
-  "withash": "ab3393f4fb64685a4de07ac89c6903d6a0ba107c87fff33c9a981a7590bae48e",
-  "size": 341,
-  "vsize": 341,
-  "version": 2,
-  "locktime": 111,
-  "vin": [
-    {
-      "txid": "ca01f698286ac9280e9663b609123d3aa6407f0580d5b9be6f1d9e6d27b9603b",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "3045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685[ALL] 02faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451",
-        "hex": "483045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685012102faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451"
-      },
-      "is_pegin": false,
-      "sequence": 4294967294
-    }
-  ],
-  "vout": [
-    {
-      "value": 99999.99993180,
-      "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 668f07ad957d44271fc563c60fddda292bab9c40 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914668f07ad957d44271fc563c60fddda292bab9c4088ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "2din2ez1HuAQ2bSGuiGRyhvMrTCnwweMxR3"
-        ]
+  {
+    "hex": "0200000000013b60b9276d9e1d6fbeb9d580057f40a63a3d1209b663960e28c96a2898f601ca010000006b483045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685012102faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451feffffff0301230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b201000009184e72855c001976a914668f07ad957d44271fc563c60fddda292bab9c4088ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b20100001b48eb57e000001976a9145b92412ad76ea5344f22d0a4ff8742a9b212aeef88ac01230f4f5d4b7c6fa845806ee4f67713459e1b69e8e60fcee2e4940c7a0d5de1b2010000000000001aa400006f000000",
+    "txid": "1c606ab1490c4111bc0cc79af559b3566eb104f0f81f783d63911087d789ffae",
+    "hash": "1c606ab1490c4111bc0cc79af559b3566eb104f0f81f783d63911087d789ffae",
+    "withash": "ab3393f4fb64685a4de07ac89c6903d6a0ba107c87fff33c9a981a7590bae48e",
+    "size": 341,
+    "vsize": 341,
+    "version": 2,
+    "locktime": 111,
+    "vin": [
+      {
+        "txid": "ca01f698286ac9280e9663b609123d3aa6407f0580d5b9be6f1d9e6d27b9603b",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "3045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685[ALL] 02faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451",
+          "hex": "483045022100a3b1a25644a671c4cd6248f83fb3ca896778f7e68cade4539816090ba67c0c1802200735eab82b2a12c3093a12f7a1c857112ff933158f5c3194e4ba7d2b340cc685012102faf9a07437dada1a60651ef194031ffa01bba65082a593d672895949a4c90451"
+        },
+        "is_pegin": false,
+        "sequence": 4294967294
       }
-    }, 
-    {
-      "value": 300000.00000000,
-      "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 5b92412ad76ea5344f22d0a4ff8742a9b212aeef OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a9145b92412ad76ea5344f22d0a4ff8742a9b212aeef88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "2dhmw5vLW7VqiUhE4UpbAKERcJhZnMLUZJZ"
-        ]
+    ],
+    "vout": [
+      {
+        "value": 99999.99993180,
+        "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 668f07ad957d44271fc563c60fddda292bab9c40 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a914668f07ad957d44271fc563c60fddda292bab9c4088ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "2din2ez1HuAQ2bSGuiGRyhvMrTCnwweMxR3"
+          ]
+        }
+      }, 
+      {
+        "value": 300000.00000000,
+        "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 5b92412ad76ea5344f22d0a4ff8742a9b212aeef OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a9145b92412ad76ea5344f22d0a4ff8742a9b212aeef88ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "2dhmw5vLW7VqiUhE4UpbAKERcJhZnMLUZJZ"
+          ]
+        }
+      }, 
+      {
+        "value": 0.00006820,
+        "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "",
+          "hex": "",
+          "type": "fee"
+        }
       }
-    }, 
-    {
-      "value": 0.00006820,
-      "asset": "b2e15d0d7a0c94e4e2ce0fe6e8691b9e451377f6e46e8045a86f7c4b5d4f0f23",
-      "n": 2,
-      "scriptPubKey": {
-        "asm": "",
-        "hex": "",
-        "type": "fee"
-      }
-    }
-  ]
-}
+    ]
+  }
 
 This is similar to a deserialized Bitcoin transaction, except that each output also has an ``asset`` field for the asset ID. 
 

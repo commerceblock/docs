@@ -32,8 +32,8 @@ This documentation covers the central components of the CommerceBlock technology
 
    introduction/index
    policy/index
-   ocean-config/index
    running-node/index
+   ocean-config/index
    federation/index
    ocean-api/index
    integration/index
