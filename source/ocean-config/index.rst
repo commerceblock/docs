@@ -1,4 +1,4 @@
-Ocean sidechain configuration
+Sidechain configuration
 ==============================
 
 The Ocean platform sidechain client ``oceand`` can be downloaded and compiled from our Github `repository <http://github.com/commerceblock/ocean>`_. Interaction with the running configured client is performed via an RPC connection (as specified in the configuration file), or via the ``ocean-cli`` command-line tool. 

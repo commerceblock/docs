@@ -59,7 +59,7 @@ Once the configuration file and contract are in place the Ocean daemon can be st
 **Linux**
 
 Run each application from the command line within the folder
-you extracted them to, along with the ``-datadir `` argument. For example:
+you extracted them to, along with the ``-datadir`` argument. For example:
 
 .. code-block:: bash
 
