@@ -39,72 +39,22 @@ Using the client chain node generate a pubkey to receive fee rewards on:
 
 3. Bid for a request
 
-The following script can be used to bid for an active request. The following parameters need to be filled:
+The `create_bid.sh <https://github.com/commerceblock/guardnode/blob/master/contrib/scripts/create_bid.sh>`_ script can be used to bid for an active request. It will build, sign and send a bid transaction for an in auction request corresponding to the given gensis hash, funded by a utxo owned by the local wallet. The following parameters must be provided:
 
+* Client chain genesis hash
 * Fee pubkey generated previously
-* Request transaction id from `getrequests` rpc
-* Current auction price from `getrequests` rpc
+* Fee size of bid transaction
+* Maximum bid amount (Optional)
+* txid of specified UTXO to fund bid transaction (Optional)
+* vout of specified UTXO to fund bid transaction (Optional)
 
-.. code-block:: bash
+Node connection information must be set via ENV variables:
 
-    #!/bin/bash
-    shopt -s expand_aliases
+* $RPC_CONNECT
+* $RPC_PORT
+* $RPC_USER
+* $RPC_PASS
 
-    alias ocl="ocean-cli -rpcport=7043 -rpcuser=ocean -rpcpassword=password"
-
-    echo "Creating bid in service chain"
-
-    # Address tokens will be locked in
-    addr=`ocl getnewaddress`
-    pub=`ocl validateaddress $addr | jq -r ".pubkey"`
-
-    # Get asset unspent
-    unspent=`ocl listunspent 1 9999999 [] true "CBT" | jq .[0]`
-    asset_hash=`echo $unspent | jq -r ".asset"`
-    value=`echo $unspent | jq -r ".amount"`
-    txid=`echo $unspent | jq ".txid"`
-    vout=`echo $unspent | jq -r ".vout"`
-
-    # TO UNLOCK A PREVIOUS BID
-    # Provide the `txid` and `vout` for that transaction
-    # The output can be spent after the locktime is expired
-    # e.g.
-    # value=5000
-    # vout=0
-    # txid="\"a327b15679f7fd0a8984cdb16f07c2c92063c5565af2f7ce99cff8d4750add8d\""
-
-    # Fee
-    fee=0.001
-    # Current auction price
-    bid=
-    # Change from unspent
-    change=$(echo "$value - $fee - $bid" | bc)
-
-    # Request id in service chain
-    requestid=""
-    # Request end height
-    end=
-    # Fee pubkey to pay fees in clientchain
-    feepub=""
-
-    inputs="[{\"txid\":$txid,\"vout\":$vout,\"asset\":\"$asset_hash\"}]"
-    outputs="{\"endBlockHeight\":$end,\"requestTxid\":\"$requestid\",\"pubkey\":\"$pub\",\
-    \"feePubkey\":\"$feepub\",\"value\":$bid,\"change\":$change,\"changeAddress\":\"$addr\",\"fee\":$fee}"
-
-    signedtx=`ocl signrawtransaction $(ocl createrawbidtx $inputs $outputs)`
-    txidbid=`ocl sendrawtransaction $(echo $signedtx | jq -r ".hex")`
-    echo "txid: $txidbid"
-
-
-To use the script create a file called `create_bid.sh` with the contents and do the following commands:
-
-.. code-block:: bash
-
-    cp create_bid.sh ../datadir/
-
-    docker-compose -f contrib/docker-compose-filename.yml exec ocean bash
-
-    ./home/bitcoin/.bitcoin/create_bid.sh
 
 4. Running the guardnode service
 
