@@ -4,7 +4,7 @@ Permissions and Policy
 Token issuance permissions
 ==========================
 
-A principle function of Ocean sidechains is the support of multiple token types, with global token identity and state being enforced by client consensus rules. Tokens issued can represent ownership of any asset or security, are divisible to arbitrary precision, and can be transferred between user wallets with atomic operations. Any number of different token types can be issued on an Ocean blockchain, and any token type can be provably inflated (re-issued). The ability to issue new tokens or re-issue existing tokens on an Ocean blockchain can be restricted with custom permissions and security policies. An Ocean blockchain can be configured so that to issue or reissue any tokens requires multiple signatures from security officers (*controllers*) via a multisig script.
+A principal function of Ocean sidechains is the support of multiple token types, with global token identity and state being enforced by client consensus rules. Tokens issued can represent ownership of any asset or security, are divisible to arbitrary precision, and can be transferred between user wallets with atomic operations. Any number of different token types can be issued on an Ocean blockchain, and any token type can be provably inflated (re-issued). The ability to issue new tokens or re-issue existing tokens on an Ocean blockchain can be restricted with custom permissions and security policies. An Ocean blockchain can be configured so that to issue or reissue any tokens requires multiple signatures from security officers (*controllers*) via a multisig script.
 
 Permission to issue new tokens on an Ocean sidechain is controlled via the *issuance tokens* which is specified in the genesis block of particluar sidechain. The issuance token permissioned by a specified ``scriptPubKey`` given in the chain configuration as the ``issuancecoinsdestination``. 
 
@@ -57,12 +57,12 @@ The wallets that control the private keys to these policy tokens then have the a
 
 
 User onboarding
----------------
+===============
 
 The Ocean platform incorporates an *onboarding* protocol that is designed to streamline the adding of new users who have passed issuer-determiend KYC checks. This protocol allows users to self-register validated whitelist addresses in a way that preserves privacy on a publicly validated sidechain.
 
 Preliminaries
-=============
+^^^^^^^^^^^^^^
 
 A shared deterministic wallet is generated and copied to a whitelisting node and the signing nodes. The private keys from the wallet are used for encrypting and decrypting whitelisting transactions as described below.
 
@@ -71,7 +71,7 @@ A WHITELIST asset is defined and created in the genesis block. This asset is ini
 The asset issuer creates deterministic "wallet" key pairs ``pub_kyc`` (referred to as "KYC public keys") and ``priv_kyc`` and publishes the ``pub_kyc`` keys to the blockchain via a policy transaction using the WHITELIST asset as the asset type. The ``priv_kyc`` are known by the signing nodes and the whitelisting node, as they all share the same deterministic wallet.
 
 Onboarding
-==========
+^^^^^^^^^^^^^^
 
 1. The user randomly selects a ``pub_kyc`` from the unassigned ``pub_kyc`` keys, generates a public private key pair (``pub_uob``, ``priv_uob``) and creates file containing ``pub_kyc`` and ``pub_uob``, tweaked address and corresponding untweaked public key data data for the addresses they want to register. The address data are encrypted using a shared secret generated from ``priv_uob`` and ``pub_kyc``. Therefore, the addresses can be read by the user, the signing nodes and the whitelisting node only. This "KYC file" is forwarded to the KYC vendor together with the user's ID details. The KYC file is generated from ``ocean`` client using the ``dumpkycfile`` command, or from the Ocean Wallet from the ``Wallet->Register`` menu item.
 2. The KYC vendor forwards the result of the checks together with the KYC file data to a webhook.
@@ -80,7 +80,7 @@ Onboarding
 On reading the transactions, the signing nodes and whitelisting nodes will build whitelisted address tables in RAM for fast lookup.
 
 User address self-registration
-==============================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Submission
 ~~~~~~~~~~
@@ -99,23 +99,17 @@ Processing
 2. If the ``pub_c`` is already whitelisted, the node decrypts ``addr_e``, adds it to the whitelist and updates the ``pub_c:addr`` map.
 
 Node restart
-============
+^^^^^^^^^^^^^^
 
 In case of node restart, the whitelist is rebuilt from the blockchain.
 
 Privacy
-=======
+^^^^^^^^^^^^^^
 
 Access to the whitelisting wallet master key or a ``priv_kyc`` is required in order to link users to addresses.
 
 Auditing
-========
+^^^^^^^^^^^^^^
 
 Each user has their own pub/priv pair, so one user's addresses can be revealed if required by revealing their ``priv_kyc``, without revealing any other user's addresses.
 
-OP codes
-========
-
-The below opcode is used for address registration transactions.
-
-* OP_REGISTERADDRESS

@@ -1,10 +1,99 @@
-Lauching with Docker
-==========================
+Ocean Node Setup 
+******************
+
+To run an Ocean node for a specific sidechain, the following is required:
+
+* Download/install the Ocean client binaries.
+
+* Configure the node using a configuration file and contract.
+
+The applications required:
+
+**Ocean Daemon (oceand)**
+
+An Ocean node that runs as a background application. It can processes requests made from
+other applications using Remote Procedure Calls (RPC). 
+
+**Ocean Client (ocean-cli)**
+
+The client application that enables command line calls to ``oceand`` by issuing
+RPC commands. Commands for ``ocean-cli`` are specified in the Ocean API Reference.  
+
+Installation
+------------
+
+Ocean can be downloaded from the `CommerceBlock Github repository <https://github.com/commerceblock/ocean/releases>`_ .
+
+Alternatively, executables can be compiled directly from the `source code <https://github.com/commerceblock/ocean/releases>`_. 
+
+After installation, the node must then be configured. 
+
+Configuration
+-------------
+
+The ``oceand`` and ``ocean-cli`` applications use a configuration file
+named ``ocean.conf``. This file defines the consensus rules of the sidechain, specify which network
+to connect to and can set a number of different behaviors within the application. It also
+defines what credentials must be provided in order to use the RPC interface. The
+``ocean-cli`` application uses the configuration file to obtain the correct credentials in
+order to communicate with ``oceand`` using RPC. 
+
+When either of these applications are started you must provide a ``datadir`` path.
+The path you provide tells the applications which directory to use to:
+
+* Obtain RPC authentication data (user, password, port).
+
+* Store blockchain and wallet data.
+
+* Store log files etc.
+
+Download the sidechain specific ``ocean.conf`` file from the sidechain operator or asset issuer, and copy it to the 
+``datadir`` path. If there is a contract for the sidechain (terms and conditions) this will need to be 
+copied to a ``terms-and-conditions`` directory in the ``datadir``. 
+
+Running the Ocean node
+------------------------
+
+Once the configuration file and contract are in place the Ocean daemon can be started.
+
+**Linux**
+
+Run each application from the command line within the folder
+you extracted them to, along with the ``-datadir `` argument. For example:
+
+.. code-block:: bash
+
+  ./oceand -datadir=path
+
+and 
+
+.. code-block:: bash
+
+  ./ocean-cli -datadir=path
+
+Depending on your system set up, you may have to change the permissions on the files before they will run.
+
+RPC commands can then be passed to the client via ``ocean-cli``
+
+To verify the genesis block hash created with the configuration, run:
+
+.. code-block:: bash
+
+  ./ocean-cli -datadir=path getblockhash 0
+
+To query the synchronization status of the node, run:
+
+.. code-block:: bash
+
+  ./ocean-cli -datadir=path getblockchaininfo
+
+Launching with Docker
+---------------------
 
 Instructions for launching a full configured Ocean node with Docker. 
 
 Requirements
-------------
+"""""""""""""""""""""""""""
 
 Docker engine release: 18.02.0 or latest
 
@@ -12,17 +101,15 @@ docker-compose: 1.20.0 or latest
 
 Download docker-compose.yml
 """""""""""""""""""""""""""
-From:
- commerceblock/ocean/contrib/docker/docker-compose.yml
 
-Or
+Download the ``docker-compose.yml`` file and the contract (terms and conditions) from the sidechain operator or asset issuer. 
+
+For example (Ocean testnet):
 
 .. code-block:: console
 
    curl -O https://raw.githubusercontent.com/commerceblock/ocean/master/contrib/docker/docker-compose.yml
 
-Download and read terms and conditions
-""""""""""""""""""""""""""""""""""""""
 
 .. code-block:: console
 
@@ -52,7 +139,7 @@ Output
    ocean_node_1   /docker-entrypoint.sh elem ...   Up      0.0.0.0:32768->18332/tcp, 0.0.0.0:32769->7042/tcp
 
 
-Check logs and see if node is syncing
+Check logs 
 """""""""""""""""""""""""""""""""""""
 
 .. code-block:: console
@@ -61,7 +148,7 @@ Check logs and see if node is syncing
 
 Hit ctrl+c to stop following
 
-Check if connected to CommerceBlock testnet
+Check if connection
 """""""""""""""""""""""""""""""""""""""""""
 
 .. code-block:: console

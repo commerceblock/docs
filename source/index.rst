@@ -36,6 +36,7 @@ This documentation covers the central components of the CommerceBlock technology
    running-node/index
    federation/index
    ocean-api/index
+   integration/index
    ocean-wallet/index
 
 .. toctree::

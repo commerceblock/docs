@@ -1,10 +1,12 @@
 Ocean sidechain configuration
-===================
+==============================
 
-The permissions that control an Ocean sidechain, and the unique binding to the Bitcoin blockchain via the Mainstay protocol are defined in the chain-specific configuration. Ocean nodes are configured via ``oceand`` command line arguments or parameters specified in the ``ocean.conf`` configuration file located in ``-datadir``. The Ocean sidechain client inherits all of the configuration options from *Elements 0.14* (which in turn inherits all of the configuration options from *Bitcoin 0.13*). Ocean specific configuration options are described below, with examples and whether they form part of the genesis block and are therefore critical to the definition of the chain.
+The Ocean platform sidechain client ``oceand`` can be downloaded and compiled from our Github `repository <http://github.com/commerceblock/ocean>`_. Interaction with the running configured client is performed via an RPC connection (as specified in the configuration file), or via the ``ocean-cli`` command-line tool. 
+
+The permissions that control an Ocean sidechain, and the unique binding to the Bitcoin blockchain via the Mainstay protocol are defined in the chain-specific configuration. Ocean nodes are configured via ``oceand`` command line arguments or parameters specified in the ``ocean.conf`` configuration file located in the ``-datadir=path`` argument. The Ocean sidechain client inherits all of the configuration options from *Elements 0.14* (which in turn inherits all of the configuration options from *Bitcoin 0.13*). Ocean specific configuration options are described below, with examples and whether they form part of the genesis block and are therefore critical to the definition of the chain.
 
 Sample sidechain configuration
--------------
+-------------------------------
 
 ::
 
