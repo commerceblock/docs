@@ -1,11 +1,6 @@
 CommerceBlock Documentation
 ============================
 
-.. image:: cb-logo.png
-    :width: 160px
-    :alt: CommerceBlock logo
-    :align: center
-
 Commerceblock provides public blockchain based technology and infrastructure that enables the tokenisation of assets and securities on fully independent blockchains (federated sidechains) that derive trustless immutability from the Bitcoin network Proof-of-Work consensus process. We have created an open-source ecosystem that provides all the tools required to launch and operate permissioned sidechains with customisable transaction and user policy and full KYC/ID provider integration.
 
 Independent permissioned sidechains built using CommerceBlock technology and utilising CommerceBlock services have the following advantages:

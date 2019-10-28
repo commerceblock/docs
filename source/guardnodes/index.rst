@@ -32,7 +32,7 @@ The following sections describe the full process and protocol for the operation 
 #. Fee payment allocation and distribution
 
 .. image:: fig1_gn.png
-    :width: 360px
+    :width: 400px
     :alt: Staychain
     :align: center
 
@@ -63,7 +63,7 @@ The time-locked ``pToken`` output is set as spendable after a time ``sEnd`` (set
 
 
 .. image:: fig3_gn.png
-    :width: 560px
+    :width: 640px
     :alt: Staychain
     :align: center
 
@@ -103,7 +103,7 @@ After this point, the stakes of CBT and REP in each of the confirmed bid transac
 
 
 .. image:: fig4_gn.png
-    :width: 560px
+    :width: 640px
     :alt: Staychain
     :align: center
 
@@ -137,7 +137,7 @@ When a conflicting block is detected, the guardnode sends an authenticated *frau
 
 
 .. image:: fig2_gn.png
-    :width: 410px
+    :width: 450px
     :alt: Staychain
     :align: center
 

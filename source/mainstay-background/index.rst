@@ -31,7 +31,7 @@ participants and must be done extremely conservatively so as to not risk the int
 system.
 
 Alternative consensus mechanisms on separate blockchains can be used to improve scalability
-and build in more advanced features at the protocol level [6]. Sidechains to Bitcoin secured
+and build in more advanced features. Sidechains to Bitcoin secured
 by federated consensus rules enable significantly better scalability, and much faster and
 more regular block times. In addition, these systems can incorporate more protocol-level
 functionality, including token issuance and cryptographic privacy and
@@ -43,17 +43,17 @@ forks of the blockchain can be created at no cost and double-spend attacks launc
 token holders.
 
 To provide federated sidechains with the same level of trustless immutability as Bitcoin, we
-describe a method that involves cryptographically binding these sidechains to the Bitcoin
+describe a method that involves cryptographically binding sidechains to the Bitcoin
 mainchain in such a way that the sidechain cannot be forked without also simultaneously
 forking the Bitcoin mainchain. This means that for a fixed set of federated block signers,
 users of a sidechain do not need to trust the federation to protect them from a double-spend
-attack: consensus on a single unforked version of the federated sidechain is enforced by
+attack: proof a single unforked version of the federated sidechain is provided by
 Bitcoin’s proof-of-work.
 
 Attestation and Timestamping
 ----------------------------
 
-It was recognised early in Bitcoin’s history that the blockchain could be utilised to timestamp arbitrary data in a completely trustless and decentralised way. By embedding a cryptographic commitment to a piece of data into a valid transaction, which was then
+It was recognised early in Bitcoin’s history that the blockchain could be utilised to timestamp arbitrary data in a completely trustless and decentralised way. By embedding a cryptographic commitment to data into a valid transaction, which was then
 mined into the blockchain, it was possible to prove that the data existed at a particular time. To accomodate time-stamping (and other meta-protocols) in a more efficient way, a new prunable transaction output type was
 introduced via a new OP code: ``OP_RETURN``. This allowed up to 40/80 bytes to be
 included in an output which was not treated as a spendable output in the UTXO
@@ -92,8 +92,8 @@ of a sidechain can be created with multiple simultaneous timestamped commitments
 Bitcoin. This could be used to execute a double spend attack by collusion of a block signing
 federation with the commitment authority.
 
-The MainStay protocol is designed to eliminate the requirement for any type of trust in cryptographic proof of immutability (PoI) by
+The MainStay protocol is designed to eliminate the requirement for any type of trust in creating a cryptographic proof of immutable sequence (PoIS) by
 initiating a *fan-in-only* transaction *staychain* within the Bitcoin blockchain that is uniquely
-committed to the genesis block of the sidechain, as described in the next section. The
+committed to the genesis block of a sidechain, as described in the next section. The
 protocol does not employ OP_RETURN outputs, providing additional privacy, censorship
 resistance and efficiency. 
