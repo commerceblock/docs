@@ -28,6 +28,4 @@ The Ocean Wallet is confirgured to connect to Ocean Servers, which deliver the s
     :alt: Staychain
     :align: center
 
-Fig. 4: Illustration of the coordinator and guardnode interface connectivity and architecture. 
-
 Ocean Servers (configured for a specific sidechain) must be run alongside Ocean platform nodes to run a wallet service. 

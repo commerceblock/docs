@@ -13,6 +13,7 @@ Illustration of a federation of 5 signing nodes, where 3 signing keys are requir
 Instructions
 ------------
 
+The federated block-signing daemon is a pure Python application and can be downloaded from the CommerceBlock Github `here <https://github.com/commerceblock/federation>`_. 
 
 #. ``pip3 install -r requirements.txt``
 #. ``python3 setup.py build && python3 setup.py install``
@@ -46,13 +47,15 @@ Example use:
   python3 -m federation --rpconnect 127.0.0.1 --rpcport 18443 --rpcuser user --rpcpass pass --id 1 --msgtype zmq --nodes “node0:1503,node1:1502”
 * kafka: ``python3 -m federation --rpconnect 127.0.0.1 --rpcport 18443 --rpcuser user --rpcpass pass --id 1`` (check federation.py - defaults to 5 nodes)
 
-Using HSMs
-^^^^^^^^^^
+Hardware Security Modules
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The application has full integration for Hardware Security Modules (HSMs) that support the PKCS11 interface, for block-signing operations and key management. 
 
 Initialisation
 ~~~~~~~~~~~~~~
 
-Assuming hsm and pkcs11 libraries setup and all config/secrets files are in place run:
+Assuming HSM and pkcs11 libraries setup and all config/secrets files are in place run:
 
 ``docker build --build-arg user_pin=$USER_PIN --build-arg key_label=$KEY_LABEL -f Dockerfile.hsm.init .``
 
