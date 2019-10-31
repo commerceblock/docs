@@ -4,6 +4,7 @@ Guardnode guide
 A step by step guide for setting up the Guardnode stack that includes a CommerceBlock service chain full node, a client chain full node and guardnode daemon guardning the client chain.
 
 1. Running the service chain full node
+--------------------------------------
 
 Download the docker-compose file from `ocean github <https://github.com/commerceblock/ocean/tree/master/contrib/docker>`_ and follow the `docs <https://commerceblock.readthedocs.io/en/latest/running-node/index.html>`_ instructions on how to run the node using data persistence.
 
@@ -18,6 +19,7 @@ Use the command line interface to find about active requests:
 (Under development) Also possible with the dedicated guardnode electrum wallet.
 
 2. Running the client chain node
+--------------------------------
 
 Pick one of the active requests with an active auction and run the client chain full node for this chain request by downloading the `guardnode repo <https://github.com/commerceblock/guardnode/>`_ and running the corresponding docker-compose file in the `contrib directory <https://github.com/commerceblock/guardnode/tree/master/contrib/docker-compose/>`_.
 
@@ -38,6 +40,7 @@ Using the client chain node generate a pubkey to receive fee rewards on:
     echo $pub
 
 3. Bid for a request
+--------------------
 
 The `create_bid.sh <https://github.com/commerceblock/guardnode/blob/master/contrib/scripts/create_bid.sh>`_ script can be used to bid for an active request. It will build, sign and send a bid transaction for an in auction request corresponding to the given gensis hash, funded by a utxo owned by the local wallet. The following parameters must be provided:
 
@@ -50,13 +53,21 @@ The `create_bid.sh <https://github.com/commerceblock/guardnode/blob/master/contr
 
 Node connection information must be set via ENV variables:
 
-* $RPC_CONNECT
-* $RPC_PORT
-* $RPC_USER
-* $RPC_PASS
++--------------+--------------+
+| Env variable |  Decription  |
++==============+==============+
+| RPC_CONNECT  | RPC address  |
++--------------+--------------+
+| RPC_PORT     | RPC port     |
++--------------+--------------+
+| RPC_USER     | RPC username |
++--------------+--------------+
+| RPC_PASS     | RPC password |
++--------------+--------------+
 
 
 4. Running the guardnode service
+--------------------------------
 
 Verify that the bid has been approved by using the service node:
 
@@ -70,8 +81,10 @@ Once verified fill the `bidpubkey` and `bidpubkey` arguments on the docker-compo
 
     docker-compose -f contrib/docker-compose-filename.yml up -d guardnode
 
-Monitor the logs using and look out for any alerts:
+Monitor the logs using:
 
 .. code-block:: bash
 
     docker-compose -f contrib/docker-compose-filename.yml logs --follow guardnode
+
+and look out for any alerts
