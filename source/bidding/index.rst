@@ -100,21 +100,13 @@ The decay function will return the current ticket bid price (in CBT sats) for gi
 
 Given the parameters in the object above, the ticket price is shown in the figure as function of t over 4000 blocks (~ 3 days at 1min per block).
 
+.. image:: decay.png
+        :height: 200px
+        :width: 200 px
+        :alt: Decay graph
+        :align: center
 
-.. raw:: html
-
-   <p align="center">
-   <img src="decay.png" width="530" vspace="20">
-   </p>
-
-
-
-.. raw:: html
-
-   <p align="center">
-     <b>Fig. 1.</b>: Ticket price decay function with startPrice = 100000 CBT and decayConst = 1000000.
-   </p>
-
+Ticket price decay function with startPrice = 100000 CBT and decayConst = 1000000.
 
 Request/bid table
 ^^^^^^^^^^^^^^^^^
