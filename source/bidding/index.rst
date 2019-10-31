@@ -51,6 +51,7 @@ The request transaction is generated with the ``createrawrequesttx`` RPC, which 
 The RPC will then create a new transaction with one input (txid and vout given) and two outputs. The first output will pay to the target request public key address and have a time-lock set to the end time (block height). Request outputs are in CBT, or the domain asset of the service chain if not in the Commerce Block network. The first output script can be constructed as:
 
 .. code-block:: json
+
         script = CScript() ToByteVector(endBlockHeight) << OP_CHECKLOCKTIMEVERIFY << OP_DROP << OP_DUP
         << OP_1 << ToByteVector(key1) << ToByteVector(key2) << ToByteVector(key3) << OP_3 << OP_CHECKMULTISIG
 
@@ -101,8 +102,8 @@ The decay function will return the current ticket bid price (in CBT sats) for gi
 Given the parameters in the object above, the ticket price is shown in the figure as function of t over 4000 blocks (~ 3 days at 1min per block).
 
 .. image:: decay.png
-        :height: 500px
-        :width: 500 px
+        :height: 425px
+        :width: 500px
         :alt: Decay graph
         :align: center
 
