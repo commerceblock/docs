@@ -49,6 +49,7 @@ The request transaction is generated with the ``createrawrequesttx`` RPC, which 
 
 
 The RPC will then create a new transaction with one input (txid and vout given) and two outputs. The first output will pay to the target request public key address and have a time-lock set to the end time (block height). Request outputs are in CBT, or the domain asset of the service chain if not in the Commerce Block network. The first output script can be constructed as:
+
 .. code-block:: json
         script = CScript() ToByteVector(endBlockHeight) << OP_CHECKLOCKTIMEVERIFY << OP_DROP << OP_DUP
         << OP_1 << ToByteVector(key1) << ToByteVector(key2) << ToByteVector(key3) << OP_3 << OP_CHECKMULTISIG
@@ -213,5 +214,4 @@ The request bid set is used for two purposes:
 1. Enable the coordinator to pay client chain fees to the winning bidders
 2. Lock the winning bid outputs for the duration of the service period. The locking is performed via the CLTV locked multisig output and the bid is added to the bid set only if it matches all the above prerequisites.
 
-This bid set will also allow winning bids to collect the change. At the end of the auction the final request bid will be calculated and guardnodes will be able to get the overbid - see the guardnode `tecdoc. <
-https://commerceblock.readthedocs.io/en/latest/guardnodes/index.html#service-fee-payments>`_
+This bid set will also allow winning bids to collect the change. At the end of the auction the final request bid will be calculated and guardnodes will be able to get the overbid - `see the guardnode tecdoc. <https://commerceblock.readthedocs.io/en/latest/guardnodes/index.html#service-fee-payments>`_
