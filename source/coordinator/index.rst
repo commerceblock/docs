@@ -34,7 +34,7 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CHALLENGE_DURATION       | Challenge duration in seconds                                              |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_VERIFY_DURATION          | Challenge transaction verify duration in seconds                           |
+| CO_BLOCK_TIME               | Service chain block time in seconds                                        |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_LOG_LEVEL                | Environment logger log level                                               |
 +-----------------------------+----------------------------------------------------------------------------+
