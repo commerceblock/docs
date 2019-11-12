@@ -34,7 +34,7 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CHALLENGE_DURATION       | Challenge duration in seconds                                              |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_VERIFY_DURATION          | Challenge transaction verify duration in seconds                           |
+| CO_BLOCK_TIME               | Service chain block time in seconds                                        |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_LOG_LEVEL                | Environment logger log level                                               |
 +-----------------------------+----------------------------------------------------------------------------+
@@ -108,7 +108,7 @@ The following rpc commands are offered:
 
 * getrequests: fetches all requests for the client
 * getrequest {"txid": "hash"}: fetches the specific request
-* getrequestreponses {"txid": "hash"}: fetches the responses for a specific request
+* getrequestreponse {"txid": "hash"}: fetches the responses for a specific request
 
 An example of how to generate a response report is showing in `report <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_.
 
@@ -116,7 +116,7 @@ Example
 
 .. code-block:: bash
 
-    curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "get_challenge_responses", "params" :     {"txid": "5eba0bf305ac8963225d68195fa7eb8b79667ad9c5fa6e9dcc0ce0185ad4a046"}, "id":1 }' userApi:passwordApi@localhost:3333
+    curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "getrequestresponse", "params" :     {"txid": "5eba0bf305ac8963225d68195fa7eb8b79667ad9c5fa6e9dcc0ce0185ad4a046"}, "id":1 }' userApi:passwordApi@localhost:3333
 
 
 Guarnode Responses
