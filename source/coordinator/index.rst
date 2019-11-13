@@ -60,6 +60,8 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_GENESIS_HASH | Client chain genesis hash                                                  |
 +-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_BLOCK_TIME   | Client chain block find time interval in seconds                           |
++-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_ASSET        | Client chain challenge asset label                                         |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_ASSET_KEY    | client chain challenge asset key                                           |
