@@ -6,43 +6,47 @@ Guardnode daemon responding to client chain coordinator challenges and generatin
 Running
 -------
 
-To run the daemon locally:
-
-Install and build
-
-.. code-block:: bash
-
-  pip3 install -r requirements.txt
-  python3 setup.py build && python3 setup.py install
-
-Run either
-
-.. code-block:: bash
-
-  ./run_guardnode ...
-
-Or
-
-.. code-block:: bash
-
-  python3 -m guardnode ...
-
-providing the arguments required.
+Find instructions for running the guardnode daemon in the `Guardnode repo <https://github.com/commerceblock/guardnode/>`_.
 
 
 Demo
 ----
-To run a demo along with the `coordinator <https://github.com/commerceblock/coordinator>`_ daemon execute the following replacing ``$txid`` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/scripts/demo.sh>`_:
+The following is a demo of the Guardnode in action responding to a challenge. First run the `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_ which generates a request and two bids for that request on a mock service chain.
+
+Next, in a separate terminal window, execute the following replacing `$txid` with the 'Guardnode txid' produced by the demo script.
 
 .. code-block:: bash
 
-  ./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --challengeasset fae9f771019d45e31b8f78da99a15b094b17b2ba76b0940c3ac53d5e9afd8e8e --nodelogfile /Users/nikolaos/co-client-dir/ocean_test/debug.log --bidtxid $txid
+  ./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --challengehost http://127.0.0.1:9999 --bidtxid $txid
+
+We can now send a CHALLENGE asset transaction and watch the guardnode react. In the first terminal window execute:
+
+.. code-block:: bash
+
+  alias ocn='/$HOME/ocean/src/ocean-cli -datadir=$HOME/co-client-dir'
+  ocn sendtoaddress $(ocn getnewaddress) 1 "" "" false "CHALLENGE"
+  ocn generate 1
+
+As there is no connection to a coordinator we get an error message but the would-be response message is displayed. Guardnode sends their bid txid to identify themselves, the challenge tx hash and a signature to coordinator as a response to the challenge and thus prove their active watching of the client chain. The coordinator uses this to determine whether to send payment to each guardnode at the end of the service period depending on whether they responded correctly to each challenge or not.
+
+Further guardnode functionality such as invalid block and consensus anomaly detection will be implemented soon.
+
+Demo with coordinator
+---------------------
+
+We can repeat the same demo with connection to a coordinator and observe the process of coordinator generating challenges, guardnodes sending responses and coordinator verifying them.
+
+Run a `coordinator <https://github.com/commerceblock/coordinator>`_ daemon and execute the following replacing `$txid` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_:
+
+.. code-block:: bash
+
+  ./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --bidtxid $txid
 
 
 Configuration
 -------------
 
-Arguments to set:
+The full list of arguments are given below:
 
 +------------------+----------------------------------+
 | Argument         |  Decription                      |
@@ -65,46 +69,5 @@ Arguments to set:
 +------------------+----------------------------------+
 | --challengehost  | Challenge host address           |
 +------------------+----------------------------------+
-| --challengeasset | Challenge asset hash             |
-+------------------+----------------------------------+
 
 
-Running services with docker-compose
-====================================
-
-Clone data directories
-
-.. code-block:: bash
-
-  git clone https://github.com/commerceblock/guardnode.git && cd guardnode
-
-
-Start ocean node:
-
-.. code-block:: bash
-
-  docker-compose -p ocean -f contrib/docker-compose/cb-guardnode-testnet.yml up -d ocean
-
-Start guardnode:
-
-.. code-block:: bash
-
-  docker-compose -p ocean -f contrib/docker-compose/cb-guardnode-testnet.yml up -d guardnode
-
-Check status:
-
-.. code-block:: bash
-
-  docker-compose -p ocean -f contrib/docker-compose/cb-guardnode-testnet.yml ps
-
-Check ocean logs:
-
-.. code-block:: bash
-
-  docker-compose -p ocean -f contrib/docker-compose/cb-guardnode-testnet.yml logs --follow ocean
-
-Check guarnode logs:
-
-.. code-block:: bash
-
-  docker-compose -p ocean -f contrib/docker-compose/cb-guardnode-testnet.yml logs --follow guardnode
