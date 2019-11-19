@@ -1,5 +1,5 @@
 Coordinator daemon
-============
+==================
 
 The Coordinator daemon is responsible for verifying the operation of Guardnodes in the Commerceblock Covalence system. It is ran by the authority controlling the service chain with the following functionality:
 
@@ -7,6 +7,12 @@ The Coordinator daemon is responsible for verifying the operation of Guardnodes 
 - Verify challenge responses (Verify that the response data is correct and is returned within a small enough period of time from when the challenge was sent)
 - Send guardnode fee payments at the end of each request service period
 - Query the connection status of the guardnode client chain node and obtain the current peer list
+
+
+Running
+-------
+Information on running a Coordinator daemon can be found in the Github `repository <https://github.com/commerceblock/coordinator>`_.
+
 
 Requirements
 ------------
@@ -62,8 +68,6 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_BLOCK_TIME   | Client chain block find time interval in seconds                           |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_CLIENTCHAIN_ASSET        | Client chain challenge asset label                                         |
-+-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_ASSET_KEY    | client chain challenge asset key                                           |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_SERVICE_HOST             | service chain host address                                                 |
@@ -73,21 +77,6 @@ Connection information for all services that the coordinator needs to interact w
 | CO_SERVICE_PASS             | service chain passord                                                      |
 +-----------------------------+----------------------------------------------------------------------------+
 
-
-Running
--------
-
-To run a production instance of the coordinator along with a mongo db database, edit the envs in the `docker compose file <https://github.com/commerceblock/coordinator/blob/develop/docker-compose.yml>`_ and:
-
-.. code-block:: bash
-
-  docker-compose up
-
-To test the coordinator locally:
-
-.. code-block:: bash
-
-  cargo run
 
 
 Demo
@@ -99,18 +88,21 @@ To run the demo:
 .. code-block:: bash
 
   ./scripts/demo.sh && cargo run --example demo
+  
+This script is also used in a `tutorial <https://commerceblock.readthedocs.io/en/latest/guardnode/index.html#demo>`_ showing guardnode functionality and interaction with Coordinator.
 
+After the script is complete the coordinator demo creates two guardnodes and randomly challenges them by randomly including CHALLENGE asset transactions in blocks. When the guardnoes respond the coordinator output shows them being verified and stored ready for fee payments to be made later.
 
 RPC API
 -------
 
-Any requests need to be sent to CO_API_HOST using Http Basic Authentication via CO_API_USER/CO_API_PASS.
+Any requests need to be sent to ``CO_API_HOST`` using Http Basic Authentication via ``CO_API_USER``/``CO_API_PASS``.
 
 The following rpc commands are offered:
 
-* getrequests: fetches all requests for the client
-* getrequest {"txid": "hash"}: fetches the specific request
-* getrequestreponse {"txid": "hash"}: fetches the responses for a specific request
+* ``getrequests``: fetches all requests for the client
+* ``getrequest {"txid": "hash"}``: fetches the specific request
+* ``getrequestreponse {"txid": "hash"}``: fetches the responses for a specific request
 
 An example of how to generate a response report is showing in `report <https://github.com/commerceblock/coordinator/blob/develop/scripts/report.py>`_.
 
