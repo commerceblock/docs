@@ -75,7 +75,7 @@ Verify that the bid has been approved by using the service node:
 
     ocean-cli getrequestbids $requesttxid
 
-Once verified fill the `bidpubkey` and `bidpubkey` arguments on the docker-compose file downloaded for the client chain under `guardnode` and start the guardnode service by:
+Once verified fill the `bidpubkey` and `bidtxid` arguments on the docker-compose file downloaded for the client chain under `guardnode` and start the guardnode service by:
 
 .. code-block:: bash
 
