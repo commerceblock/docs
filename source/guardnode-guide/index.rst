@@ -1,7 +1,7 @@
 Guardnode guide
 ===============
 
-A step by step guide for setting up the Guardnode stack that includes a CommerceBlock service chain full node, a client chain full node and guardnode daemon guardning the client chain.
+A step by step guide for setting up the Guardnode stack that includes a CommerceBlock service chain full node, a client chain full node and guardnode daemon guarding the client chain.
 
 1. Running the service chain full node
 --------------------------------------
