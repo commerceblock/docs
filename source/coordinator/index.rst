@@ -34,15 +34,15 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | Env variable                |  Decription                                                                |
 +=============================+============================================================================+
-| CO_LISTENER_HOST            | Host address at which the coordinator binds to receive guardnode responses |
+| CO_LISTENER_HOST            | Host address to receive guardnode responses (default: localhost:80)        |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_CHALLENGE_FREQUENCY      |  The frequency in number of blocks that new challenges are created         |
+| CO_CHALLENGE_FREQUENCY      | Frequency in number of blocks that new challenges are created (default: 1) |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_CHALLENGE_DURATION       | Challenge duration in seconds                                              |
+| CO_CHALLENGE_DURATION       | Challenge duration in seconds (default: 60)                                |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_BLOCK_TIME               | Service chain block time in seconds                                        |
+| CO_BLOCK_TIME               | Service chain block time in seconds (default: 60)                          |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_LOG_LEVEL                | Environment logger log level                                               |
+| CO_LOG_LEVEL                | Environment logger log level (default: "coordinator")                      |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_API_HOST                 | RPC api host address                                                       |
 +-----------------------------+----------------------------------------------------------------------------+
@@ -50,13 +50,13 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_API_PASS                 | RPC api password                                                           |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_STORAGE_HOST             | DB storage host address                                                    |
+| CO_STORAGE_HOST             | DB storage host address (default: "localhost:27017")                       |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_STORAGE_USER             | DB storage username                                                        |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_STORAGE_PASS             | DB storage password                                                        |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_STORAGE_NAME             | DB storage database name                                                   |
+| CO_STORAGE_NAME             | DB storage database name (default: "coordinator")                          |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_HOST         | Client chain rpc host address                                              |
 +-----------------------------+----------------------------------------------------------------------------+
@@ -66,9 +66,19 @@ Connection information for all services that the coordinator needs to interact w
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_GENESIS_HASH | Client chain genesis hash                                                  |
 +-----------------------------+----------------------------------------------------------------------------+
-| CO_CLIENTCHAIN_BLOCK_TIME   | Client chain block find time interval in seconds                           |
+| CO_CLIENTCHAIN_BLOCK_TIME   | Client chain block find time interval in seconds (default: 60)             |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_CLIENTCHAIN_ASSET_KEY    | client chain challenge asset key                                           |
++-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_ASSET        | client chain challenge asset/assetlabel (default: "CHALLENGE")             |
++-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_CHAIN        | client chain chain name                                                    |
++-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_PAYMENT_ASSET| client chain fee payment asset                                             |
++-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_PAYMENT_KEY  | client chain fee payment key (optional; for payment mode only)             |
++-----------------------------+----------------------------------------------------------------------------+
+| CO_CLIENTCHAIN_PAYMENT_ADDR | client chain address for payment funds (optional; for payment mode only)   |
 +-----------------------------+----------------------------------------------------------------------------+
 | CO_SERVICE_HOST             | service chain host address                                                 |
 +-----------------------------+----------------------------------------------------------------------------+
@@ -88,7 +98,7 @@ To run the demo:
 .. code-block:: bash
 
   ./scripts/demo.sh && cargo run --example demo
-  
+
 This script is also used in a `tutorial <https://commerceblock.readthedocs.io/en/latest/guardnode/index.html#demo>`_ showing guardnode functionality and interaction with Coordinator.
 
 After the script is complete the coordinator demo creates two guardnodes and randomly challenges them by randomly including CHALLENGE asset transactions in blocks. When the guardnoes respond the coordinator output shows them being verified and stored ready for fee payments to be made later.
@@ -100,7 +110,7 @@ Any requests need to be sent to ``CO_API_HOST`` using Http Basic Authentication 
 
 The following rpc commands are offered:
 
-* ``getrequests``: fetches all requests for the client
+* ``getrequests {"page": <int, optional>}``: fetches up to 10 requests for the client. more can be requested with the "page" parameter
 * ``getrequest {"txid": "hash"}``: fetches the specific request
 * ``getrequestreponse {"txid": "hash"}``: fetches the responses for a specific request
 
