@@ -13,7 +13,7 @@ Demo
 ----
 The following is a demo of the Guardnode in action responding to a challenge. First run the `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_ which generates a request and two bids for that request on a mock service chain.
 
-Next, in a separate terminal window, execute the following replacing `$txid` with the 'Guardnode txid' produced by the demo script.
+Next, in a separate terminal window, execute the following replacing ``$txid`` with the ``Guardnode txid`` produced by the demo script.
 
 .. code-block:: bash
 
@@ -36,7 +36,7 @@ Demo with coordinator
 
 We can repeat the same demo with connection to a coordinator and observe the process of coordinator generating challenges, guardnodes sending responses and coordinator verifying them.
 
-Run a `coordinator <https://github.com/commerceblock/coordinator>`_ daemon and execute the following replacing `$txid` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_:
+Run a `coordinator <https://github.com/commerceblock/coordinator>`_ daemon and execute the following replacing ``$txid`` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_:
 
 .. code-block:: bash
 
@@ -62,8 +62,6 @@ The full list of arguments are given below:
 | --nodeaddrprefix | Node P2PKH address prefix        |
 +------------------+----------------------------------+
 | --nodelogfile    | Node log file destination        |
-+------------------+----------------------------------+
-| --bidtxid        | Guardnode winning bid txid       |
 +------------------+----------------------------------+
 | --bidpubkey      | Guardnode winning bid public key |
 +------------------+----------------------------------+
