@@ -643,6 +643,8 @@ validateethpegin
 
 The ``validateethpegin`` RPC validates an eth ERC-20 transaction to be used from peg-in to Ocean.
 
+Configuation options ``validatepegin=1``, ``mainchainrpchost=$GETH_RPC_HOST`` and ``mainchainrpcport=$GETH_RPC_PORT`` must be set for this command.
+
 
 *Parameter #1 --- eth transaction id*
 
@@ -2246,7 +2248,7 @@ The ``clearfreezelist`` RPC clears the mempool whitelist of all addresses.
 
 
 
-addtofreezelist
+addtoburnlist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``addtoburnlist`` RPC adds an address to the node
@@ -2584,7 +2586,7 @@ The destination of the tokens for controlling the burnlist.
 
 
 
-issuancelistcoinsdestination
+issuancecoinsdestination
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The destination of the tokens for controlling issuances.
@@ -2647,6 +2649,8 @@ validatepegin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Enable validation of all peg-in claims.
+
+
 
 *Argument---TRUE or FALSE*
 
