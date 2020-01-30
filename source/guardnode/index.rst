@@ -13,17 +13,18 @@ Demo
 ----
 The following is a demo of the Guardnode in action responding to a challenge. First run the `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_ which generates a request and two bids for that request on a mock service chain.
 
-Next, in a separate terminal window, execute the following replacing ``$txid`` with the ``Guardnode txid`` produced by the demo script.
+Next, in a separate terminal window execute the following script and watch the guardnode recognise the request and submit a bid.
 
 .. code-block:: bash
 
-  ./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --challengehost http://127.0.0.1:9999 --bidtxid $txid
+  ./run_guardnode --rpcuser user1 --rpcpass password1 --rpchost 127.0.0.1:5555 --servicerpcuser user1 --servicerpcpass password1 --servicerpchost 127.0.0.1:5555 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --challengehost 127.0.0.1:5555 --bidlimit 50 --serviceblocktime 5
 
-We can now send a CHALLENGE asset transaction and watch the guardnode react. In the first terminal window execute:
+We can now mine some blocks to bring our request into its service period. Then we can send a CHALLENGE asset transaction and watch the guardnode react. In the first terminal window execute:
 
 .. code-block:: bash
 
   alias ocn='/$HOME/ocean/src/ocean-cli -datadir=$HOME/co-client-dir'
+  ocn generate 5
   ocn sendtoaddress $(ocn getnewaddress) 1 "" "" false "CHALLENGE"
   ocn generate 1
 
@@ -36,11 +37,11 @@ Demo with coordinator
 
 We can repeat the same demo with connection to a coordinator and observe the process of coordinator generating challenges, guardnodes sending responses and coordinator verifying them.
 
-Run a `coordinator <https://github.com/commerceblock/coordinator>`_ daemon and execute the following replacing ``$txid`` with the txid produced by the coordinator `demo script <https://github.com/commerceblock/coordinator/blob/master/scripts/demo.sh>`_:
+Run a `coordinator <https://github.com/commerceblock/coordinator>`_ daemon and execute the following:
 
 .. code-block:: bash
 
-  ./run_guardnode --rpcuser user1 --rpcpassword password1 --bidpubkey 029aaa76fcf7b8012041c6b4375ad476408344d842000087aa93c5a33f65d50d92 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --bidtxid $txid
+  ./run_guardnode --rpcuser user1 --rpcpass password1 --rpchost 127.0.0.1:5555 --servicerpcuser user1 --servicerpcpass password1 --servicerpchost 127.0.0.1:5555 --nodelogfile $HOME/co-client-dir/ocean_test/debug.log --challengehost 127.0.0.1:5555 --bidlimit 50 --serviceblocktime 5
 
 
 Configuration
@@ -48,24 +49,32 @@ Configuration
 
 The full list of arguments are given below:
 
-+------------------+----------------------------------+
-| Argument         |  Decription                      |
-+==================+==================================+
-| --rpcconnect     | Client RPC host                  |
-+------------------+----------------------------------+
-| --rpcuser        | Client RPC username              |
-+------------------+----------------------------------+
-| --rpcport        | Client RPC port                  |
-+------------------+----------------------------------+
-| --rpcpassword    | Client RPC password              |
-+------------------+----------------------------------+
-| --nodeaddrprefix | Node P2PKH address prefix        |
-+------------------+----------------------------------+
-| --nodelogfile    | Node log file destination        |
-+------------------+----------------------------------+
-| --bidpubkey      | Guardnode winning bid public key |
-+------------------+----------------------------------+
-| --challengehost  | Challenge host address           |
-+------------------+----------------------------------+
++--------------------+---------------------------------------------------------+
+| Argument           |  Decription                                             | 
++====================+=========================================================+
+| --rpchost          | Client chain RPC host address                           |
++--------------------+---------------------------------------------------------+
+| --rpcuser          | Client chain RPC username                               |
++--------------------+---------------------------------------------------------+
+| --rpcpass          | Client chain RPC password                               |
++--------------------+---------------------------------------------------------+
+| --servicerpchost   | Service chain RPC host address                          |
++--------------------+---------------------------------------------------------+
+| --servicerpcuser   | Service chain RPC username                              |
++--------------------+---------------------------------------------------------+
+| --servicerpcpass   | Service chain RPC password                              |
++--------------------+---------------------------------------------------------+
+| --serviceblocktime | Service chain block time                                |
++--------------------+---------------------------------------------------------+
+| --nodelogfile      | Client chain log file destination                       |
++--------------------+---------------------------------------------------------+
+| --bidpubkey        | (Optional) Pre-made bid public key                      |
++--------------------+---------------------------------------------------------+
+| --bidlimit         | Upper limit in bid size                                 |
++--------------------+---------------------------------------------------------+
+| --challengehost    | Challenger host address                                 |
++--------------------+---------------------------------------------------------+
+| --uniquebidpubkeys | Flag to indicate new bid pubkey generation for each bid |
++--------------------+---------------------------------------------------------+
 
 
