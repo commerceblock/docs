@@ -2,8 +2,8 @@ Background
 ============
 
 The invention of Bitcoin solved the issue of double-spending in a fully decentralised digital
-payments system by ensuring that there is a single, replicated, global ledger that all participants can agree represents the valid ordering of transactions: the blockchain. Reaching
-consensus on the state of this global ledger is achieved using proof-of-work: adding to the
+payments system by ensuring that there is a *single*, replicated, global ledger that all participants can agree represents the valid ordering of transactions: the blockchain. Reaching
+consensus on the state of this global ledger is achieved using *proof-of-work*: adding to the
 blockchain requires expensive, but easily verifiable, computations that are rewarded with
 tokens derived from transaction fees (and block rewards). The blockchain with the most
 accumulated work is considered the only valid history, and all participants are incentivised
@@ -16,7 +16,7 @@ work required to extend the blockchain also leads to immutability: any attempt t
 the time-order of transactions in the blockchain requires more computational power than
 the rest of the network combined. This leads to the Bitcoin blockchain being a unique
 global system of consensus on the ordering of time-stamped events without the need for any
-trusted authority.
+trusted authority. 
 
 Of all the cryptocurrency projects that have been launched since, Bitcoin remains by far the
 most secure, with the most accumulated work. The Bitcoin network has operated persistently
@@ -69,9 +69,9 @@ Root in a transaction. This type of time-stamping is however fundamentally limit
 can provide. A timestamp can only prove that a particular piece of information *existed* at
 a certain point in time, not that the information has any other validity or *uniqueness*. A
 timestamp by itself cannot prove that a commitment to conflicting data has not also been
-simultaneously timestamped. This is a critical concept in relation to immutability: any
-proof-of-existence does not act as a proof that anything else (e.g. an alternative ordering of
-transactions) does not also exist. 
+simultaneously timestamped. This is a critical concept in relation to immutability and provenance: any
+*proof-of-existence* (i.e. a timestamp) does not act as a proof that anything else (e.g. an alternative ordering of
+transactions or version of a document) does not also exist. 
 
 .. image:: ms-doublespend.png
     :width: 400px
@@ -83,7 +83,7 @@ Illustration of conflicting sidechain blocks simultaneously attesting to a mainc
 To illustrate this point, we consider a sidechain or alt-chain whose state (i.e. the chain tip
 block header) is periodically time-stamped into the Bitcoin blockchain. This does not lead
 to immutability of the sidechain, since alternative conflicting states (i.e. forks) can also be
-time-stamped simultaneously. Any property of immutability then must ensure
+time-stamped simultaneously. Any property of immutability and provenance then must ensure
 that the sidechain state is linked to a specific commitment in the Bitcoin chain via
 some trusted mechanism - some authority (who may be effectively operating the sidechain)
 is responsible for defining the sequence of timestamps that correspond to the un-forked

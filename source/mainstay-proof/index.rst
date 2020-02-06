@@ -1,208 +1,292 @@
-Protocol
-============
+Mainstay service client
+-----------------------
 
-The MainStay protocol employs the underlying concept of a *staychain* of linked transactions within the Bitcoin mainchain,
-where all transactions in the staychain conform to having only a a single output,
-preventing branching and any possibility of alternate staychain
-histories. By anchoring the staychain *base* transaction ID into the genesis block of the sidechain,
-and then committing the state of the sidechain at regular intervals into the staychain, it
-becomes impossible to roll back or re-write the state of the sidechain without also rolling
-back the staychain, which is effectively impossible due to the might of Bitcoin’s global proof-
-of-work. Sidechain nodes can validate these commitments and the resulting immutability of
-the staychain via a connection to a Bitcoin full node. When a sidechain
-block has been committed to a Bitcoin staychain, this block has been *reinforced* and is as
-immutable as a Bitcoin block of the same depth.
+The Mainstay service client is a pure Python command-line tool used to manage interaction with the **mainstay.xyz** API and proof
+service. The tool can be used to perform state attestations, retrieve and collate 
+proofs and to verify proofs of immutable sequence via connection to a Bitcoin 
+full node or Bitcoin block-explorer API. 
 
-To minimise the encumbrance of the mainstay on the Bitcoin blockchain, and to prevent any
-potential miner censorship of transactions containing ``OP_RETURN`` outputs, a
-homomorphic commitment scheme based on the ‘pay-to-contract’ (`BIP175 <https://github.com/bitcoin/bips/blob/master/bip-0175.mediawiki>`_) protocol is employed. In this approach, commitments from the sidechain are embedded in a single transaction output
-address, and the staychain is indistinguishable from normal Bitcoin payment transactions.
-The scheme has been designed so that it is compatible with both multisig (P2SH) and single
-public key (P2PKH) addresses via `BIP32 <https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki>`_ derivation paths.
+Requirements
+=============
 
-The aim of the MainStay protocol is to restrict a sequence of periodic commitments from an external system (referred to here as
-the *sidechain* without loss of generality) to
-an un-forkable staychain of transactions in Bitcoin, and to uniquely
-bind this staychain to the sidechain by commiting the transaction identifier directly the sidechain genesis block. We define a staychain
-as a sequence of linked transactions where each one has only a single output - transactions
-can have more than one input (*fan-in*), but maintaining single outputs means only one
-sequence of commitments is possible from a given initial transaction. Each unique
-transaction output then represents a *single use seal*.
+Python3
 
-If the security proposition of a sidechain depends on the Mainstay proof-of-immutability then
-the mechanism of propagating the staychain must be robust and reliable: if the
-staychain fails to propagate or is corrupted (e.g. having multiple outputs) then new sidechain state changes (i.e. blocks)
-will lose the guarantee of immutability - howver it will remain *fail secure* (i.e. previously reinforced transactions are provably unique).
+To verify proofs against the Bitcoin blockchain, RPC or HTTP connection details to a `bitcoind` node or trusted block explorer must be provided. 
 
-Single-key protocol
---------------------------
+## Installation
 
-In the following general description of the protocol, we assume a single Mainstay key and signing entity. The
-protocol is also presented in relation to Bitcoin as the proof-of-work mainchain, but it is in
-principle compatible with any PoW blockchain.
+Via PyPi:
 
-.. image:: staychain.png
-    :width: 280px
-    :alt: Staychain
-    :align: center
+``pip3 install pymainstay``
 
-A schematic of a *fan-in-only* chain of linked transactions - a **staychain**. By enforcing single
-outputs only one possible sequence of transactions is possible.
+or directly from source (downloaded from `Github <https://github.com/commerceblock/pymainstay>`_):
 
-Initialisation
+``python3 setup.py install``
+
+Usage
+======
+
+The Mainstay client interface (`msc`) can be used to fetch and verify proof sequences, synchronize and verify the immutability and uniqueness of sidechains and state sequences, perform authenticated data commitments and attestations, and generate and manage *mainstay.xyz* authentication keys. The interface is used via commands to perform different operations with specified arguments. The commands available can be listed with the ``--help`` argument:
+
+``msc -h``
+
+::
+    usage: msc [-h] [-q] [-v]
+               {attest,a,fetch,f,verify,v,sync,s,config,c,keygen,k,info,i} ...
+
+    Mainstay client
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -q, --quiet           Be more quiet.
+      -v, --verbose         Be more verbose. Both -v and -q may be used multiple
+                            times.
+
+    Commands:
+      Mainstay operations are performed via commands:
+
+      {attest,a,fetch,f,verify,v,sync,s,config,c,keygen,k,info,i}
+        attest (a)          Commit data to a Mainstay slot
+        fetch (f)           Fetch proofs from the Mainstay service
+        verify (v)          Verify Mainstay proofs against the Bitcoin blockchain
+        sync (s)            Syncronise sidechain to Bitcoin via a sequence proof
+        config (c)          Set configuration
+        keygen (k)          Generate signing keys for attestations
+        info (i)            Mainstay service status information 
+
+
+For each command, the possible arguments can be again listed with the `--help` flag. E.g. 
+
+``msc attest -h``
+
+::
+    usage: msc attest [-h] [-f FILENAME | -c COMMITMENT | -g GIT | -d DIRECTORY]
+                      [-s SLOT] [--url SERVICE_URL] [-t API_TOKEN] [-k PRIVKEY]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -f FILENAME, --file FILENAME
+                            Attest the SHA256 hash of the specified file.
+      -c COMMITMENT, --commit COMMITMENT
+                            Hex string of the 32 bytes commitment.
+      -g GIT, --git GIT     Attest the HEAD of the specified Git repository. If 0
+                            use stored path.
+      -d DIRECTORY, --dir DIRECTORY
+                            Attest the state of the specified sequence directory.
+      -s SLOT, --slot SLOT  Specify the slot position index.
+      --url SERVICE_URL     URL for the Mainstay connector service. Default:
+                            https://mainstay.xyz
+      -t API_TOKEN, --token API_TOKEN
+                            API token for the specified slot position.
+      -k PRIVKEY, --privkey PRIVKEY
+                            Private key for signing the commitment.
+
+
+Configuration
 ^^^^^^^^^^^^^^
 
-The initial step in the protocol is the creation of the base transaction ``TxID[0]``, which is
-performed before the initialisation of the sidechain.
+The client can be used in a stateless fashion, with all configuration supplied via the command-line options, however a configuration file (``config.json``) can be used, which is located in the application data directory. The current configuration, and the location of the application data directory on a particular system, can be retrieved as follows:
 
-1. The signing entity generates a BIP32 extended master private key ``xpriv`` , and corresponding extended master public key ``xpub``. The extended public key is then used to create the base address: ``Addr[0]`` with a derivation path of ``m/0``.
-2. The signing entity then creates a transaction (the *base transaction* ``BaseTx``) paying an amount of BTC (to cover at least initial transaction fees) to the base address ``Addr[0]`` as a single P2PKH output.
-3. This transaction is broadcast to the Bitcoin network: once it is confirmed in the Bitcoin blockchain it acquires a globally unique transaction ID that is a pointer to the start of the staychain: ``TxID[0]``.
-4. The sidechain is then configured and linked to the Bitcoin staychain. The pointer ``TxID[0]`` is embedded directly in the genesis block of the sidechain as metadata in a defined location, along with the ``xpub``.
+``msc config``
 
-Commitments
-^^^^^^^^^^^
+All configuration is set via the same command. For connection to a particular slot, the slot position (``-s``), the API token (``-t``) and the authentication key (``-k``) can be set initially, so they do not have to be specified as arguments for each subsequent call. 
 
-The frequency of state commitments is determined by the signing entity : the sidechain may
-generate blocks more frequently but can only attest once per Bitcoin block (average every
-10 minutes). The process of attestation will occur as follows:
-
-1. At each interval ``j``, the signing entity will retrieve the sidechain best block hash ``blockhash[j]``
-2. The 32 byte ``blockhash[j]`` is then split into 16 2-byte parts, which are then converted into an array of 16 integers ``bhint[16]``.
-3. A BIP32 derivation path (the commitment path ``path[j]``) is formed from this integer array sequence, and prepended with ``m/0``.
-4. The commitment address ``Addr[j]`` is then derived from the ``xpub`` with ``path[j]``.
-
-For example:
-
-::
-
-	blockhash_j = 310057788c6073640dc222466d003411cd5c1cc0bf2803fc6ebbfae03ceb4451
-
-	path_j = m/0/12544/22392/35936/29540/3522/8774/27904/13329/52572/7360/48936/1020/28347/64224/15595/17489
-
-5. The signing entity then creates a Bitcoin transaction with one input spending the single output of transaction ``TxID[j-1]``
-(initially the base transaction when ``j = 1``) and paying to a single
-P2PKH output with address ``Addr[j]``
-6. The transaction is then signed using the private key derived from ``xpriv`` with ``path[j-1]``
-7. The valid transaction is then broadcast to the Bitcoin network. Once it is confirmed
-in a block, it is referenced by transaction ID: ``TxID[j]``
-
-.. image:: ms-full.png
-    :width: 300px
-    :alt: Mainstay protocol
-    :align: center
-
-Schematic of the mainstay protocol. Dashed lines represent commitments.
-
-Verification
+Attestation
 ^^^^^^^^^^^^
 
-A block generated on a sidechain that has a mainstay commitment is known as *reinforced*
-and has the same immutability guarantees as a confirmed Bitcoin block. For any client or
-user to confirm the status of a sidechain block only requires connections to both Bitcoin and sidechain full nodes.
-No additional information, beyond what is included
-in the sidechain and Bitcoin blockchains, is required to validate direct mainstay reinforcements.
+To perform commitments to a specified *mainstay.xyz* slot requires an API token that will have been provided on initialization of the slot. In addition, if a public key was specified on initialization, the commitment must be signed by the corresponding private key. The signature is computed by the client if the private key is provided (or is set in the config). 
 
-This confirmation functions as follows:
-
-1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the master ``xpub``.
-2. ``TxID[0]`` is retrieved from the Bitcoin blockchain.
-3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each component transaction consists of only a single output:
+The client will send 32 byte commitment supplied as an argument (``-c``) to the specified slot, or the ``SHA256`` hash of a specified file path (``-f``). For example:
 
 ::
+    msc attest -c 4db3dbb10b33d94389446982f022ee55be8eaefa7d8f40046054a693f23a1c85 -s 2
 
-	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
+The client will return whether the commitment has been recieved by the *mainstay.xyz* successfully. 
 
-4. The single output P2PKH address of ``TxID[t]`` is retrieved: ``Addr[t]``.
-5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``) with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``.
-6. ``Addr[w]`` is derived from ``path[w]`` and the master ``xpub``.
-7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as reinforced.
-8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check repeated.
+To attest the state of a file sequence directory, supply the directory path:
 
-The above protocol would only need to be followed for the initial sync of a mainstay connected
-node: once the staychain tip transaction ``TxID[t]`` has been identified, additional attestations
-can be confirmed by monitoring when ``TxID[t]``
-is removed from the Bitcoin UTXO set. The new staychain tip ``TxID[t+1]`` will then be included in the most recent Bitcoin block.
+::
+    msc attest -d /Users/username/directory/ -s 2
 
-Staychain feed in
+To attest the latest state of a Git repository, supply the repository path:
+
+::
+    msc attest -g /Users/username/gitrepo/ -s 2
+
+Proof retrieval
 ^^^^^^^^^^^^^^^^^
 
-To maintain the persistent operation of a staychain, it must be continually funded to pay
-for mainchain (Bitcoin) mining fees. The staychain can always be funded with a substantial
-amount of Bitcoin at the beginning (i.e. at the base transaction stage) however it may
-be required to ‘top-up’ the funding at a later stage. This is possible without breaking
-the immutability of the staychain: the only required condition for immutability is that
-there is always only one output of any transaction in the chain - and that the staychain
-cannot bifurcate. Inputs however can be added by anyone: additional funding can be added
-with ``SIGHASH_ANYONECANPAY`` inputs. The base transaction will always define the
-commitment sequence through to the tip.
+The client can retrive, store and update sequence proofs for a specified or configured slot position with the `fetch` command. This requires no token or authentication, as the proofs are publicly accessible. All retrieved sequence proofs are stored locally in the application data directory (the location of directory can be found with the ``config`` command), and can also optionally be saved to a specified file (``-f``) or printed to standard output (``-o``). 
 
-Federated protocol
--------------------
-
-An important property of the Mainstay protocol is that it does not require trust in any
-party, including the entity holding the staychain base private key (``xpriv``) to confirm that
-a given sidechain state is immutable. However trust is required in this entity to ensure
-that the mainstay is persistent, and that the system continues to operate (i.e. commitments
-continue to be generated). If the key was stolen then an attacker could steal the Bitcoin in
-the staychain tip output and prevent further confirmations. To remedy this, the sidechain
-would need to be hard-forked to reset the mainstay (i.e. to commit a new base transaction into
-the sidechain).
-
-Sidechains can be operated using a federated consensus protocol, where a fixed federation of
-separate entities are required to cooperate to generate a new block to add to the blockchain.
-This is typically implemented with ``m`` distinct entities, where a threshold of ``n`` are required
-to add their signature to generate a new valid block. This has the advantage of being very
-scalable and efficient, and also retains some level of decentralisation, not requiring trust in
-any single entity. In the case of a federated sidechain employing Mainstay to Bitcoin, the
-operation of Mainstay can achieve the same security properties and guarantees as the
-federated block signing protocol. In this case, the staychain would be controlled with an n of
-m multisignature script: ``n`` signers are required to cooperate to operate the Mainstay. ``m − n``
-keys can be lost or compromised and the Mainstay will still function.
-This requires some modifications to the protocol described above, as follows.
-
-
-Initialisation
-^^^^^^^^^^^^^^
-
-1. Each signing node ``i`` where ``i = 1, ..., m`` generates a master extended private key ``xpriv[i]``  and corresponding extened public ``xpub[i]``.
-2. The signing nodes then cooperate to create an ``n`` of ``m`` multisig redeem script (where ``m`` is the total number of signing nodes and ``n`` is the number of signatures required) containing ``m`` base public keys derived from each ``xpub[i]``  via a path ``m/0``.
-3. The redeem script is then hashed to create a P2SH address ``Addr[0]``.
-4. A transaction is then created with ``Addr[0]`` as a single P2SH output and funded with with sufficient BTC for initial fees and then broadcast to the Bitcoin network.
-5. Once confirmed, it is now publicly verifiable that the redeem script hash corresponds to the published ``n`` , ``m`` and all the ``xpub[i]``.
-6. The TxID of the transaction ``TxID[0]`` is retrieved and committed into the genesis block of the sidechain along with each ``xpub[i]``.
-
-
-Commitments
-^^^^^^^^^^^
-
-1. At each attestation interval ``j``, each of the mainstay signing nodes ``i`` will independently retrieve the sidechain tip block hash ``blockhash[j][i]``.
-2. Each node splits the 32 byte ``blockhash[j][i]`` is then split into 16 2-byte parts, which are then converted into an array of 16 integers ``bhint[16]``.
-3. A BIP32 derivation path (the commitment path ``path[j][i]``) is formed from this integer array sequence, and prepended with ``m/0``.
-4. For each node ``i``, The commitment public key ``pubkey[j][i]`` is then derived from the ``xpub[i]`` with ``path[j][i]``.
-5. ``n`` of ``m`` signing nodes then combine ``pubkey[j][i]`` to derive a redeem script and corresponding P2SH address ``Addr[j]``.
-6. A transaction spending the single output of ``TxID[j−1]`` and paying to ``Addr[j]`` is created.
-7. ``n`` of ``m`` signing nodes then verify that ``Addr[0]`` corresponds to the correctly derived base keys. 
-8. The transaction is then signed by each of ``n`` (any subset of ``m``) signing nodes in turn using the derived private key ``xpriv[i]`` with ``path[j-1][i]``.
-9. The transaction is then broadcast to the Bitcoin network, validated and then mined into a block, generating ``TxID[j]``.
-
-.. note::
- 	Bitcoin multisig redeem scripts are structured as follows: ``OP_n pubkey[1] pubkey[2] ... pubkey[m] OP_m OP_CHECKMULTISIG``
-
-
-Verification
-^^^^^^^^^^^^
-
-1. The base transaction ID ``TxID[0]`` is retrieved from the sidechain genesis block along with the ``n`` master ``xpub[i]``
-2. ``TxID[0]`` is retrieved from the Bitcoin blockchain.
-3. The staychain is tracked until the unspent tip ``TxID[t]``, confirming each component transaction consists of only a single output:
+To retrieve the full sequence proof for a specified slot from when it was initialised, supply the argument ``-i 0``. E.g. (for slot 2),
 
 ::
+    msc fetch -i 0 -s 2
 
-	TxID[0] → TxID[1] → TxID[2] → TxID[3] → ... → TxID[t]
+This sequence proof will then be saved to a file named ``slot_2_sequence.msp`` in the application data directory. 
 
-4. The single output P2SH address of ``TxID[t]`` is retrieved: ``Addr[t]``.
-5. Starting at the tip (most recent confirmed block) of the sidechain (block ``w``) with block hash ``blockhash[w]``, the corresponding BIP32 path is determined: ``path[w]``.
-6. ``Addr[w]`` is derived from ``path[w]`` and ``m`` of the master ``xpub[i]``
-7. If ``Addr[w]`` equals ``Addr[t]`` block ``w`` on the sidechain (and all below it) are confirmed as reinforced.
-8. If not true, the sidechain block height is decremented: ``w ← w − 1`` and the check repeated.
+To retrieve the sequence proof to a specific staychain transaction ID (e.g. ``9eeccf2e6ca6f7257a379debccfb3e822df8658d03c95ec47fbd2267d218f03d``):
+
+::
+    msc fetch -i 9eeccf2e6ca6f7257a379debccfb3e822df8658d03c95ec47fbd2267d218f03d -s 2
+
+Once a sequence proof for a specified slot has been fetched, it can be updated to include all new slot proofs in the sequence up to the latest with the update ``-u`` argument:
+
+::
+    msc fetch -u -s 2
+
+Verification
+^^^^^^^^^^^^^
+
+The client can perform various independent and trustless verification operations on sequence proofs to confirm the immutability of specified sequences. 
+
+Full verification of a specified sequence proof is performed in two stages, as a sequence proof bridges a secondary system to the Bitcoin blockchain. So typically a user will want to independently verify two properties of a specific sequence proof:
+
+1. That the sequence proof is attested to the unbroken sequence of *staychain* transactions confirmed in the Bitcoin blockchain at the specified slot position. 
+2. That the sequence proof corresponds to the sequence of state changes in the external system. 
+
+The client enables users to perform each verification separately according to their individual requirements. Both operations must be successfully performed to verify a unique single history. 
+
+Bitcoin blockchain verification
++++++++++++++++++++++++++++++++++
+
+To verify a specified sequence proof against the Bitcoin blockchain, a connection to a full Bitcoin node must be provided. This is set using the ``-b`` argument, and can be either an RPC URL with authentication details or a public HTTP address (for a remote block explorer). The Bitcoin node can also be set in the client config. For example:
+
+::
+    msc config -b username:password@localhost:8332
+
+or
+
+::
+    msc config -b https://api.blockcypher.com/v1/btc/main/txs/
+
+If no node URL is provided, a default public Bitcoin block explorer is used (currently: api.blockcypher.com/v1/btc/main/txs). 
+
+To perform the verification of a sequence proof against Bitcoin, the proof can be supplied as a file (using the ``-f`` argument) or as a JSON object (using the ``-p`` argument). To verify the stored proof in the application data directory, use ``-p 0``. For example:
+
+::
+    msc verify -p 0 -s 2
+
+If the verification of unique sequence is successful, the client will return the staychain commitment details. For example,
+
+::
+    Verified proof sequence
+    Start commitment in block 00000000000000000002e347026ca276fc5035f637deea48c6386c90504f042b height 604260 at 2019-11-17T21:07:18Z
+    End commitment in block 00000000000000000001589123ee33c19e5a7ac8ac8f173867c8f877a7051d16 height 604757 at 2019-11-21T10:17:52Z
+
+If the staychain base transaction ID is also included (the unique identifier) in the configuration, or via the ``-i`` argument, the client will additionally verify that this TxID is part of the staychain. 
+
+State change history verification
+++++++++++++++++++++++++++++++++++
+
+To verify that a specified sequence proof corresponds a sequence of state changes, one of the additional arguments of ``-l``, ``-d`` or ``-g`` is used along with the ``-p`` or ``-f`` arguments specifying the proof. The simplest of these is the ``-l`` argument which simply verifies that the given sequence proof matches a specified list of 32-byte commitments. These commitments are supplied hex encoded and comma separated. Fro example:
+
+::
+    msc verify -p 0 -s 2 -l c635faa8f63f80d40fcc5f764aa3cb2c6de66027682ece03efc499db2edad780,4113d23c6f9dc921bf23f0f551b4cb9909099bbe89464ec7f424b6dabda12924,118d182a45bffea9fd8c6eb98453b6edc19327f6d1f2887b10700d194c275259
+
+If the proof sequence matches the commitment list exactly and in order the client will return the verification:
+
+::
+    Verified proof sequence against commitment list. 
+
+If the sequence does not match, the verification will fail. 
+
+::
+    Verification failed. Commitments not matched. 
+
+If all slot-proofs in the sequence proof are matched to commitments in the list in order, but there are additional commtiments included in the list, then the client will return:
+
+::
+    Verification failed. Additional commitments on list not in proof.
+
+To verify that a specified sequence proof corresponds to a chronological sequence of files in a specified directory, the additional argument ``-d`` is used to specify the directory path. This directory must contain the matching sequence of files, named in an alpha-numeric order corresonding to the sequence of changes. For example:
+
+::
+    msc verify -p 0 -s 2 -d /Users/username/directory/
+
+If the proof sequence matches the full hash chain of files in the specified directory exactly and in sequence, then the client will return the verification:
+
+::
+    Verified proof sequence against directory hash chain.
+
+The client will also return a warning if additional files have been added to the directory since the last attestation has been performed. 
+
+::
+    WARNING: last 1 files not attested.
+    Last file attested: document-v0.5.txt
+
+To verify that a specified sequence proof corresponds to the commit history of a Git repository, the additional argument ``-g`` is used to specify the directory path of the Git repository. The client also checks that the initial commit message of the repository is a staychain TxID and slot ID. For example:
+
+::
+    msc verify -p 0 -s 2 -g /Users/username/gitrepo/
+
+If the proof sequence matches the full hash chain of files in the specified directory exactly and in sequence, then the client will return the verification:
+
+::
+    Verified proof sequence against commit history to b40a656d028618f6c1d73465c07d810078fd74e4
+
+Where ``b40a656d028618f6c1d73465c07d810078fd74e4`` is the latest Git commit included in the sequence proof. If there have been additional commits to the Git repository since the latest attestation in the sequence proof, the client will return a warnings with the number of non-attested commits. For example:
+
+::
+    WARNING: last 3 commits not attested.
+
+The ``verify -g`` operation also verifies that the staychain base TxID in the sequence proof, and slot ID, are added as the commit message in the initial commit of the repository. If this commitment is not present, the following warning is given:
+
+::
+    Staychain ID not committed to Git history
+
+Sidechain synchronization
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The client can be used to synchronize a sidechain state against a Bitcoin staychain. This is performed using the ``sync`` command, and requires an RPC connection to both a full Bitcoin node (or trusted block explorer) and the sidechain node. As with the Bitcoin node connection, the sidechain node connection can also be set in the client config:
+
+::
+    msc config -b username1:password1@localhost:8332  # Bitcoin node
+    msc config -n username2:password2@localhost:8336  # Sidechain node
+
+To verify that a sidechain history is unique against Bitcoin's global state, and determine the latest attested sidechain block, the full sequence proof is retrieved, fully verified and then verified against the Bitcoin staychain the the sidechain state. For example: 
+
+::
+    msc sync -s 1
+
+If the verification is successful, the client will return the latest sidechain verified block. For example:
+
+::
+    Verified sidechain attestation sequence
+    Latest attestated sidechain block: 47e3d796f0ae87f2261e620018ffb1e0458175e17faf2762f209a17c727a8690 height 163188
+
+Key generation and authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The client can generate keys to be used for attestation authentication, and generate commitment signatures using the ``keygen`` command. To generate a 256 bit private key, the ``-g`` argument is used with optional supplied entropy. For example:
+
+::
+    msc keygen -g entropy
+
+This generated key is then saved in the config and automatically used to sign attestations sent the the Mainstay service URL. The generated hex-encoded private key can then be used to generate the corresponding secp256k1 compressed public key using the ``-p`` argument. 
+
+::
+    msc keygen -p c76849c6ac48c4996b2847a5b87d9ee0e9463ea11c827591a50978b1b2682804
+
+The returned hex-encoded public key is supplied in the web form used to sign-up to the mainstay.xyz service, if signature based authentication is required. 
+
+Staychain status and information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When initializing a sidechain, Git repository or file repository, the staychain base TxID and slot position must be committed to the initial state in order to prove uniqueness. In a sidechain, this information is committed to the genesis block, and in the case of a Git repository, this information is added as the message of the initial commit. To retrieve the latest staychain TxID to perform this initialisation, the `info` command can be used. 
+
+::
+    msc info
+
+This returns the base ID. For example:
+
+::
+    Base ID: 9d049eb88c13d7c4bad6f2597417da525effebc47b2095621b8cebad7ded4cf5:2
+
+The argument ``-c`` will also set this in the config. 
+
+To initialise a Git repository and link it to the staychain and slot position, the initial commit will be as follows:
+
+::
+    git commit -m '9d049eb88c13d7c4bad6f2597417da525effebc47b2095621b8cebad7ded4cf5:2'
+

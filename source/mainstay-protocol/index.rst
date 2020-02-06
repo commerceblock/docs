@@ -1,7 +1,7 @@
 Protocol
 ============
 
-The MainStay protocol employs the underlying concept of a *staychain* of linked transactions within the Bitcoin mainchain,
+The MainStay protocol employs the underlying concept of a *staychain* of linked transactions within the Bitcoin blockchain,
 where all transactions in the staychain conform to having only a a single output,
 preventing branching and any possibility of alternate staychain
 histories. By anchoring the staychain *base* transaction ID into the genesis block of the sidechain,
@@ -32,7 +32,7 @@ transaction output then represents a *single use seal*.
 If the security proposition of a sidechain depends on the Mainstay proof-of-immutability then
 the mechanism of propagating the staychain must be robust and reliable: if the
 staychain fails to propagate or is corrupted (e.g. having multiple outputs) then new sidechain state changes (i.e. blocks)
-will lose the guarantee of immutability - howver it will remain *fail secure* (i.e. previously reinforced transactions are provably unique).
+will lose the guarantee of immutability - however it will always remain *fail secure* (i.e. previously reinforced transactions are provably unique without trust).
 
 Single-key protocol
 --------------------------

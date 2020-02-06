@@ -38,13 +38,15 @@ This documentation covers the central components of the CommerceBlock technology
    :maxdepth: 2
    :caption: Mainstay:
 
-   mainstay/index
    mainstay-background/index
    mainstay-protocol/index
    mainstay-con/index
-   mainstay-tools/index
    mainstay-api/index
+   mainstay-proof/index
    mainstay-sidechain/index
+   mainstay-doc/index
+   mainstay-git/index
+   mainstay-tools/index
 
 .. toctree::
    :maxdepth: 2
@@ -58,12 +60,3 @@ This documentation covers the central components of the CommerceBlock technology
    request-guide/index
    twowp/index
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Asset management:
-
-   map-specification/index
-   mapping/index
-   map-init/index
-   issuance/index
-   redemption/index
