@@ -4,6 +4,7 @@ Guardnode guide
 A step by step guide for setting up the Guardnode stack that includes a CommerceBlock service chain full node, a client chain full node and guardnode daemon guarding the client chain.
 
 In order to run the guardnode service navigate to the config directory of the corresponding client shown below, download the docker-compose file and follow the README instructions on how to run the node using data persistence. The current active client services are:
+
 - DGLD mainnet chain `config directory <https://github.com/goldtokensa/config/tree/master/mainnet>`_
 - CB testnet chain `config github <https://github.com/commerceblock/config/testnet>`_
 
