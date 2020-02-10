@@ -18,18 +18,20 @@ Installation
 
 Via PyPi:
 
-``pip3 install pymainstay``
+.. code-block:: bash
+
+  pip3 install pymainstay
 
 or directly from source (downloaded from `Github <https://github.com/commerceblock/pymainstay>`_):
 
-``python3 setup.py install``
+.. code-block:: bash
+
+  python3 setup.py install
 
 Usage
 ======
 
 The Mainstay client interface (`msc`) can be used to fetch and verify proof sequences, synchronize and verify the immutability and uniqueness of sidechains and state sequences, perform authenticated data commitments and attestations, and generate and manage *mainstay.xyz* authentication keys. The interface is used via commands to perform different operations with specified arguments. The commands available can be listed with the ``--help`` argument:
-
-``msc -h``
 
 .. code-block:: bash
 
@@ -59,7 +61,9 @@ The Mainstay client interface (`msc`) can be used to fetch and verify proof sequ
 
 For each command, the possible arguments can be again listed with the `--help` flag. E.g. 
 
-``msc attest -h``
+.. code-block:: bash
+
+  msc attest -h
 
 .. code-block:: bash
 
