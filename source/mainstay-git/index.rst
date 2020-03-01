@@ -1,5 +1,5 @@
 Git repository guide
-===========
+=======================
 
 This guide describes how to link a Git repository to the Bitcoin blockchain via the *mainstay.xyz* connector service, in order to obtain a trustless proof of a unique single history of Git commits. 
 
@@ -8,7 +8,7 @@ The guide is split into three distinct sections for setting up the linking, perf
 Initial set-up
 ^^^^^^^^^^^^^^^
 
-The entity responsible for attesting the sidechain state to Bitcoin is called the *administrator*. The administrator is responsible for the agreement with the *mainstay.xyz* service for exclusive use of a connector service slot. This is obtained by signing up on the *mainstay.xyz* website, where the administrator will be given a slot position ``slot_id`` and an API access token to perform attestations ``token`` via email. For additional security, the administrator can optionally require that all repository attestations committed to the slot are signed by an administrator private key (the corresponding public key being provided on sign-up at *mainstay.xyz*). 
+The entity responsible for attesting the Git repository state to Bitcoin is called the *administrator*. The administrator is responsible for the agreement with the *mainstay.xyz* service for exclusive use of a connector service slot. This is obtained by signing up on the *mainstay.xyz* website, where the administrator will be given a slot position ``slot_id`` and an API access token to perform attestations ``token`` via email. For additional security, the administrator can optionally require that all repository attestations committed to the slot are signed by an administrator private key (the corresponding public key being provided on sign-up at *mainstay.xyz*). 
 
 To generate this key, the administrator can use the Mainstay client. For example (where entroy is any string to add additional entropy to the keygen),
 
