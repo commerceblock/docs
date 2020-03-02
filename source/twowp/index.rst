@@ -49,3 +49,20 @@ To peg-out this CBT will require running the ``sendtoethmainchain`` RPC specifyi
 .. code-block:: bash
 
     ocean-cli sendtoethmainchain 8e8a0ec05cc3c2b8511aabadeeb821df19ea7564 0.1
+
+
+*Issues with unconfirmed peg-ins*
+
+Failing to follow the above steps correctly or attempting to claim the peg-in before the minimum number of confirmations has been reached will cause the transaction getting stuck in the user's mempool. The node will periodically relay the transaction and that will work for transactions missing confirmations but not on any other case.
+
+To resolve issues with stuck transactions follow the instructions below:
+
+* Stop the CB node
+* Delete the mempool.dat file
+* Add -zapwallettxes=1 to the node configuration
+* Restart the CB node
+* Re-submit claimethpegin with the correct information
+
+An alternative option is to backup the wallet.dat file and create a new node, importing the previous wallet.
+
+To display network rejection messages for transactions the config option `-debug=net` can be added to the CB node. That should give some hints on why the claim peg-in transaction is rejected.
