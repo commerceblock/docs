@@ -51,7 +51,8 @@ To peg-out this CBT will require running the ``sendtoethmainchain`` RPC specifyi
     ocean-cli sendtoethmainchain 8e8a0ec05cc3c2b8511aabadeeb821df19ea7564 0.1
 
 
-*Issues with unconfirmed peg-ins*
+Issues with unconfirmed peg-ins
+-------------------------------
 
 Failing to follow the above steps correctly or attempting to claim the peg-in before the minimum number of confirmations has been reached will cause the transaction getting stuck in the user's mempool. The node will periodically relay the transaction and that will work for transactions missing confirmations but not on any other case.
 
