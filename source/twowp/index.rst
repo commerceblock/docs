@@ -59,11 +59,11 @@ Failing to follow the above steps correctly or attempting to claim the peg-in be
 To resolve issues with stuck transactions follow the instructions below:
 
 * Stop the CB node
-* Delete the mempool.dat file
-* Add -zapwallettxes=1 to the node configuration
+* Delete the "mempool.dat" file
+* Add `-zapwallettxes=1` to the node configuration
 * Restart the CB node
-* Re-submit claimethpegin with the correct information
+* Re-submit `claimethpegin` with the correct information
 
-An alternative option is to backup the wallet.dat file and create a new node, importing the previous wallet.
+An alternative option is to backup the "wallet.dat" file and create a new node, importing the previous wallet.
 
 To display network rejection messages for transactions the config option `-debug=net` can be added to the CB node. That should give some hints on why the claim peg-in transaction is rejected.
