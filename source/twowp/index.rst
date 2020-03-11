@@ -27,7 +27,7 @@ Run the ``getethpeginaddress`` RPC using this private key (with the "0x" prefix 
 
 **Step 3**
 
-Pay the CBT tokens to the ``eth_mainchain_address`` returned from the ``getethpeginaddress`` RPC and save the transaction id. The transaction will require a minimum amount of 10 confirmations before being allowed to peg-in.
+Pay the CBT tokens to the ``eth_mainchain_address`` returned from the ``getethpeginaddress`` RPC and save the transaction id. The transaction will require a minimum amount of 10 confirmations before being allowed to peg-in. The CB chain can only handle a precision of up to 8 decimal points.
 
 
 **Step 4**
@@ -37,6 +37,8 @@ Run the ``claimethpegin`` RPC using the ``eth_claim_pubkey`` returned above, the
 .. code-block:: bash
 
     ocean-cli claimethpegin $txid $amount 03664b8a3e065329c6bb3b8f9f0bb382179775f609ffa9ff564ea6f20e913ec04b
+
+The amount should be exactly the same as the ethereum transaction amount and if more than 8 decimal points were used then they should be discarded.
 
 **Step 5**
 
