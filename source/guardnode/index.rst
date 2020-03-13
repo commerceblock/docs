@@ -8,6 +8,23 @@ Running
 
 Find instructions for running the guardnode daemon in the `Guardnode repo <https://github.com/commerceblock/guardnode/>`_.
 
+Viewing and Spending locked outputs
+-----------------------
+
+When a successful bid is made your guardnode will lock up your CBT for the duration of the service period. These outputs are not recognised by some RPCs such as ``getBalance``. To include your locked funds in a call to ``getBalance`` include all addresses and watch only addresses with the following arguments:
+
+.. code-block:: bash
+
+  getbalance "*" 0 true
+
+
+These funds can be respent but only using RPCs that allow watch only addresses in their coin selection, therefore RPCs such as ``sendanytoaddress`` will not recognise the previously locked funds. Using ``createanytoaddress`` with the ``allowwatchonly`` argument will include previously locked outputs in its inputs, e.g:
+
+.. code-block:: bash
+
+  createanytoaddress "$ADDR" $AMOUNT true true 1 true
+
+Then sign and send the transaction using ``signrawtransaction`` and ``sendrawtransaction``.
 
 Demo
 ----
