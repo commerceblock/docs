@@ -22,4 +22,3 @@ This documentation covers the mainstay attestation and proof-of-publciation serv
    mainstay-doc/index
    mainstay-git/index
    mainstay-tools/index
-
